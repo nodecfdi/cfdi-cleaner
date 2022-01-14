@@ -39,7 +39,7 @@ describe('MoveNamespaceDeclarationToRoot', () => {
         expect(xmlClean).toEqualXML(xmlExpected);
     });
 
-    test('move namespace declaration to root with overlapped namespaces', () => {
+    test('move namespace declaration to root with overlapped namespaces different', () => {
         const document = Xml.newDocumentContent(
             [
                 '<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3">',
@@ -59,6 +59,40 @@ describe('MoveNamespaceDeclarationToRoot', () => {
                 '   <cfdi:Complemento>',
                 '       <cfdi:Otro xmlns:cfdi="http://www.sat.gob.mx/otro"/>',
                 '       <tfd:TimbreFiscalDigital/>',
+                '   </cfdi:Complemento>',
+                '</cfdi:Comprobante>',
+            ].join('\n')
+        );
+
+        const xmlClean = new XMLSerializer().serializeToString(document);
+        const xmlExpected = new XMLSerializer().serializeToString(expected);
+
+        expect(xmlClean).toEqualXML(xmlExpected);
+    });
+
+    test('move namespace declaration to root with overlapped namespaces equal', () => {
+        const document = Xml.newDocumentContent(
+            [
+                '<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3">',
+                '   <cfdi:Complemento xmlns:cfdi="http://www.sat.gob.mx/cfd/3">',
+                '       <otro:Otro xmlns:otro="http://www.sat.gob.mx/otro" />',
+                '       <tfd:TimbreFiscalDigital xmlns:tfd="http://www.sat.gob.mx/TimbreFiscalDigital" />',
+                '   </cfdi:Complemento>',
+                '</cfdi:Comprobante>',
+            ].join('\n')
+        );
+
+        cleaner.clean(document);
+
+        const expected = Xml.newDocumentContent(
+            [
+                '<cfdi:Comprobante',
+                '   xmlns:cfdi="http://www.sat.gob.mx/cfd/3"',
+                '   xmlns:otro="http://www.sat.gob.mx/otro"',
+                '   xmlns:tfd="http://www.sat.gob.mx/TimbreFiscalDigital">',
+                '   <cfdi:Complemento>',
+                '       <otro:Otro />',
+                '       <tfd:TimbreFiscalDigital />',
                 '   </cfdi:Complemento>',
                 '</cfdi:Comprobante>',
             ].join('\n')

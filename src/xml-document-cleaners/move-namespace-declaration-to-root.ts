@@ -20,11 +20,18 @@ class MoveNamespaceDeclarationToRoot implements XmlDocumentCleanerInterface {
     }
 
     private cleanNameSpaceNode(rootElement: Element, namespaceNode: Attr): void {
-        if (rootElement === namespaceNode.ownerElement || rootElement.hasAttribute(namespaceNode.nodeName)) {
+        if (rootElement === namespaceNode.ownerElement) {
             return;
         }
 
-        rootElement.setAttributeNS(XmlConstants.NAMESPACE_XMLNS, namespaceNode.nodeName, namespaceNode.nodeValue || '');
+        //if overlapped case
+        if (!rootElement.hasAttribute(namespaceNode.nodeName)) {
+            rootElement.setAttributeNS(
+                XmlConstants.NAMESPACE_XMLNS,
+                namespaceNode.nodeName,
+                namespaceNode.nodeValue || ''
+            );
+        }
 
         this.removeNamespaceNodeAttribute(namespaceNode);
     }
