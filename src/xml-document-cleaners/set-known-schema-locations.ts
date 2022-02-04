@@ -15,12 +15,15 @@ class SetKnownSchemaLocations implements XmlDocumentCleanerInterface {
      * List of known namespace # version xsd locations as key value map
      * @see https://github.com/phpcfdi/sat-ns-registry
      */
-    private KNOWN_NAMESPACES: Record<string, string> = {
+    private static KNOWN_NAMESPACES: Record<string, string> = {
+        'http://www.sat.gob.mx/cfd/4#4.0': 'http://www.sat.gob.mx/sitio_internet/cfd/4/cfdv40.xsd',
         'http://www.sat.gob.mx/cfd/3#3.3': 'http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd',
         'http://www.sat.gob.mx/cfd/3#3.2': 'http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv32.xsd',
         'http://www.sat.gob.mx/cfd/3#3.0': 'http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv3.xsd',
         'http://www.sat.gob.mx/cfd/2#2.2': 'http://www.sat.gob.mx/sitio_internet/cfd/2/cfdv22.xsd',
         'http://www.sat.gob.mx/cfd/2#2.0': 'http://www.sat.gob.mx/sitio_internet/cfd/2/cfdv2.xsd',
+        'http://www.sat.gob.mx/esquemas/retencionpago/2#2.0':
+            'http://www.sat.gob.mx/esquemas/retencionpago/2/retencionpagov2.xsd',
         'http://www.sat.gob.mx/esquemas/retencionpago/1#1.0':
             'http://www.sat.gob.mx/esquemas/retencionpago/1/retencionpagov1.xsd',
         'http://www.sat.gob.mx/TimbreFiscalDigital#1.0':
@@ -77,6 +80,7 @@ class SetKnownSchemaLocations implements XmlDocumentCleanerInterface {
         'http://www.sat.gob.mx/ComercioExterior#1.0':
             'http://www.sat.gob.mx/sitio_internet/cfd/ComercioExterior/ComercioExterior10.xsd',
         'http://www.sat.gob.mx/Pagos#1.0': 'http://www.sat.gob.mx/sitio_internet/cfd/Pagos/Pagos10.xsd',
+        'http://www.sat.gob.mx/Pagos20#2.0': 'http://www.sat.gob.mx/sitio_internet/cfd/Pagos/Pagos20.xsd',
         'http://www.sat.gob.mx/GastosHidrocarburos10#1.0':
             'http://www.sat.gob.mx/sitio_internet/cfd/GastosHidrocarburos10/GastosHidrocarburos10.xsd',
         'http://www.sat.gob.mx/iedu#1.0': 'http://www.sat.gob.mx/sitio_internet/cfd/iedu/iedu.xsd',
@@ -87,6 +91,9 @@ class SetKnownSchemaLocations implements XmlDocumentCleanerInterface {
         'http://www.sat.gob.mx/terceros#1.1': 'http://www.sat.gob.mx/sitio_internet/cfd/terceros/terceros11.xsd',
         'http://www.sat.gob.mx/acreditamiento#1.0':
             'http://www.sat.gob.mx/sitio_internet/cfd/acreditamiento/AcreditamientoIEPS10.xsd',
+        'http://www.sat.gob.mx/CartaPorte#1.0': 'http://www.sat.gob.mx/sitio_internet/cfd/CartaPorte/CartaPorte.xsd',
+        'http://www.sat.gob.mx/CartaPorte20#2.0':
+            'http://www.sat.gob.mx/sitio_internet/cfd/CartaPorte/CartaPorte20.xsd',
         'http://www.sat.gob.mx/esquemas/retencionpago/1/arrendamientoenfideicomiso#1.0':
             'http://www.sat.gob.mx/esquemas/retencionpago/1/arrendamientoenfideicomiso/arrendamientoenfideicomiso.xsd',
         'http://www.sat.gob.mx/esquemas/retencionpago/1/dividendos#1.0':
@@ -155,7 +162,17 @@ class SetKnownSchemaLocations implements XmlDocumentCleanerInterface {
     }
 
     private obtainLocationForNamespaceVersion(namespace: string, version: string, defaultV: string): string {
-        return this.KNOWN_NAMESPACES[`${namespace}#${version}`] ?? defaultV;
+        return SetKnownSchemaLocations.KNOWN_NAMESPACES[`${namespace}#${version}`] ?? defaultV;
+    }
+
+    /**
+     * Pairs of key-value of namespace and version to XSD locations
+     * Key: namespace#version
+     * Value: location
+     * @return Record<string, string>
+     */
+    public static getKnowNamespaces(): Record<string, string> {
+        return SetKnownSchemaLocations.KNOWN_NAMESPACES;
     }
 }
 
