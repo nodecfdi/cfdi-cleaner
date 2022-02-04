@@ -2,6 +2,7 @@ import 'jest-xml-matcher';
 import { Xml } from '@nodecfdi/cfdiutils-common';
 import { SetKnownSchemaLocations } from '../../../src';
 import { XMLSerializer } from '@xmldom/xmldom';
+import * as https from 'https';
 
 describe('SetKnownSchemaLocations', () => {
     let cleaner: SetKnownSchemaLocations;
@@ -95,5 +96,52 @@ describe('SetKnownSchemaLocations', () => {
         const xmlClean = new XMLSerializer().serializeToString(document);
         const xmlExpected = new XMLSerializer().serializeToString(expected);
         expect(xmlClean).toEqualXML(xmlExpected);
+    });
+
+    test('know all locations from sat ns registry', () => {
+        // obtain the list of known locations from phpcfdi/sat-ns-registry
+        const satNsRegistryUrl =
+            'https://raw.githubusercontent.com/phpcfdi/sat-ns-registry/master/complementos_v1.json';
+        const fetch = (
+            urlOptions: string | https.RequestOptions | URL,
+            data: unknown = ''
+        ): Promise<{ statusCode: number; headers: unknown; body: string }> => {
+            return new Promise((resolve, reject) => {
+                const req = https.request(urlOptions, (res) => {
+                    let body = '';
+                    res.on('data', (chunk) => (body += chunk.toString()));
+                    res.on('error', reject);
+                    res.on('end', () => {
+                        if (res.statusCode && res.statusCode >= 200 && res.statusCode <= 299) {
+                            resolve({ statusCode: res.statusCode, headers: res.headers, body: body });
+                        } else {
+                            reject('Request failed. status: ' + res.statusCode + ', body: ' + body);
+                        }
+                    });
+                });
+                req.on('error', reject);
+                req.write(data, 'binary');
+                req.end();
+            });
+        };
+
+        return fetch(satNsRegistryUrl).then((res) => {
+            const registry = JSON.parse(res.body) as { namespace?: string; version?: string; xsd?: string }[];
+
+            // re-creat the known list of namespace#version => xsd-location
+            const expected: Record<string, string> = {};
+            registry.forEach((entry) => {
+                const namespace = entry.namespace ?? '';
+                const version = entry.version ?? '';
+                const xsd = entry.xsd ?? '';
+                if (namespace && xsd) {
+                    expected[`${namespace}#${version}`] = xsd;
+                }
+            });
+
+            const knownLocations = SetKnownSchemaLocations.getKnowNamespaces();
+
+            expect(knownLocations).toStrictEqual(expected);
+        });
     });
 });
