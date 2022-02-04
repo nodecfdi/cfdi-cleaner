@@ -5,7 +5,7 @@ import { XMLSerializer } from '@xmldom/xmldom';
 import { TestCase } from '../test-case';
 
 describe('Cleaner', () => {
-    test('static clean string document', () => {
+    test('static clean string document 33', () => {
         const xmlDirty = [
             'DIRTY',
             '<cfdi:Comprobante xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"',
@@ -27,7 +27,7 @@ describe('Cleaner', () => {
         expect(xmlClean).toEqualXML(expected);
     });
 
-    test('clean xml document', () => {
+    test('clean xml document 33', () => {
         const document = Xml.newDocumentContent(
             [
                 '<cfdi:Comprobante xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"',
@@ -46,6 +46,55 @@ describe('Cleaner', () => {
                 'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"',
                 'xsi:schemaLocation="http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd"',
                 'Version="3.3"/>',
+            ].join('\n')
+        );
+
+        const xmlClean = new XMLSerializer().serializeToString(document);
+        const xmlExpected = new XMLSerializer().serializeToString(expected);
+        expect(xmlClean).toEqualXML(xmlExpected);
+    });
+
+    test('static clean string document 40', () => {
+        const xmlDirty = [
+            'DIRTY',
+            '<cfdi:Comprobante xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"',
+            ' xmlns:cfdi="http://www.sat.gob.mx/cfd/4"',
+            ' xsi:schemaLocation="http://www.sat.gob.mx/cfd/4 cfdi40.xsd"',
+            ' Version="4.0"/>',
+        ].join('');
+
+        const xmlClean = Cleaner.staticClean(xmlDirty);
+
+        const expected = [
+            '<?xml version="1.0"?>',
+            '<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/4"',
+            ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"',
+            ' xsi:schemaLocation="http://www.sat.gob.mx/cfd/4 http://www.sat.gob.mx/sitio_internet/cfd/4/cfdv40.xsd"',
+            ' Version="4.0"/>',
+        ].join('');
+
+        expect(xmlClean).toEqualXML(expected);
+    });
+
+    test('clean xml document 40', () => {
+        const document = Xml.newDocumentContent(
+            [
+                '<cfdi:Comprobante xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"',
+                ' xmlns:cfdi="http://www.sat.gob.mx/cfd/4"',
+                ' xsi:schemaLocation="http://www.sat.gob.mx/cfd/4 cfdi44.xsd"',
+                ' Version="4.0"/>',
+            ].join('\n')
+        );
+
+        const cleaner = new Cleaner();
+        cleaner.cleanDocument(document);
+
+        const expected = Xml.newDocumentContent(
+            [
+                '<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/4"',
+                'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"',
+                'xsi:schemaLocation="http://www.sat.gob.mx/cfd/4 http://www.sat.gob.mx/sitio_internet/cfd/4/cfdv40.xsd"',
+                'Version="4.0"/>',
             ].join('\n')
         );
 
