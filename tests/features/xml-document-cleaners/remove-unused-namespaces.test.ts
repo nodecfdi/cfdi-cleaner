@@ -57,4 +57,33 @@ describe('RemoveUnusedNamespaces', () => {
         const xmlExpected = new XMLSerializer().serializeToString(expected);
         expect(xmlClean).toEqualXML(xmlExpected);
     });
+
+    test('remove duplicated namespaces prefixes', () => {
+        const document = Xml.newDocumentContent(
+            [
+                '<root:root',
+                '  xmlns:wrong="http://tempuri.org/namespace"',
+                '  xmlns:root="http://tempuri.org/root"',
+                '  xmlns:attr="http://tempuri.org/attributes">',
+                '  <fine:child xmlns:fine="http://tempuri.org/namespace" attr:x="y"/>',
+                '</root:root>',
+            ].join('\n')
+        );
+
+        cleaner.clean(document);
+
+        const expected = Xml.newDocumentContent(
+            [
+                '<root:root',
+                '  xmlns:root="http://tempuri.org/root"',
+                '  xmlns:attr="http://tempuri.org/attributes">',
+                '  <fine:child xmlns:fine="http://tempuri.org/namespace" attr:x="y"/>',
+                '</root:root>',
+            ].join('\n')
+        );
+
+        const xmlClean = new XMLSerializer().serializeToString(document);
+        const xmlExpected = new XMLSerializer().serializeToString(expected);
+        expect(xmlClean).toEqualXML(xmlExpected);
+    });
 });

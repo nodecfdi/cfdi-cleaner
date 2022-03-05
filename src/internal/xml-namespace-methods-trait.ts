@@ -13,10 +13,11 @@ export class XmlNamespaceMethodsTrait {
         const namespaceNodes = evaluate("(//*|//@*)[namespace-uri()!='']", document, null, 0, null);
         let namespaceNode = namespaceNodes.iterateNext();
         while (namespaceNode) {
-            if (DomValidators.isAttr(namespaceNode) && namespaceNode.prefix === 'xmlns')
+            if (DomValidators.isAttr(namespaceNode)) {
                 if (!this.isNamespaceReserved(namespaceNode.nodeValue || '')) {
                     yield namespaceNode;
                 }
+            }
             namespaceNode = namespaceNodes.iterateNext();
         }
     }
@@ -24,14 +25,14 @@ export class XmlNamespaceMethodsTrait {
     protected removeNamespaceNodeAttribute(namespaceNode: Attr): void {
         const ownerElement = namespaceNode.ownerElement;
         if (ownerElement && DomValidators.isElement(ownerElement)) {
-            ownerElement.removeAttributeNS(namespaceNode.nodeValue, namespaceNode.localName);
-            ownerElement.removeAttributeNode(namespaceNode);
+            if (ownerElement.hasAttributeNS(XmlConstants.NAMESPACE_XMLNS, namespaceNode.localName)) {
+                ownerElement.removeAttribute(namespaceNode.nodeName);
+            }
         }
     }
 
     protected isNamespaceReserved(namespace: string): boolean {
-        const reservedNameSpaces = [
-            '',
+        const reservedNameSpaces: string[] = [
             XmlConstants.NAMESPACE_XML,
             XmlConstants.NAMESPACE_XMLNS,
             XmlConstants.NAMESPACE_XSI,

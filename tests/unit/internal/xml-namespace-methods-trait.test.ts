@@ -40,4 +40,52 @@ describe('Internal/XmlNamespaceMethodsTrait', () => {
         const xmlExpected = new XMLSerializer().serializeToString(expected);
         expect(xmlClean).toEqualXML(xmlExpected);
     });
+
+    test.each([
+        [
+            'unused',
+            'xmlns:unused',
+            [
+                '<r:root xmlns:r="http://tempuri.org/root">',
+                '  <r:test xmlns:unused="http://tempuri.org/root"/>',
+                '</r:root>',
+            ].join('\n'),
+            ['<r:root xmlns:r="http://tempuri.org/root">', '  <r:test/>', '</r:root>'].join('\n'),
+        ],
+        [
+            'no prefix',
+            'xmlns',
+            [
+                '<r:root xmlns:r="http://tempuri.org/root">',
+                '  <r:test xmlns="http://tempuri.org/root"/>',
+                '</r:root>',
+            ].join('\n'),
+            ['<r:root xmlns:r="http://tempuri.org/root">', '  <r:test/>', '</r:root>'].join('\n'),
+        ],
+        [
+            'no prefix no content',
+            'xmlns',
+            ['<r:root xmlns:r="http://tempuri.org/root">', '  <r:test xmlns=""/>', '</r:root>'].join('\n'),
+            ['<r:root xmlns:r="http://tempuri.org/root">', '  <r:test/>', '</r:root>'].join('\n'),
+        ],
+    ])('remove namespace node attribute %s', (name: string, target: string, xmlImput: string, xmlExpected: string) => {
+        const specimen = new SpecimenXmlNamespaceMethodsTrait();
+
+        const document = Xml.newDocumentContent(xmlImput);
+
+        const testElement = document.getElementsByTagName('test').item(0);
+
+        // find an remove unused "xmlns:unused"
+        for (const namespaceNode of specimen.pIterateNonReservedNamespaces(document)) {
+            if (testElement === namespaceNode.parentElement && target === namespaceNode.nodeName) {
+                specimen.pRemoveNamespaceNodeAttribute(namespaceNode);
+            }
+        }
+
+        const expected = Xml.newDocumentContent(xmlExpected);
+
+        const xmlCleanStr = new XMLSerializer().serializeToString(document);
+        const xmlExpectedStr = new XMLSerializer().serializeToString(expected);
+        expect(xmlCleanStr).toEqualXML(xmlExpectedStr);
+    });
 });

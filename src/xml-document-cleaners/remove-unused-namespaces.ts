@@ -15,23 +15,36 @@ class RemoveUnusedNamespaces implements XmlDocumentCleanerInterface {
     }
 
     private checkNamespaceNode(document: Document, namespaceNode: Attr): void {
-        const namespace = namespaceNode.nodeValue;
-        if (this.hasElementsOnNamespace(document, namespace || '')) {
-            return;
+        const namespace = namespaceNode.nodeValue || '';
+        const localName = '' !== namespaceNode.localName ? namespaceNode.localName + ':' : '';
+        if (!this.isPrefixedNamespaceOnUse(document, namespace, localName)) {
+            this.removeNamespaceNodeAttribute(namespaceNode);
         }
-        if (this.hasAttributesOnNamespace(document, namespace || '')) {
-            return;
-        }
-        this.removeNamespaceNodeAttribute(namespaceNode);
     }
 
-    private hasElementsOnNamespace(document: Document, namespace: string): boolean {
-        const elements = select(`//*[namespace-uri()="${namespace}"]`, document);
+    private isPrefixedNamespaceOnUse(document: Document, namespace: string, prefix: string): boolean {
+        if (this.hasElementsOnNamespace(document, namespace, prefix)) {
+            return true;
+        }
+        if (this.hasAttributesOnNamespace(document, namespace, prefix)) {
+            return true;
+        }
+        return false;
+    }
+
+    protected hasElementsOnNamespace(document: Document, namespace: string, prefix: string): boolean {
+        const elements = select(
+            `//*[namespace-uri()="${namespace}" and name()=concat("${prefix}", local-name())]`,
+            document
+        );
         return elements.length > 0;
     }
 
-    private hasAttributesOnNamespace(document: Document, namespace: string): boolean {
-        const attributes = select(`//@*[namespace-uri()="${namespace}"]`, document);
+    protected hasAttributesOnNamespace(document: Document, namespace: string, prefix: string): boolean {
+        const attributes = select(
+            `//@*[namespace-uri()="${namespace}" and name()=concat("${prefix}", local-name())]`,
+            document
+        );
         return attributes.length > 0;
     }
 }

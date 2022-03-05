@@ -1,5 +1,5 @@
 import { use } from 'typescript-mix';
-import { XmlNamespaceMethodsTrait } from '../../../src/internal/xml-namespace-methods-trait';
+import { XmlNamespaceMethodsTrait } from '../../../src';
 
 interface SpecimenXmlNamespaceMethodsTrait extends XmlNamespaceMethodsTrait {}
 
@@ -8,6 +8,14 @@ interface SpecimenXmlNamespaceMethodsTrait extends XmlNamespaceMethodsTrait {}
  */
 class SpecimenXmlNamespaceMethodsTrait {
     @use(XmlNamespaceMethodsTrait) private this: unknown;
+
+    public pIterateNonReservedNamespaces(document: Document): Generator<Attr> {
+        return this.iterateNonReservedNamespaces(document);
+    }
+
+    public pRemoveNamespaceNodeAttribute(namespaceNode: Attr): void {
+        return this.removeNamespaceNodeAttribute(namespaceNode);
+    }
 
     public obtainNamespaces(document: Document): Record<string, string> {
         const namespaces: Record<string, string> = {};
