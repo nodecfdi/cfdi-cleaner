@@ -15,7 +15,7 @@ export default [
                 '@nodecfdi/cfdiutils-common': 'cfdiutils-common',
                 '@xmldom/xmldom': 'xmldom',
                 'typescript-mix': 'typescript-mix',
-                xpath: 'xpath',
+                'xpath': 'xpath',
             },
         },
         plugins: [resolve(), commonjs(), typescript({ tsconfig: './tsconfig.json' })],
