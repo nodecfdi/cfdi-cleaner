@@ -15,10 +15,10 @@
 <a href="#acerca-de-nodecfdicfdi-cleaner" id="acerca-de-nodecfdicfdi-cleaner" style="color: inherit; text-decoration: none;">
   <h2>Acerca de nodecfdi/cfdi-cleaner</h2>
 </a>
-<p>Los archivos XML de Comprobantes Fiscales Digitales por Internet (CFDI) suelen contener errores.
-Esta librería se encarga de reparar los errores (reparables) conocidos/comunes para poder trabajar con ellos.</p>
-<p>Todas las operaciones que realiza esta librería con sobre partes del CFDI que no influyen en la generación
-de la cadena de origen ni del sello.</p>
+<p>Los archivos XML de Comprobantes Fiscales Digitales por Internet (CFDI) suelen contener errores. Esta librería se
+encarga de reparar los errores (reparables) conocidos/comunes para poder trabajar con ellos.</p>
+<p>Todas las operaciones que realiza esta librería con sobre partes del CFDI que no influyen en la generación de la cadena
+de origen ni del sello.</p>
 <p>Librería inspirada por la versión para php <a href="https://github.com/phpcfdi/cfdi-cleaner">https://github.com/phpcfdi/cfdi-cleaner</a></p>
 
 <a href="#instalación" id="instalación" style="color: inherit; text-decoration: none;">
@@ -38,8 +38,8 @@ de la cadena de origen ni del sello.</p>
 <a href="#staticcleanxml-string-string" id="staticcleanxml-string-string" style="color: inherit; text-decoration: none;">
   <h3><code>staticClean(xml: string): string</code></h3>
 </a>
-<p>Realiza la limpieza de texto y del documento xml a partir de una cadena de caracteres
-y entrega la representación limpia también en texto.</p>
+<p>Realiza la limpieza de texto y del documento xml a partir de una cadena de caracteres y entrega la representación limpia
+también en texto.</p>
 <p>Este método es estático, por lo que no se necesita crear una instancia del objeto <code>Cleaner</code>.</p>
 <pre><code class="language-ts"><span class="hl-1">import</span><span class="hl-0"> { </span><span class="hl-2">readFileSync</span><span class="hl-0"> } </span><span class="hl-1">from</span><span class="hl-0"> </span><span class="hl-3">&#39;fs&#39;</span><span class="hl-0">;</span><br/><span class="hl-1">import</span><span class="hl-0"> { </span><span class="hl-2">Cleaner</span><span class="hl-0"> } </span><span class="hl-1">from</span><span class="hl-0"> </span><span class="hl-3">&#39;@nodecfdi/cfdi-cleaner&#39;</span><span class="hl-0">;</span><br/><br/><span class="hl-4">// Accedemos al contenido en nuestro archivo XML</span><br/><span class="hl-5">const</span><span class="hl-0"> </span><span class="hl-6">xml</span><span class="hl-0"> = </span><span class="hl-7">readFileSync</span><span class="hl-0">(</span><span class="hl-3">&#39;archivo-cfdi.xml&#39;</span><span class="hl-0">).</span><span class="hl-7">toString</span><span class="hl-0">();</span><br/><span class="hl-2">console</span><span class="hl-0">.</span><span class="hl-7">log</span><span class="hl-0">(</span><span class="hl-2">Cleaner</span><span class="hl-0">.</span><span class="hl-7">staticClean</span><span class="hl-0">(</span><span class="hl-2">xml</span><span class="hl-0">));</span>
 </code></pre>
@@ -47,16 +47,15 @@ y entrega la representación limpia también en texto.</p>
 <a href="#cleanstringtostringxml-string-string" id="cleanstringtostringxml-string-string" style="color: inherit; text-decoration: none;">
   <h3><code>cleanStringToString(xml: string): string</code></h3>
 </a>
-<p>Realiza la limpieza de texto y del documento xml a partir de una cadena de caracteres
-y entrega la representación limpia también en texto.</p>
+<p>Realiza la limpieza de texto y del documento xml a partir de una cadena de caracteres y entrega la representación limpia
+también en texto.</p>
 <pre><code class="language-ts"><span class="hl-1">import</span><span class="hl-0"> { </span><span class="hl-2">readFileSync</span><span class="hl-0"> } </span><span class="hl-1">from</span><span class="hl-0"> </span><span class="hl-3">&#39;fs&#39;</span><span class="hl-0">;</span><br/><span class="hl-1">import</span><span class="hl-0"> { </span><span class="hl-2">Cleaner</span><span class="hl-0"> } </span><span class="hl-1">from</span><span class="hl-0"> </span><span class="hl-3">&#39;@nodecfdi/cfdi-cleaner&#39;</span><span class="hl-0">;</span><br/><br/><span class="hl-4">// Accedemos al contenido en nuestro archivo XML</span><br/><span class="hl-5">const</span><span class="hl-0"> </span><span class="hl-6">xml</span><span class="hl-0"> = </span><span class="hl-7">readFileSync</span><span class="hl-0">(</span><span class="hl-3">&#39;archivo-cfdi.xml&#39;</span><span class="hl-0">).</span><span class="hl-7">toString</span><span class="hl-0">();</span><br/><span class="hl-5">const</span><span class="hl-0"> </span><span class="hl-6">cleaner</span><span class="hl-0"> = </span><span class="hl-5">new</span><span class="hl-0"> </span><span class="hl-7">Cleaner</span><span class="hl-0">();</span><br/><span class="hl-2">console</span><span class="hl-0">.</span><span class="hl-7">log</span><span class="hl-0">(</span><span class="hl-2">cleaner</span><span class="hl-0">.</span><span class="hl-7">cleanStringToString</span><span class="hl-0">(</span><span class="hl-2">xml</span><span class="hl-0">));</span>
 </code></pre>
 
 <a href="#cleanstringtodocumentxml-string-document" id="cleanstringtodocumentxml-string-document" style="color: inherit; text-decoration: none;">
   <h3><code>cleanStringToDocument(xml: string): Document</code></h3>
 </a>
-<p>Realiza la limpieza de texto y del documento xml a partir de una cadena de caracteres
-y entrega el documento XML limpio.</p>
+<p>Realiza la limpieza de texto y del documento xml a partir de una cadena de caracteres y entrega el documento XML limpio.</p>
 <p>Este método es útil si se necesita utilizar inmediatamente el objeto documento XML.</p>
 <pre><code class="language-ts"><span class="hl-1">import</span><span class="hl-0"> { </span><span class="hl-2">readFileSync</span><span class="hl-0"> } </span><span class="hl-1">from</span><span class="hl-0"> </span><span class="hl-3">&#39;fs&#39;</span><span class="hl-0">;</span><br/><span class="hl-1">import</span><span class="hl-0"> { </span><span class="hl-2">Cleaner</span><span class="hl-0"> } </span><span class="hl-1">from</span><span class="hl-0"> </span><span class="hl-3">&#39;@nodecfdi/cfdi-cleaner&#39;</span><span class="hl-0">;</span><br/><span class="hl-1">import</span><span class="hl-0"> { </span><span class="hl-2">XMLSerializer</span><span class="hl-0"> } </span><span class="hl-1">from</span><span class="hl-0"> </span><span class="hl-3">&#39;xmldom&#39;</span><span class="hl-0">;</span><br/><br/><span class="hl-4">// Accedemos al contenido en nuestro archivo XML</span><br/><span class="hl-5">const</span><span class="hl-0"> </span><span class="hl-6">xml</span><span class="hl-0"> = </span><span class="hl-7">readFileSync</span><span class="hl-0">(</span><span class="hl-3">&#39;archivo-cfdi.xml&#39;</span><span class="hl-0">).</span><span class="hl-7">toString</span><span class="hl-0">();</span><br/><span class="hl-5">const</span><span class="hl-0"> </span><span class="hl-6">cleaner</span><span class="hl-0"> = </span><span class="hl-5">new</span><span class="hl-0"> </span><span class="hl-7">Cleaner</span><span class="hl-0">();</span><br/><span class="hl-5">const</span><span class="hl-0"> </span><span class="hl-6">document</span><span class="hl-0"> = </span><span class="hl-2">cleaner</span><span class="hl-0">.</span><span class="hl-7">cleanStringToDocument</span><span class="hl-0">(</span><span class="hl-2">xml</span><span class="hl-0">);</span><br/><span class="hl-2">console</span><span class="hl-0">.</span><span class="hl-7">log</span><span class="hl-0">(</span><span class="hl-5">new</span><span class="hl-0"> </span><span class="hl-7">XMLSerializer</span><span class="hl-0">().</span><span class="hl-7">serializeToString</span><span class="hl-0">(</span><span class="hl-2">document</span><span class="hl-0">));</span>
 </code></pre>
@@ -70,8 +69,8 @@ y la otra una vez que se pudo cargar el contenido como objetos DOM.</p>
 <a href="#limpiezas-sobre-el-texto-xml" id="limpiezas-sobre-el-texto-xml" style="color: inherit; text-decoration: none;">
   <h3>Limpiezas sobre el texto XML</h3>
 </a>
-<p>Estos limpiadores deben ejecutarse antes de intentar leer el contenido XML y están hechos para prevenir que el
-objeto documento XML no se pueda crear.</p>
+<p>Estos limpiadores deben ejecutarse antes de intentar leer el contenido XML y están hechos para prevenir que el objeto
+documento XML no se pueda crear.</p>
 
 <a href="#removenonxmlstrings" id="removenonxmlstrings" style="color: inherit; text-decoration: none;">
   <h4><code>RemoveNonXmlStrings</code></h4>
@@ -86,20 +85,14 @@ objeto documento XML no se pueda crear.</p>
 <a href="#appendxmldeclaration" id="appendxmldeclaration" style="color: inherit; text-decoration: none;">
   <h4><code>AppendXmlDeclaration</code></h4>
 </a>
-<p>Agrega <code>&lt;?xml version=&quot;1.0&quot;?&gt;</code> al inicio del archivo si no existe, es muy útil porque
-las herramientas de detección de <code>MIME</code> no reconocen un archivo XML si no trae la cabecera.</p>
+<p>Agrega <code>&lt;?xml version=&quot;1.0&quot;?&gt;</code> al inicio del archivo si no existe, es muy útil porque las herramientas de detección
+de <code>MIME</code> no reconocen un archivo XML si no trae la cabecera.</p>
 
 <a href="#xmlnsschemalocation" id="xmlnsschemalocation" style="color: inherit; text-decoration: none;">
   <h4><code>XmlNsSchemaLocation</code></h4>
 </a>
 <p>Elimina un error frecuentemente encontrado en los CFDI emitidos por el SAT donde dice <code>xmlns:schemaLocation</code>
 en lugar de <code>xsi:schemaLocation</code>.</p>
-
-<a href="#removeduplicatedcfdi3namespace" id="removeduplicatedcfdi3namespace" style="color: inherit; text-decoration: none;">
-  <h4><code>RemoveDuplicatedCfdi3Namespace</code></h4>
-</a>
-<p>Elimina la declaración del espacio de nombres de CFDI 3 sin prefijo <code>xmlns=&quot;http://www.sat.gob.mx/cfd/3&quot;</code>
-siempre y cuando también exista la declaración <code>xmlns:cfdi=&quot;http://www.sat.gob.mx/cfd/3&quot;</code>.</p>
 
 <a href="#limpiezas-sobre-el-documento-xml-domdocument" id="limpiezas-sobre-el-documento-xml-domdocument" style="color: inherit; text-decoration: none;">
   <h3>Limpiezas sobre el documento XML (<code>DOMDocument</code>)</h3>
@@ -115,10 +108,9 @@ siempre y cuando también exista la declaración <code>xmlns:cfdi=&quot;http://w
   <h4><code>RemoveIncompleteSchemaLocations</code></h4>
 </a>
 <p>Actúa sobre cada uno de los <code>xsi:schemaLocations</code>.</p>
-<p>Lee el contenido e intenta interpretar el espacio de nombres y la ubicación del esquema de validación.
-Para considerar que es un esquema de validación verifica que termine con <code>.xsd</code> (insensible a mayúsculas o minúsculas).
-Si encuentra un espacio de nombres sin esquema lo omite.
-Si encuentra un esquema sin espacio de nombres lo omite.</p>
+<p>Lee el contenido e intenta interpretar el espacio de nombres y la ubicación del esquema de validación. Para considerar
+que es un esquema de validación verifica que termine con <code>.xsd</code> (insensible a mayúsculas o minúsculas). Si encuentra un
+espacio de nombres sin esquema lo omite. Si encuentra un esquema sin espacio de nombres lo omite.</p>
 
 <a href="#removenonsatnamespacesnodes" id="removenonsatnamespacesnodes" style="color: inherit; text-decoration: none;">
   <h4><code>RemoveNonSatNamespacesNodes</code></h4>
@@ -136,51 +128,63 @@ correspondan a la URI <code>http://www.sat.gob.mx/**</code>.</p>
 <a href="#removeunusednamespaces" id="removeunusednamespaces" style="color: inherit; text-decoration: none;">
   <h4><code>RemoveUnusedNamespaces</code></h4>
 </a>
-<p>Remueve todas las declaraciones de espacios de nombres cuando no correspondan a la URI <code>http://www.sat.gob.mx/**</code>,
-por ejemplo <code>xmlns:foo=&quot;http://tempuri.org/foo&quot;</code>.</p>
+<p>Remueve todas las declaraciones de espacios de nombres cuando no correspondan a la URI <code>http://www.sat.gob.mx/**</code>, por
+ejemplo <code>xmlns:foo=&quot;http://tempuri.org/foo&quot;</code>.</p>
+
+<a href="#renameelementaddprefix" id="renameelementaddprefix" style="color: inherit; text-decoration: none;">
+  <h4><code>RenameElementAddPrefix</code></h4>
+</a>
+<p>Agrega el prefijo al nodo que no lo tiene por estar utilizando la definición simple <code>xmlns</code>. Además elimina los
+namespace superfluos y las definiciones <code>xmlns</code> redundantes.</p>
+<p>Ejemplo de CFDI sucio:</p>
+<pre><code class="language-xml"><br/><span class="hl-8">&lt;</span><span class="hl-9">cfdi:Comprobante</span><span class="hl-0"> </span><span class="hl-10">xmlns</span><span class="hl-0">=</span><span class="hl-11">&quot;http://www.sat.gob.mx/cfd/4&quot;</span><span class="hl-0"> </span><span class="hl-10">xmlns:cfdi</span><span class="hl-0">=</span><span class="hl-11">&quot;http://www.sat.gob.mx/cfd/4&quot;</span><span class="hl-8">&gt;</span><br/><span class="hl-0">    </span><span class="hl-8">&lt;</span><span class="hl-9">Emisor</span><span class="hl-0"> </span><span class="hl-10">xmlns</span><span class="hl-0">=</span><span class="hl-11">&quot;http://www.sat.gob.mx/cfd/4&quot;</span><span class="hl-8">/&gt;</span><br/><span class="hl-0">    </span><span class="hl-8">&lt;</span><span class="hl-9">cfdi:Receptor</span><span class="hl-0"> </span><span class="hl-10">xmlns:cfdi</span><span class="hl-0">=</span><span class="hl-11">&quot;http://www.sat.gob.mx/cfd/4&quot;</span><span class="hl-8">/&gt;</span><br/><span class="hl-8">&lt;/</span><span class="hl-9">cfdi:Comprobante</span><span class="hl-8">&gt;</span>
+</code></pre>
+<p>Ejemplo de CFDI limpio:</p>
+<pre><code class="language-xml"><br/><span class="hl-8">&lt;</span><span class="hl-9">cfdi:Comprobante</span><span class="hl-0"> </span><span class="hl-10">xmlns:cfdi</span><span class="hl-0">=</span><span class="hl-11">&quot;http://www.sat.gob.mx/cfd/4&quot;</span><span class="hl-8">&gt;</span><br/><span class="hl-0">    </span><span class="hl-8">&lt;</span><span class="hl-9">cfdi:Emisor</span><span class="hl-8">/&gt;</span><br/><span class="hl-0">    </span><span class="hl-8">&lt;</span><span class="hl-9">cfdi:Receptor</span><span class="hl-8">/&gt;</span><br/><span class="hl-8">&lt;/</span><span class="hl-9">cfdi:Comprobante</span><span class="hl-8">&gt;</span>
+</code></pre>
 
 <a href="#movenamespacedeclarationtoroot" id="movenamespacedeclarationtoroot" style="color: inherit; text-decoration: none;">
   <h4><code>MoveNamespaceDeclarationToRoot</code></h4>
 </a>
 <p>Mueve todas las declaraciones de espacios de nombres al nodo raíz.</p>
-<p>Por lo regular el SAT pide en la documentación técnica que los espacios de nombres se definan en el nodo raíz,
-sin embargo es frecuente que se definan en el nodo que los implementa.</p>
-<p>Hay casos extremos de CFDI que siguen las reglas de XML, pero que no siguen las reglas de CFDI y generan prefijos
-que se superponen. En este caso, se moverán solamente los espacios de nombres que no se superponen, por ejemplo:</p>
-<pre><code class="language-xml"><span class="hl-8">&lt;?</span><span class="hl-9">xml</span><span class="hl-10"> version</span><span class="hl-0">=</span><span class="hl-11">&quot;1.0&quot;</span><span class="hl-10"> encoding</span><span class="hl-0">=</span><span class="hl-11">&quot;utf-8&quot;</span><span class="hl-0"> </span><span class="hl-8">?&gt;</span><br/><span class="hl-8">&lt;</span><span class="hl-9">cfdi:Comprobante</span><span class="hl-0"> </span><span class="hl-10">xmlns:cfdi</span><span class="hl-0">=</span><span class="hl-11">&quot;http://www.sat.gob.mx/cfd/3&quot;</span><span class="hl-8">&gt;</span><br/><span class="hl-0">  </span><span class="hl-8">&lt;</span><span class="hl-9">cfdi:Complemento</span><span class="hl-8">&gt;</span><br/><span class="hl-0">    </span><span class="hl-8">&lt;</span><span class="hl-9">cfdi:Otro</span><span class="hl-0"> </span><span class="hl-10">xmlns:cfdi</span><span class="hl-0">=</span><span class="hl-11">&quot;http://www.sat.gob.mx/otro&quot;</span><span class="hl-0"> </span><span class="hl-8">/&gt;</span><br/><span class="hl-0">    </span><span class="hl-8">&lt;</span><span class="hl-9">tfd:TimbreFiscalDigital</span><span class="hl-0"> </span><span class="hl-10">xmlns:tfd</span><span class="hl-0">=</span><span class="hl-11">&quot;http://www.sat.gob.mx/TimbreFiscalDigital&quot;</span><span class="hl-0"> </span><span class="hl-8">/&gt;</span><br/><span class="hl-0">  </span><span class="hl-8">&lt;/</span><span class="hl-9">cfdi:Complemento</span><span class="hl-8">&gt;</span><br/><span class="hl-8">&lt;/</span><span class="hl-9">cfdi:Comprobante</span><span class="hl-8">&gt;</span>
+<p>Por lo regular el SAT pide en la documentación técnica que los espacios de nombres se definan en el nodo raíz, sin
+embargo es frecuente que se definan en el nodo que los implementa.</p>
+<p>Hay casos extremos de CFDI que siguen las reglas de XML, pero que no siguen las reglas de CFDI y generan prefijos que se
+superponen. En este caso, se moverán solamente los espacios de nombres que no se superponen, por ejemplo:</p>
+<pre><code class="language-xml"><span class="hl-8">&lt;?</span><span class="hl-9">xml</span><span class="hl-10"> version</span><span class="hl-0">=</span><span class="hl-11">&quot;1.0&quot;</span><span class="hl-10"> encoding</span><span class="hl-0">=</span><span class="hl-11">&quot;utf-8&quot;</span><span class="hl-0"> </span><span class="hl-8">?&gt;</span><br/><span class="hl-8">&lt;</span><span class="hl-9">cfdi:Comprobante</span><span class="hl-0"> </span><span class="hl-10">xmlns:cfdi</span><span class="hl-0">=</span><span class="hl-11">&quot;http://www.sat.gob.mx/cfd/3&quot;</span><span class="hl-8">&gt;</span><br/><span class="hl-0">    </span><span class="hl-8">&lt;</span><span class="hl-9">cfdi:Complemento</span><span class="hl-8">&gt;</span><br/><span class="hl-0">        </span><span class="hl-8">&lt;</span><span class="hl-9">cfdi:Otro</span><span class="hl-0"> </span><span class="hl-10">xmlns:cfdi</span><span class="hl-0">=</span><span class="hl-11">&quot;http://www.sat.gob.mx/otro&quot;</span><span class="hl-8">/&gt;</span><br/><span class="hl-0">        </span><span class="hl-8">&lt;</span><span class="hl-9">tfd:TimbreFiscalDigital</span><span class="hl-0"> </span><span class="hl-10">xmlns:tfd</span><span class="hl-0">=</span><span class="hl-11">&quot;http://www.sat.gob.mx/TimbreFiscalDigital&quot;</span><span class="hl-8">/&gt;</span><br/><span class="hl-0">    </span><span class="hl-8">&lt;/</span><span class="hl-9">cfdi:Complemento</span><span class="hl-8">&gt;</span><br/><span class="hl-8">&lt;/</span><span class="hl-9">cfdi:Comprobante</span><span class="hl-8">&gt;</span>
 </code></pre>
 <p>Genera el siguiente resultado:</p>
-<pre><code class="language-xml"><span class="hl-8">&lt;?</span><span class="hl-9">xml</span><span class="hl-10"> version</span><span class="hl-0">=</span><span class="hl-11">&quot;1.0&quot;</span><span class="hl-10"> encoding</span><span class="hl-0">=</span><span class="hl-11">&quot;utf-8&quot;</span><span class="hl-0"> </span><span class="hl-8">?&gt;</span><br/><span class="hl-8">&lt;</span><span class="hl-9">cfdi:Comprobante</span><span class="hl-0"> </span><span class="hl-10">xmlns:cfdi</span><span class="hl-0">=</span><span class="hl-11">&quot;http://www.sat.gob.mx/cfd/3&quot;</span><span class="hl-0"> </span><span class="hl-10">xmlns:tfd</span><span class="hl-0">=</span><span class="hl-11">&quot;http://www.sat.gob.mx/TimbreFiscalDigital&quot;</span><span class="hl-8">&gt;</span><br/><span class="hl-0">  </span><span class="hl-8">&lt;</span><span class="hl-9">cfdi:Complemento</span><span class="hl-8">&gt;</span><br/><span class="hl-0">    </span><span class="hl-8">&lt;</span><span class="hl-9">cfdi:Otro</span><span class="hl-0"> </span><span class="hl-10">xmlns:cfdi</span><span class="hl-0">=</span><span class="hl-11">&quot;http://www.sat.gob.mx/otro&quot;</span><span class="hl-0"> </span><span class="hl-8">/&gt;</span><br/><span class="hl-0">    </span><span class="hl-8">&lt;</span><span class="hl-9">tfd:TimbreFiscalDigital</span><span class="hl-0"> </span><span class="hl-8">/&gt;</span><br/><span class="hl-0">  </span><span class="hl-8">&lt;/</span><span class="hl-9">cfdi:Complemento</span><span class="hl-8">&gt;</span><br/><span class="hl-8">&lt;/</span><span class="hl-9">cfdi:Comprobante</span><span class="hl-8">&gt;</span>
+<pre><code class="language-xml"><span class="hl-8">&lt;?</span><span class="hl-9">xml</span><span class="hl-10"> version</span><span class="hl-0">=</span><span class="hl-11">&quot;1.0&quot;</span><span class="hl-10"> encoding</span><span class="hl-0">=</span><span class="hl-11">&quot;utf-8&quot;</span><span class="hl-0"> </span><span class="hl-8">?&gt;</span><br/><span class="hl-8">&lt;</span><span class="hl-9">cfdi:Comprobante</span><span class="hl-0"> </span><span class="hl-10">xmlns:cfdi</span><span class="hl-0">=</span><span class="hl-11">&quot;http://www.sat.gob.mx/cfd/3&quot;</span><span class="hl-0"> </span><span class="hl-10">xmlns:tfd</span><span class="hl-0">=</span><span class="hl-11">&quot;http://www.sat.gob.mx/TimbreFiscalDigital&quot;</span><span class="hl-8">&gt;</span><br/><span class="hl-0">    </span><span class="hl-8">&lt;</span><span class="hl-9">cfdi:Complemento</span><span class="hl-8">&gt;</span><br/><span class="hl-0">        </span><span class="hl-8">&lt;</span><span class="hl-9">cfdi:Otro</span><span class="hl-0"> </span><span class="hl-10">xmlns:cfdi</span><span class="hl-0">=</span><span class="hl-11">&quot;http://www.sat.gob.mx/otro&quot;</span><span class="hl-8">/&gt;</span><br/><span class="hl-0">        </span><span class="hl-8">&lt;</span><span class="hl-9">tfd:TimbreFiscalDigital</span><span class="hl-8">/&gt;</span><br/><span class="hl-0">    </span><span class="hl-8">&lt;/</span><span class="hl-9">cfdi:Complemento</span><span class="hl-8">&gt;</span><br/><span class="hl-8">&lt;/</span><span class="hl-9">cfdi:Comprobante</span><span class="hl-8">&gt;</span>
 </code></pre>
-<p>Ante un caso como el anterior, no se están siguiendo las reglas establecidas en el Anexo 20 y en el complemento.
-Es mejor que siempre considere ese caso como un CFDI inválido, aun cuando se haya firmado, y solicite la
-sustitución por un CFDI que sí contenga los prefijos de los espacios de nombres correctos.</p>
+<p>Ante un caso como el anterior, no se están siguiendo las reglas establecidas en el Anexo 20 y en el complemento. Es
+mejor que siempre considere ese caso como un CFDI inválido, aun cuando se haya firmado, y solicite la sustitución por un
+CFDI que sí contenga los prefijos de los espacios de nombres correctos.</p>
 
 <a href="#moveschemalocationstoroot" id="moveschemalocationstoroot" style="color: inherit; text-decoration: none;">
   <h4><code>MoveSchemaLocationsToRoot</code></h4>
 </a>
 <p>Mueve todas las declaraciones de ubicaciones de archivos de esquema al nodo principal.</p>
-<p>Por lo regular el SAT pide en la documentación técnica que las ubicaciones de archivos de esquema se definan en
-el nodo principal, sin embargo es frecuente que se definan en el nodo que los implementa.</p>
+<p>Por lo regular el SAT pide en la documentación técnica que las ubicaciones de archivos de esquema se definan en el nodo
+principal, sin embargo es frecuente que se definan en el nodo que los implementa.</p>
 
 <a href="#setknownschemalocations" id="setknownschemalocations" style="color: inherit; text-decoration: none;">
   <h4><code>SetKnownSchemaLocations</code></h4>
 </a>
-<p>Verifica que las ubicaciones de los esquemas de espacios de nombres conocidos sean exactamente las direcciones conocidas,
-en caso de no serlo las modifican.</p>
+<p>Verifica que las ubicaciones de los esquemas de espacios de nombres conocidos sean exactamente las direcciones
+conocidas, en caso de no serlo las modifican.</p>
 <p>Anteriormente el SAT permitía que las ubicaciones de los esquemas de espacios de nombres estuvieran escritos sin
 sensibilidad a mayúsculas o minúsculas, incluso tenía varias ubicaciones para obtener estos archivos. Sin embargo,
 recientemente ha eliminado la tolerancia a estas ubicaciones y solo permite las definiciones oficiales.</p>
-<p>Este limpiador tiene la información de espacio de nombres, versión a la que aplica y ubicación conocida con base en
-el proyecto <a href="https://github.com/phpcfdi/sat-ns-registry">phpcfdi/sat-ns-registry</a>.</p>
-<p>En caso de que no se encuentre la ruta conocida para un espacio de nombres entonces no aplicará ninguna corrección
-y dejará el valor tal como estaba.</p>
+<p>Este limpiador tiene la información de espacio de nombres, versión a la que aplica y ubicación conocida con base en el
+proyecto <a href="https://github.com/phpcfdi/sat-ns-registry">phpcfdi/sat-ns-registry</a>.</p>
+<p>En caso de que no se encuentre la ruta conocida para un espacio de nombres entonces no aplicará ninguna corrección y
+dejará el valor tal como estaba.</p>
 
 <a href="#collapsecomplemento" id="collapsecomplemento" style="color: inherit; text-decoration: none;">
   <h4><code>CollapseComplemento</code></h4>
 </a>
 <p>Este limpiador se crea para solventar la inconsistencia en la documentación del SAT.</p>
-<p>Por un lado, en el Anexo 20 de CFDI 3.3, el SAT exige que exista uno y solamente un nodo <code>cfdi:Complemento</code>.
-Sin embargo, en el archivo de validación XSD permite que existan más de uno.</p>
+<p>Por un lado, en el Anexo 20 de CFDI 3.3, el SAT exige que exista uno y solamente un nodo <code>cfdi:Complemento</code>. Sin
+embargo, en el archivo de validación XSD permite que existan más de uno.</p>
 <p>Con esta limpieza, se deja un solo <code>cfdi:Complemento</code> con todos los complementos en él.</p>
 </div></div><div class="col-4 col-menu menu-sticky-wrap menu-highlight"><nav class="tsd-navigation primary"><ul><li class="current"><a href="modules.html">Exports</a></li></ul></nav><nav class="tsd-navigation secondary menu-sticky"><ul><li class="tsd-kind-class"><a href="classes/AppendXmlDeclaration.html" class="tsd-kind-icon">Append<wbr/>Xml<wbr/>Declaration</a></li><li class="tsd-kind-class"><a href="classes/Cleaner.html" class="tsd-kind-icon">Cleaner</a></li><li class="tsd-kind-class"><a href="classes/CollapseComplemento.html" class="tsd-kind-icon">Collapse<wbr/>Complemento</a></li><li class="tsd-kind-class"><a href="classes/MoveNamespaceDeclarationToRoot.html" class="tsd-kind-icon">Move<wbr/>Namespace<wbr/>Declaration<wbr/>To<wbr/>Root</a></li><li class="tsd-kind-class"><a href="classes/MoveSchemaLocationsToRoot.html" class="tsd-kind-icon">Move<wbr/>Schema<wbr/>Locations<wbr/>To<wbr/>Root</a></li><li class="tsd-kind-class"><a href="classes/RemoveAddenda.html" class="tsd-kind-icon">Remove<wbr/>Addenda</a></li><li class="tsd-kind-class"><a href="classes/RemoveDuplicatedCfdi3Namespace.html" class="tsd-kind-icon">Remove<wbr/>Duplicated<wbr/>Cfdi3<wbr/>Namespace</a></li><li class="tsd-kind-class"><a href="classes/RemoveIncompleteSchemaLocations.html" class="tsd-kind-icon">Remove<wbr/>Incomplete<wbr/>Schema<wbr/>Locations</a></li><li class="tsd-kind-class"><a href="classes/RemoveNonSatNamespacesNodes.html" class="tsd-kind-icon">Remove<wbr/>Non<wbr/>Sat<wbr/>Namespaces<wbr/>Nodes</a></li><li class="tsd-kind-class"><a href="classes/RemoveNonSatSchemaLocations.html" class="tsd-kind-icon">Remove<wbr/>Non<wbr/>Sat<wbr/>Schema<wbr/>Locations</a></li><li class="tsd-kind-class"><a href="classes/RemoveNonXmlStrings.html" class="tsd-kind-icon">Remove<wbr/>Non<wbr/>Xml<wbr/>Strings</a></li><li class="tsd-kind-class"><a href="classes/RemoveUnusedNamespaces.html" class="tsd-kind-icon">Remove<wbr/>Unused<wbr/>Namespaces</a></li><li class="tsd-kind-class"><a href="classes/SetKnownSchemaLocations.html" class="tsd-kind-icon">Set<wbr/>Known<wbr/>Schema<wbr/>Locations</a></li><li class="tsd-kind-class"><a href="classes/SplitXmlDeclarationFromDocument.html" class="tsd-kind-icon">Split<wbr/>Xml<wbr/>Declaration<wbr/>From<wbr/>Document</a></li><li class="tsd-kind-class"><a href="classes/XmlAttributeMethodsTrait.html" class="tsd-kind-icon">Xml<wbr/>Attribute<wbr/>Methods<wbr/>Trait</a></li><li class="tsd-kind-class"><a href="classes/XmlDocumentCleaners.html" class="tsd-kind-icon">Xml<wbr/>Document<wbr/>Cleaners</a></li><li class="tsd-kind-class"><a href="classes/XmlElementMethodsTrait.html" class="tsd-kind-icon">Xml<wbr/>Element<wbr/>Methods<wbr/>Trait</a></li><li class="tsd-kind-class"><a href="classes/XmlNamespaceMethodsTrait.html" class="tsd-kind-icon">Xml<wbr/>Namespace<wbr/>Methods<wbr/>Trait</a></li><li class="tsd-kind-class"><a href="classes/XmlNsSchemaLocation.html" class="tsd-kind-icon">Xml<wbr/>Ns<wbr/>Schema<wbr/>Location</a></li><li class="tsd-kind-class"><a href="classes/XmlStringCleaners.html" class="tsd-kind-icon">Xml<wbr/>String<wbr/>Cleaners</a></li><li class="tsd-kind-interface"><a href="interfaces/XmlDocumentCleanerInterface.html" class="tsd-kind-icon">Xml<wbr/>Document<wbr/>Cleaner<wbr/>Interface</a></li><li class="tsd-kind-interface"><a href="interfaces/XmlStringCleanerInterface.html" class="tsd-kind-icon">Xml<wbr/>String<wbr/>Cleaner<wbr/>Interface</a></li></ul></nav></div></div></div><footer class="with-border-bottom"><div class="container"><h2>Legend</h2><div class="tsd-legend-group"><ul class="tsd-legend"><li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li><li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li></ul><ul class="tsd-legend"><li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li><li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li></ul><ul class="tsd-legend"><li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li></ul><ul class="tsd-legend"><li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li></ul><ul class="tsd-legend"><li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li></ul><ul class="tsd-legend"><li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li></ul></div><h2>Settings</h2><p>Theme <select id="theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></p></div></footer><div class="container tsd-generator"><p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div><div class="overlay"></div><script src="assets/main.js"></script></body></html>
