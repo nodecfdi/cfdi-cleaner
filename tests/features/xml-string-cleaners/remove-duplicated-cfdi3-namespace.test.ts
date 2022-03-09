@@ -13,8 +13,11 @@ describe('RemoveDuplicatedCfdi3Namespace', () => {
             `<cfdi:Comprobante ${xmlnsCfdi} ${xmlns}/>`,
         ],
     ])('clean %s', (name, expected, input) => {
+        const warnMock = jest.spyOn(console, 'warn').mockImplementation();
         const cleaner = new RemoveDuplicatedCfdi3Namespace();
         const clean = cleaner.clean(input);
-        expect(clean).toBe(expected);
+        expect(warnMock).toHaveBeenCalledTimes(1);
+        expect(clean).toBe(input);
+        warnMock.mockRestore();
     });
 });

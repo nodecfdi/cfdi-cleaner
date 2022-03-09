@@ -3,7 +3,6 @@ import { RemoveNonXmlStrings } from './xml-string-cleaners/remove-non-xml-string
 import { SplitXmlDeclarationFromDocument } from './xml-string-cleaners/split-xml-declaration-from-document';
 import { AppendXmlDeclaration } from './xml-string-cleaners/append-xml-declaration';
 import { XmlNsSchemaLocation } from './xml-string-cleaners/xml-ns-schema-location';
-import { RemoveDuplicatedCfdi3Namespace } from './xml-string-cleaners/remove-duplicated-cfdi3-namespace';
 
 export class XmlStringCleaners implements XmlStringCleanerInterface {
     private cleaners: XmlStringCleanerInterface[];
@@ -19,7 +18,6 @@ export class XmlStringCleaners implements XmlStringCleanerInterface {
                 new SplitXmlDeclarationFromDocument(),
                 new AppendXmlDeclaration(),
                 new XmlNsSchemaLocation(),
-                new RemoveDuplicatedCfdi3Namespace(),
             ]
         );
     }

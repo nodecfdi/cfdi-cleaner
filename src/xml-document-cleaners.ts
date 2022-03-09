@@ -8,6 +8,7 @@ import { MoveNamespaceDeclarationToRoot } from './xml-document-cleaners/move-nam
 import { MoveSchemaLocationsToRoot } from './xml-document-cleaners/move-schema-locations-to-root';
 import { SetKnownSchemaLocations } from './xml-document-cleaners/set-known-schema-locations';
 import { CollapseComplemento } from './xml-document-cleaners/collapse-complemento';
+import { RenameElementAddPrefix } from './xml-document-cleaners/rename-element-add-prefix';
 
 export class XmlDocumentCleaners implements XmlDocumentCleanerInterface {
     private cleaners: XmlDocumentCleanerInterface[];
@@ -24,6 +25,7 @@ export class XmlDocumentCleaners implements XmlDocumentCleanerInterface {
                 new RemoveNonSatNamespacesNodes(),
                 new RemoveNonSatSchemaLocations(),
                 new RemoveUnusedNamespaces(),
+                new RenameElementAddPrefix(),
                 new MoveNamespaceDeclarationToRoot(),
                 new MoveSchemaLocationsToRoot(),
                 new SetKnownSchemaLocations(),
