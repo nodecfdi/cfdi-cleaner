@@ -1,6 +1,13 @@
 # @nodecfdi/cfdi-cleaner
 
-## Versión 1.2.0
+## Version 1.2.1
+
+- Se corrige `XmlNamespaceMethosTrait` estaba retornando en algunos casos específicos namespaceNodes que no eran
+  namespaces, haciendo que al iterar sobre ellos se consideraran atributos no namespace como namespace.
+- Se actualiza `SetKnownSchemaLocations` dado que se agrego un espacio conocido IngresosHidrocarburos 1.0.
+- Actualización de dependencias.
+
+# Versión 1.2.0
 
 ### Definición de XML namespace duplicado pero sin uso
 

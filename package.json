@@ -1,6 +1,6 @@
 {
     "name": "@nodecfdi/cfdi-cleaner",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "description": "Librería para limpiar comprobantes fiscales digitales v3.3",
     "main": "dist/cfdi-cleaner.cjs.js",
     "module": "dist/cfdi-cleaner.esm.js",
