@@ -10,7 +10,13 @@ import { XmlConstants } from './xml-constants';
  */
 export class XmlNamespaceMethodsTrait {
     protected *iterateNonReservedNamespaces(document: Document): Generator<Attr> {
-        const namespaceNodes = evaluate("(//*|//@*)[namespace-uri()!='']", document, null, 0, null);
+        const namespaceNodes = evaluate(
+            "(//*|//@*)[local-name(.)='xmlns' or starts-with(name(), 'xmlns')]",
+            document,
+            null,
+            0,
+            null
+        );
         let namespaceNode = namespaceNodes.iterateNext();
         while (namespaceNode) {
             if (DomValidators.isAttr(namespaceNode)) {
