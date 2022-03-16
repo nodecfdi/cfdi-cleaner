@@ -28,8 +28,8 @@ export class Cleaner {
     }
 
     public cleanStringToDocument(xml: string): Document {
-        xml = this.cleanString(xml);
-        const document = this.createDocument(xml);
+        const xmlClean = this.cleanString(xml);
+        const document = this.createDocument(xmlClean);
         this.cleanDocument(document);
         return document;
     }
