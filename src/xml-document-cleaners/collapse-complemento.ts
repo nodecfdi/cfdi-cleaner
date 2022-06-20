@@ -1,17 +1,17 @@
 import { XmlElementMethodsTrait } from '../internal/xml-element-methods-trait';
 import { XmlDocumentCleanerInterface } from '../xml-document-cleaner-interface';
 import { use } from 'typescript-mix';
-import { Cfdi3XPath } from '../internal/cfdi3-x-path';
+import { CfdiXPath } from '../internal/cfdi-x-path';
 
 interface CollapseComplemento extends XmlElementMethodsTrait {}
 
 class CollapseComplemento implements XmlDocumentCleanerInterface {
-    @use(XmlElementMethodsTrait)private this: unknown;
+    @use(XmlElementMethodsTrait) private this: unknown;
 
     public clean(document: Document): void {
-        const xpath3 = Cfdi3XPath.createFromDocument(document);
+        const xpath = CfdiXPath.createFromDocument(document);
 
-        const complementos = xpath3.queryElements<Element>('/cfdi:Comprobante/cfdi:Complemento');
+        const complementos = xpath.queryElements<Element>('/cfdi:Comprobante/cfdi:Complemento');
         if (complementos.length < 2) {
             return;
         }

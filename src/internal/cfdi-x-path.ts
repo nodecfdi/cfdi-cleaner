@@ -1,7 +1,7 @@
 import { select, SelectedValue, useNamespaces } from 'xpath';
 import { XmlConstants } from './xml-constants';
 
-export class Cfdi3XPath {
+export class CfdiXPath {
     private readonly document: Document;
     private readonly namespaces?: Record<string, string>;
 
@@ -10,12 +10,19 @@ export class Cfdi3XPath {
         this.namespaces = namespaces;
     }
 
-    public static createFromDocument(document: Document): Cfdi3XPath {
+    public static createFromDocument(document: Document): CfdiXPath {
+        const root = document.documentElement;
+        const rootAttribute = root.getAttributeNodeNS(XmlConstants.NAMESPACE_XMLNS, 'cfdi');
+        const namespaceCfdi =
+            rootAttribute?.nodeValue === 'http://www.sat.gob.mx/cfd/3'
+                ? 'http://www.sat.gob.mx/cfd/3'
+                : 'http://www.sat.gob.mx/cfd/4';
+
         const namespaces = {
-            cfdi: 'http://www.sat.gob.mx/cfd/3',
+            cfdi: namespaceCfdi,
             xsi: XmlConstants.NAMESPACE_XSI,
         };
-        return new Cfdi3XPath(document, namespaces);
+        return new CfdiXPath(document, namespaces);
     }
 
     public queryElements<T extends SelectedValue>(xpathQuery: string): T[] {

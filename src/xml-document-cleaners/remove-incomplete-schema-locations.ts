@@ -1,7 +1,7 @@
 import { XmlAttributeMethodsTrait } from '../internal/xml-attribute-methods-trait';
 import { XmlDocumentCleanerInterface } from '../xml-document-cleaner-interface';
 import { use } from 'typescript-mix';
-import { Cfdi3XPath } from '../internal/cfdi3-x-path';
+import { CfdiXPath } from '../internal/cfdi-x-path';
 import { SchemaLocation } from '../internal/schema-location';
 
 interface RemoveIncompleteSchemaLocations extends XmlAttributeMethodsTrait {}
@@ -10,7 +10,7 @@ class RemoveIncompleteSchemaLocations implements XmlDocumentCleanerInterface {
     @use(XmlAttributeMethodsTrait) private this: unknown;
 
     public clean(document: Document): void {
-        const xpath = Cfdi3XPath.createFromDocument(document);
+        const xpath = CfdiXPath.createFromDocument(document);
         const schemaLocations = xpath.queryAttributes<Attr>('//@xsi:schemaLocation');
         schemaLocations.forEach((schemaLocation) => {
             const value = this.cleanSchemaLocationValue(schemaLocation.value);

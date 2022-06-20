@@ -4,7 +4,7 @@ import { XmlDocumentCleanerInterface } from '../xml-document-cleaner-interface';
 import { use } from 'typescript-mix';
 import { XmlConstants } from '../internal/xml-constants';
 import { SchemaLocation } from '../internal/schema-location';
-import { Cfdi3XPath } from '../internal/cfdi3-x-path';
+import { CfdiXPath } from '../internal/cfdi-x-path';
 
 interface MoveSchemaLocationsToRoot extends XmlNamespaceMethodsTrait, XmlAttributeMethodsTrait {}
 
@@ -24,7 +24,7 @@ class MoveSchemaLocationsToRoot implements XmlDocumentCleanerInterface {
         if (!rootAttribute) return;
         const schemaLocation = SchemaLocation.createFromValue(rootAttribute.nodeValue || '');
 
-        const xpath = Cfdi3XPath.createFromDocument(document);
+        const xpath = CfdiXPath.createFromDocument(document);
         const schemaLocationAttributes = xpath.queryAttributes<Attr>(
             '//@*[local-name()="schemaLocation" or local-name()="xsi"]'
         );

@@ -1,4 +1,4 @@
-import { Cfdi3XPath } from '../../../src/internal/cfdi3-x-path';
+import { CfdiXPath } from '../../../src/internal/cfdi-x-path';
 import { DomValidators, Xml } from '@nodecfdi/cfdiutils-common';
 
 describe('Internal/Cfdi3XPath', () => {
@@ -24,7 +24,7 @@ describe('Internal/Cfdi3XPath', () => {
                 '</cfdi:Comprobante>',
             ].join('\n')
         );
-        const xpath3 = Cfdi3XPath.createFromDocument(document);
+        const xpath3 = CfdiXPath.createFromDocument(document);
         const complementos = xpath3.queryElements<Node>('/cfdi:Comprobante/cfdi:Complemento');
         expect(complementos).toHaveLength(3);
     });
@@ -40,7 +40,7 @@ describe('Internal/Cfdi3XPath', () => {
                 '</root>',
             ].join('\n')
         );
-        const xpath3 = Cfdi3XPath.createFromDocument(document);
+        const xpath3 = CfdiXPath.createFromDocument(document);
         const schemaLocationAttributes = xpath3.queryAttributes<Attr>('//@xsi:schemaLocation');
         expect(schemaLocationAttributes).toHaveLength(3);
         schemaLocationAttributes.forEach((schemaLocationAttribute) => {
