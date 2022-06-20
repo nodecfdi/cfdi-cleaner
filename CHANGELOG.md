@@ -1,5 +1,10 @@
 # @nodecfdi/cfdi-cleaner
 
+## Version 1.2.2
+
+- Se corrige `XmlAttributeMethodsTrait` estaba borrando temporalmente un valor en el atributo cuando se esperaba que lo borrara permanentemente, lo que ocasionaba que al consultar nuevamente el valor del atributo se siguiera mostrando el valor anterior. De la misma manera se agrega un test que confirma que ya no ocurra dicho problema.
+- Actualización de dependencias.
+
 ## Version 1.2.1
 
 - Se corrige `XmlNamespaceMethosTrait` estaba retornando en algunos casos específicos namespaceNodes que no eran
