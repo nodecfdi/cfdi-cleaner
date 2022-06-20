@@ -1,5 +1,10 @@
 # @nodecfdi/cfdi-cleaner
 
+## Version 1.2.3
+- Se agrega soporte para namespaces de cfdi4.0 donde en la busqueda de xpath no consideraba los casos de cfdi namespace para 4.0
+- Se corrige remove addendas para considerar el caso donde se desea remover la adenda de cfdi4.0
+- Se renombre clase Interna puesto que ahora no solo es una busqueda de xpath en 3.x si no que tambien 4.
+
 ## Version 1.2.2
 
 - Se corrige `XmlAttributeMethodsTrait` estaba borrando temporalmente un valor en el atributo cuando se esperaba que lo borrara permanentemente, lo que ocasionaba que al consultar nuevamente el valor del atributo se siguiera mostrando el valor anterior. De la misma manera se agrega un test que confirma que ya no ocurra dicho problema.
