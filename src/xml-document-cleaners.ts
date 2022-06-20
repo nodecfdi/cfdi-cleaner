@@ -35,8 +35,8 @@ export class XmlDocumentCleaners implements XmlDocumentCleanerInterface {
     }
 
     public clean(document: Document): void {
-        this.cleaners.forEach((cleaner) => {
+        for (const cleaner of this.cleaners) {
             cleaner.clean(document);
-        });
+        }
     }
 }

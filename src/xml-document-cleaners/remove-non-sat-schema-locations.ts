@@ -1,5 +1,4 @@
 import { XmlNamespaceMethodsTrait } from '../internal/xml-namespace-methods-trait';
-
 import { XmlAttributeMethodsTrait } from '../internal/xml-attribute-methods-trait';
 import { XmlDocumentCleanerInterface } from '../xml-document-cleaner-interface';
 import { use } from 'typescript-mix';

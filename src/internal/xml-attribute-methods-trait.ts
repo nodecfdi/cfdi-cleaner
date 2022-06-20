@@ -16,5 +16,6 @@ export class XmlAttributeMethodsTrait {
         }
 
         attribute.value = value;
+        attribute.nodeValue = value;
     }
 }

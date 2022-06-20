@@ -10,7 +10,7 @@ describe('Cleaner', () => {
             'DIRTY',
             '<cfdi:Comprobante xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"',
             ' xmlns:cfdi="http://www.sat.gob.mx/cfd/3"',
-            ' xsi:schemaLocation="http://www.sat.gob.mx/cfd/3 cfdi33.xsd"',
+            ' xsi:schemaLocation="http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd http://nrfm.tbwa.mx/AddendaEmisor http://nrfm.tbwa.mx/AddendaEmisor/AddendaEmisorNFRM.xsd http://www.pegasotecnologia.com/secfd/Schemas/AddendaDomicilioEmisor http://www.pegasotecnologia.com/secfd/schemas/AddendaDomicilioEmisor.xsd http://www.pegasotecnologia.com/secfd/Schemas/AddendaDomicilioExpedidoEn http://www.pegasotecnologia.com/secfd/schemas/AddendaDomicilioExpedidoEn.xsd"',
             ' Version="3.3"/>',
         ].join('');
 
@@ -113,6 +113,7 @@ describe('Cleaner', () => {
 
         const xmlClean = new XMLSerializer().serializeToString(document);
         const xmlExpected = new XMLSerializer().serializeToString(cleanDocument);
+
         expect(xmlClean).toEqualXML(xmlExpected);
     });
 });
