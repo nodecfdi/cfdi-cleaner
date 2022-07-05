@@ -12,12 +12,10 @@ describe('RemoveIncompleteSchemaLocations', () => {
             'http://tempuri.org/root http://tempuri.org/root.xsd',
             'http://tempuri.org/foo',
             'http://tempuri.org/bar http://tempuri.org/bar.xsd',
-            'http://tempuri.org/one.xsd',
+            '                       http://tempuri.org/one.xsd',
             'http://tempuri.org/two http://tempuri.org/two.xsd',
             'http://tempuri.org/three http://tempuri.org/three'
-        ]
-            .join(' ')
-            .trim();
+        ].join(' ');
 
         const expectedPairs = {
             'http://tempuri.org/root': 'http://tempuri.org/root.xsd',
@@ -37,7 +35,7 @@ describe('RemoveIncompleteSchemaLocations', () => {
         ['location.XSD', true],
         ['location.Xsd', true],
         ['location..xsd', true]
-    ])('uri ends with xsd', (uri: string, expected: boolean) => {
+    ])('uri ends with xsd %s', (uri: string, expected: boolean) => {
         expect(cleaner.uriEndsWithXsd(uri)).toBe(expected);
     });
 });

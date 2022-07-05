@@ -60,7 +60,7 @@ describe('CollapseComplemento', () => {
     test('clean cfdi with three complementos', () => {
         const document = Xml.newDocumentContent(
             [
-                '<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3">',
+                '<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/4">',
                 ' <cfdi:Complemento>',
                 '   <foo:Foo id="first" xmlns:foo="http://tempuri.org/foo">',
                 '     <foo:Child/>',
@@ -83,7 +83,7 @@ describe('CollapseComplemento', () => {
         );
         const expected = Xml.newDocumentContent(
             [
-                '<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3">',
+                '<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/4">',
                 ' <cfdi:Complemento>',
                 '   <foo:Foo id="first" xmlns:foo="http://tempuri.org/foo">',
                 '     <foo:Child/>',
