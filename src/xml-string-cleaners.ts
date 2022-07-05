@@ -23,9 +23,9 @@ export class XmlStringCleaners implements XmlStringCleanerInterface {
     }
 
     public clean(xml: string): string {
-        this.cleaners.forEach((cleaner) => {
+        for (const cleaner of this.cleaners) {
             xml = cleaner.clean(xml);
-        });
+        }
 
         return xml;
     }

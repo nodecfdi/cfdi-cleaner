@@ -5,9 +5,6 @@ import { XmlDocumentCleanerInterface } from '../xml-document-cleaner-interface';
 class RenameElementAddPrefix extends Mixin(XmlNamespaceMethodsTrait) implements XmlDocumentCleanerInterface {
     public clean(document: Document): void {
         const rootElement = document.documentElement;
-        if (!rootElement) {
-            return;
-        }
 
         // remove unused xmlns declarations
         for (const namespaceNode of this.iterateNonReservedNamespaces(document)) {
@@ -28,8 +25,8 @@ class RenameElementAddPrefix extends Mixin(XmlNamespaceMethodsTrait) implements 
     }
 
     private queryPrefix(element: Element): string {
-        const namespace = element.namespaceURI || '';
-        if ('' === namespace) {
+        const namespace = element.namespaceURI;
+        if (namespace === null) {
             return '';
         }
 
@@ -39,7 +36,7 @@ class RenameElementAddPrefix extends Mixin(XmlNamespaceMethodsTrait) implements 
                 continue;
             }
 
-            const prefix = namespaceNode.localName || '';
+            const prefix = namespaceNode.localName;
             if ('' !== prefix && namespaceNode.nodeValue === namespace) {
                 return prefix;
             }

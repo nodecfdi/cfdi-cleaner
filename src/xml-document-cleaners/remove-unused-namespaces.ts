@@ -11,7 +11,11 @@ class RemoveUnusedNamespaces extends Mixin(XmlNamespaceMethodsTrait) implements 
     }
 
     private checkNamespaceNode(document: Document, namespaceNode: Attr): void {
-        const namespace = namespaceNode.nodeValue || '';
+        const namespace = namespaceNode.nodeValue;
+        if (namespace === null) {
+            return;
+        }
+
         const localName = '' !== namespaceNode.localName ? namespaceNode.localName + ':' : '';
         if (!this.isPrefixedNamespaceOnUse(document, namespace, localName)) {
             this.removeNamespaceNodeAttribute(namespaceNode);

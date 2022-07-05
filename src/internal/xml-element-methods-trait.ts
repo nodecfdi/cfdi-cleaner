@@ -5,7 +5,7 @@
 export class XmlElementMethodsTrait {
     protected elementRemove(element: Element): void {
         const parent = element.parentNode;
-        if (parent) {
+        if (parent !== null) {
             parent.removeChild(element);
         }
     }

@@ -4,7 +4,10 @@
  */
 export class XmlAttributeMethodsTrait {
     protected attributeRemove(attribute: Attr): void {
-        attribute.ownerElement?.removeAttribute(attribute.nodeName);
+        const ownerElement = attribute.ownerElement;
+        if (null !== ownerElement) {
+            ownerElement.removeAttribute(attribute.nodeName);
+        }
     }
 
     protected attributeSetValueOrRemoveIfEmpty(attribute: Attr, value: string): void {

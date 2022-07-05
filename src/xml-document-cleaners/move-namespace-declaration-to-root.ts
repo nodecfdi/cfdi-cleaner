@@ -6,9 +6,6 @@ import { XmlConstants } from '../internal/xml-constants';
 class MoveNamespaceDeclarationToRoot extends Mixin(XmlNamespaceMethodsTrait) implements XmlDocumentCleanerInterface {
     public clean(document: Document): void {
         const rootElement = document.documentElement;
-        if (!rootElement) {
-            return;
-        }
 
         for (const namespaceNode of this.iterateNonReservedNamespaces(document)) {
             this.cleanNameSpaceNode(rootElement, namespaceNode);

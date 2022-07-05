@@ -12,16 +12,12 @@ class MoveSchemaLocationsToRoot
 {
     public clean(document: Document): void {
         const root = document.documentElement;
-        if (!root) {
-            return;
-        }
 
         if (!root.hasAttributeNS(XmlConstants.NAMESPACE_XSI, 'schemaLocation')) {
             root.setAttributeNS(XmlConstants.NAMESPACE_XSI, 'xsi:schemaLocation', '');
         }
-        const rootAttribute = root.getAttributeNodeNS(XmlConstants.NAMESPACE_XSI, 'schemaLocation');
-        if (!rootAttribute) return;
-        const schemaLocation = SchemaLocation.createFromValue(rootAttribute.nodeValue || '');
+        const rootAttribute = root.getAttributeNodeNS(XmlConstants.NAMESPACE_XSI, 'schemaLocation') as Attr;
+        const schemaLocation = SchemaLocation.createFromValue(rootAttribute.nodeValue as string);
 
         const xpath = CfdiXPath.createFromDocument(document);
         const schemaLocationAttributes = xpath.queryAttributes<Attr>(
@@ -31,10 +27,12 @@ class MoveSchemaLocationsToRoot
             if (rootAttribute === schemaLocationAttribute) {
                 continue;
             }
+
             if (schemaLocationAttribute.localName !== 'xsi') {
                 const currenSchemaLocation = SchemaLocation.createFromValue(schemaLocationAttribute.nodeValue || '');
                 schemaLocation.import(currenSchemaLocation);
             }
+
             this.attributeRemove(schemaLocationAttribute);
         }
 
