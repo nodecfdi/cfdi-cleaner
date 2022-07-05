@@ -1,12 +1,12 @@
-import 'jest-xml-matcher';
-import { Xml } from '@nodecfdi/cfdiutils-common';
-import { XMLSerializer } from '@xmldom/xmldom';
-import { CollapseComplemento } from '../../../src';
+import { Xml, install } from '@nodecfdi/cfdiutils-common';
+import { DOMParser, XMLSerializer, DOMImplementation } from '@xmldom/xmldom';
+import { CollapseComplemento } from '~/index';
 
 describe('CollapseComplemento', () => {
     let cleaner: CollapseComplemento;
 
     beforeAll(() => {
+        install(new DOMParser(), new XMLSerializer(), new DOMImplementation());
         cleaner = new CollapseComplemento();
     });
 
@@ -24,7 +24,7 @@ describe('CollapseComplemento', () => {
                 '           <foo:Child/>',
                 '       </foo:Foo>',
                 '   </cfdi:Complemento>',
-                '</cfdi:Comprobante>',
+                '</cfdi:Comprobante>'
             ].join('\n')
         );
         const xmlBeforeClean = new XMLSerializer().serializeToString(document);
@@ -47,7 +47,7 @@ describe('CollapseComplemento', () => {
                 '            <foo:Child/>',
                 '        </foo:Foo>',
                 '    </cfdi:Complemento>',
-                '</cfdi:Comprobante>',
+                '</cfdi:Comprobante>'
             ].join('\n')
         );
         const xmlBeforeClean = new XMLSerializer().serializeToString(document);
@@ -60,7 +60,7 @@ describe('CollapseComplemento', () => {
     test('clean cfdi with three complementos', () => {
         const document = Xml.newDocumentContent(
             [
-                '<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3">',
+                '<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/4">',
                 ' <cfdi:Complemento>',
                 '   <foo:Foo id="first" xmlns:foo="http://tempuri.org/foo">',
                 '     <foo:Child/>',
@@ -78,12 +78,12 @@ describe('CollapseComplemento', () => {
                 '     <foo:Child/>',
                 '   </foo:Foo>',
                 ' </cfdi:Complemento>',
-                '</cfdi:Comprobante>',
+                '</cfdi:Comprobante>'
             ].join('')
         );
         const expected = Xml.newDocumentContent(
             [
-                '<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3">',
+                '<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/4">',
                 ' <cfdi:Complemento>',
                 '   <foo:Foo id="first" xmlns:foo="http://tempuri.org/foo">',
                 '     <foo:Child/>',
@@ -95,7 +95,7 @@ describe('CollapseComplemento', () => {
                 '     <foo:Child/>',
                 '   </foo:Foo>',
                 ' </cfdi:Complemento>',
-                '</cfdi:Comprobante>',
+                '</cfdi:Comprobante>'
             ].join('')
         );
 

@@ -1,18 +1,11 @@
+import { Mixin } from 'ts-mixer';
 import { XmlNamespaceMethodsTrait } from '../internal/xml-namespace-methods-trait';
 import { XmlDocumentCleanerInterface } from '../xml-document-cleaner-interface';
-import { use } from 'typescript-mix';
 import { XmlConstants } from '../internal/xml-constants';
 
-interface MoveNamespaceDeclarationToRoot extends XmlNamespaceMethodsTrait {}
-
-class MoveNamespaceDeclarationToRoot implements XmlDocumentCleanerInterface {
-    @use(XmlNamespaceMethodsTrait) private this: unknown;
-
+class MoveNamespaceDeclarationToRoot extends Mixin(XmlNamespaceMethodsTrait) implements XmlDocumentCleanerInterface {
     public clean(document: Document): void {
         const rootElement = document.documentElement;
-        if (!rootElement) {
-            return;
-        }
 
         for (const namespaceNode of this.iterateNonReservedNamespaces(document)) {
             this.cleanNameSpaceNode(rootElement, namespaceNode);

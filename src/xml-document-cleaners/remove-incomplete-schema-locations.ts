@@ -1,37 +1,34 @@
+import { Mixin } from 'ts-mixer';
 import { XmlAttributeMethodsTrait } from '../internal/xml-attribute-methods-trait';
 import { XmlDocumentCleanerInterface } from '../xml-document-cleaner-interface';
-import { use } from 'typescript-mix';
 import { CfdiXPath } from '../internal/cfdi-x-path';
 import { SchemaLocation } from '../internal/schema-location';
 
-interface RemoveIncompleteSchemaLocations extends XmlAttributeMethodsTrait {}
-
-class RemoveIncompleteSchemaLocations implements XmlDocumentCleanerInterface {
-    @use(XmlAttributeMethodsTrait) private this: unknown;
-
+class RemoveIncompleteSchemaLocations extends Mixin(XmlAttributeMethodsTrait) implements XmlDocumentCleanerInterface {
     public clean(document: Document): void {
         const xpath = CfdiXPath.createFromDocument(document);
-        const schemaLocations = xpath.queryAttributes<Attr>('//@xsi:schemaLocation');
-        schemaLocations.forEach((schemaLocation) => {
+        const schemaLocations = xpath.querySchemaLocations();
+        for (const schemaLocation of schemaLocations) {
             const value = this.cleanSchemaLocationValue(schemaLocation.value);
             this.attributeSetValueOrRemoveIfEmpty(schemaLocation, value);
-        }, this);
+        }
     }
 
     /**
-     * @param schemaLocationValue
+     * @param schemaLocationValue - SchemaLocation
      * @internal
      */
     public cleanSchemaLocationValue(schemaLocationValue: string): string {
         const pairs = this.schemaLocationValueNamespaceXsdPairToArray(schemaLocationValue);
         const schemaLocation = new SchemaLocation(pairs);
+
         return schemaLocation.asValue();
     }
 
     /**
      * Parses schema location value skipping namespaces without xsd locations (identified by .xsd extension)
      *
-     * @param schemaLocationValue
+     * @param schemaLocationValue - SchemaLocation
      * @internal
      */
     public schemaLocationValueNamespaceXsdPairToArray(schemaLocationValue: string): Record<string, string> {
@@ -52,8 +49,9 @@ class RemoveIncompleteSchemaLocations implements XmlDocumentCleanerInterface {
 
             // namespace match with location that ends with xsd
             pairs[namespace] = location;
-            c = c + 1; // skip ns declaration
+            c++; // skip ns declaration
         }
+
         return pairs;
     }
 

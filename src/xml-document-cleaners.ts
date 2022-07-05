@@ -29,7 +29,7 @@ export class XmlDocumentCleaners implements XmlDocumentCleanerInterface {
                 new MoveNamespaceDeclarationToRoot(),
                 new MoveSchemaLocationsToRoot(),
                 new SetKnownSchemaLocations(),
-                new CollapseComplemento(),
+                new CollapseComplemento()
             ]
         );
     }

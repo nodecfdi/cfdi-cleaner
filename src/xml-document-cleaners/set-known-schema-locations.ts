@@ -1,16 +1,15 @@
+import { Mixin } from 'ts-mixer';
+import { useNamespaces } from 'xpath';
 import { XmlNamespaceMethodsTrait } from '../internal/xml-namespace-methods-trait';
 import { XmlAttributeMethodsTrait } from '../internal/xml-attribute-methods-trait';
 import { XmlDocumentCleanerInterface } from '../xml-document-cleaner-interface';
-import { use } from 'typescript-mix';
-import { useNamespaces } from 'xpath';
-import { XmlConstants } from '../internal/xml-constants';
 import { SchemaLocation } from '../internal/schema-location';
+import { CfdiXPath } from '../internal/cfdi-x-path';
 
-interface SetKnownSchemaLocations extends XmlNamespaceMethodsTrait, XmlAttributeMethodsTrait {}
-
-class SetKnownSchemaLocations implements XmlDocumentCleanerInterface {
-    @use(XmlNamespaceMethodsTrait, XmlAttributeMethodsTrait) private this: unknown;
-
+class SetKnownSchemaLocations
+    extends Mixin(XmlNamespaceMethodsTrait, XmlAttributeMethodsTrait)
+    implements XmlDocumentCleanerInterface
+{
     /**
      * List of known namespace # version xsd locations as key value map
      * @see https://github.com/phpcfdi/sat-ns-registry
@@ -120,19 +119,19 @@ class SetKnownSchemaLocations implements XmlDocumentCleanerInterface {
             'http://www.sat.gob.mx/esquemas/retencionpago/1/sectorfinanciero/sectorfinanciero.xsd',
         'http://www.sat.gob.mx/esquemas/retencionpago/1/PlataformasTecnologicas10#1.0':
             'http://www.sat.gob.mx/esquemas/retencionpago/1/' +
-            'PlataformasTecnologicas10/ServiciosPlataformasTecnologicas10.xsd',
+            'PlataformasTecnologicas10/ServiciosPlataformasTecnologicas10.xsd'
     };
 
     public clean(document: Document): void {
-        const selectXpath = useNamespaces({ xs: XmlConstants.NAMESPACE_XSI });
-        const schemaLocationAttributes = selectXpath('//@xs:schemaLocation', document) as Attr[];
-        schemaLocationAttributes.forEach((schemaLocationAttribute) => {
+        const xpath = CfdiXPath.createFromDocument(document);
+        const schemaLocationAttributes = xpath.querySchemaLocations();
+        for (const schemaLocationAttribute of schemaLocationAttributes) {
             this.cleanNodeAttribute(document, schemaLocationAttribute);
-        });
+        }
     }
 
     private cleanNodeAttribute(document: Document, attribute: Attr): void {
-        const schemaLocation = SchemaLocation.createFromValue(attribute.nodeValue || '');
+        const schemaLocation = SchemaLocation.createFromValue(attribute.nodeValue as string);
         Object.entries(schemaLocation.getPairs()).forEach(([namespace, location]) => {
             const version = this.obtainVersionOfNamespace(document, namespace);
             location = this.obtainLocationForNamespaceVersion(namespace, version, location);
@@ -160,7 +159,7 @@ class SetKnownSchemaLocations implements XmlDocumentCleanerInterface {
             return '';
         }
 
-        return nodes[0].attributes.getNamedItem(attributeName)?.nodeValue || '';
+        return nodes[0].attributes.getNamedItem(attributeName)?.nodeValue as string;
     }
 
     private obtainLocationForNamespaceVersion(namespace: string, version: string, defaultV: string): string {
@@ -171,7 +170,7 @@ class SetKnownSchemaLocations implements XmlDocumentCleanerInterface {
      * Pairs of key-value of namespace and version to XSD locations
      * Key: namespace#version
      * Value: location
-     * @return Record<string, string>
+     * @returns Record
      */
     public static getKnowNamespaces(): Record<string, string> {
         return SetKnownSchemaLocations.KNOWN_NAMESPACES;

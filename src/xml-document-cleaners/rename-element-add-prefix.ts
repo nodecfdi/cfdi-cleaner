@@ -1,17 +1,10 @@
+import { Mixin } from 'ts-mixer';
 import { XmlNamespaceMethodsTrait } from '../internal/xml-namespace-methods-trait';
 import { XmlDocumentCleanerInterface } from '../xml-document-cleaner-interface';
-import { use } from 'typescript-mix';
 
-interface RenameElementAddPrefix extends XmlNamespaceMethodsTrait {}
-
-class RenameElementAddPrefix implements XmlDocumentCleanerInterface {
-    @use(XmlNamespaceMethodsTrait) private this: unknown;
-
+class RenameElementAddPrefix extends Mixin(XmlNamespaceMethodsTrait) implements XmlDocumentCleanerInterface {
     public clean(document: Document): void {
         const rootElement = document.documentElement;
-        if (!rootElement) {
-            return;
-        }
 
         // remove unused xmlns declarations
         for (const namespaceNode of this.iterateNonReservedNamespaces(document)) {
@@ -32,8 +25,8 @@ class RenameElementAddPrefix implements XmlDocumentCleanerInterface {
     }
 
     private queryPrefix(element: Element): string {
-        const namespace = element.namespaceURI || '';
-        if ('' === namespace) {
+        const namespace = element.namespaceURI;
+        if (namespace === null) {
             return '';
         }
 
@@ -43,7 +36,7 @@ class RenameElementAddPrefix implements XmlDocumentCleanerInterface {
                 continue;
             }
 
-            const prefix = namespaceNode.localName || '';
+            const prefix = namespaceNode.localName;
             if ('' !== prefix && namespaceNode.nodeValue === namespace) {
                 return prefix;
             }

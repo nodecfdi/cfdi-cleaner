@@ -17,15 +17,16 @@ export class XmlStringCleaners implements XmlStringCleanerInterface {
                 new RemoveNonXmlStrings(),
                 new SplitXmlDeclarationFromDocument(),
                 new AppendXmlDeclaration(),
-                new XmlNsSchemaLocation(),
+                new XmlNsSchemaLocation()
             ]
         );
     }
 
     public clean(xml: string): string {
-        this.cleaners.forEach((cleaner) => {
+        for (const cleaner of this.cleaners) {
             xml = cleaner.clean(xml);
-        });
+        }
+
         return xml;
     }
 }

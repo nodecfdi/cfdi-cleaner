@@ -1,4 +1,4 @@
-import { RemoveIncompleteSchemaLocations } from '../../../src/xml-document-cleaners/remove-incomplete-schema-locations';
+import { RemoveIncompleteSchemaLocations } from '~/xml-document-cleaners/remove-incomplete-schema-locations';
 
 describe('RemoveIncompleteSchemaLocations', () => {
     let cleaner: RemoveIncompleteSchemaLocations;
@@ -12,17 +12,15 @@ describe('RemoveIncompleteSchemaLocations', () => {
             'http://tempuri.org/root http://tempuri.org/root.xsd',
             'http://tempuri.org/foo',
             'http://tempuri.org/bar http://tempuri.org/bar.xsd',
-            'http://tempuri.org/one.xsd',
+            '                       http://tempuri.org/one.xsd',
             'http://tempuri.org/two http://tempuri.org/two.xsd',
-            'http://tempuri.org/three http://tempuri.org/three',
-        ]
-            .join(' ')
-            .trim();
+            'http://tempuri.org/three http://tempuri.org/three'
+        ].join(' ');
 
         const expectedPairs = {
             'http://tempuri.org/root': 'http://tempuri.org/root.xsd',
             'http://tempuri.org/bar': 'http://tempuri.org/bar.xsd',
-            'http://tempuri.org/two': 'http://tempuri.org/two.xsd',
+            'http://tempuri.org/two': 'http://tempuri.org/two.xsd'
         };
 
         const pairs = cleaner.schemaLocationValueNamespaceXsdPairToArray(input);
@@ -36,8 +34,8 @@ describe('RemoveIncompleteSchemaLocations', () => {
         ['location.xsd', true],
         ['location.XSD', true],
         ['location.Xsd', true],
-        ['location..xsd', true],
-    ])('uri ends with xsd', (uri: string, expected: boolean) => {
+        ['location..xsd', true]
+    ])('uri ends with xsd %s', (uri: string, expected: boolean) => {
         expect(cleaner.uriEndsWithXsd(uri)).toBe(expected);
     });
 });

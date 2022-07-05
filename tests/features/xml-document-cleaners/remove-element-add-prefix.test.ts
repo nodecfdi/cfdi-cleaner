@@ -1,10 +1,13 @@
-import 'jest-xml-matcher';
-import { Xml } from '@nodecfdi/cfdiutils-common';
-import { RenameElementAddPrefix } from '../../../src/xml-document-cleaners/rename-element-add-prefix';
-import { XMLSerializer } from '@xmldom/xmldom';
+import { Xml, install } from '@nodecfdi/cfdiutils-common';
+import { DOMParser, XMLSerializer, DOMImplementation } from '@xmldom/xmldom';
+import { RenameElementAddPrefix } from '~/xml-document-cleaners/rename-element-add-prefix';
 
 describe('RemoveElementAddPrefix', () => {
     const cleaner = new RenameElementAddPrefix();
+
+    beforeAll(() => {
+        install(new DOMParser(), new XMLSerializer(), new DOMImplementation());
+    });
 
     test('rename element add prefix', () => {
         // NOTICE:
@@ -18,7 +21,7 @@ describe('RemoveElementAddPrefix', () => {
                 '  <first xmlns="http://tempuri.org/root" id="1" />',
                 '  <r:second xmlns:r="http://tempuri.org/root" id="2" />',
                 '  <r:third xmlns="http://tempuri.org/root" id="3" />',
-                '</r:root>',
+                '</r:root>'
             ].join('\n')
         );
 
@@ -30,7 +33,7 @@ describe('RemoveElementAddPrefix', () => {
                 '  <r:first id="1" />',
                 '  <r:second id="2" />',
                 '  <r:third id="3" />',
-                '</r:root>',
+                '</r:root>'
             ].join('\n')
         );
 

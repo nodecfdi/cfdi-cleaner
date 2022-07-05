@@ -1,10 +1,10 @@
-import { XMLSerializer } from '@xmldom/xmldom';
 import { XmlStringCleaners } from './xml-string-cleaners';
 import { XmlDocumentCleaners } from './xml-document-cleaners';
-import { Xml } from '@nodecfdi/cfdiutils-common';
+import { Xml, getSerializer } from '@nodecfdi/cfdiutils-common';
 
 export class Cleaner {
     private stringCleaners: XmlStringCleaners;
+
     private xmlCleaners: XmlDocumentCleaners;
 
     constructor(
@@ -31,11 +31,12 @@ export class Cleaner {
         const xmlClean = this.cleanString(xml);
         const document = this.createDocument(xmlClean);
         this.cleanDocument(document);
+
         return document;
     }
 
     public cleanStringToString(xml: string): string {
-        return new XMLSerializer().serializeToString(this.cleanStringToDocument(xml));
+        return getSerializer().serializeToString(this.cleanStringToDocument(xml));
     }
 
     protected createDocument(xml: string): Document {

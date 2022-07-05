@@ -9,8 +9,8 @@ export class SchemaLocation {
     /**
      * SchemaLocation constructor
      *
-     * @param pairs On each entry: key is namespace, value is location
-     * @private
+     * @param pairs - On each entry: key is namespace, value is location
+     *
      */
     constructor(pairs: Record<string, string>) {
         this.pairs = pairs;
@@ -30,8 +30,9 @@ export class SchemaLocation {
     public static createFromComponents(components: string[]): SchemaLocation {
         const pairs: Record<string, string> = {};
         for (let i = 0; i < components.length; i = i + 2) {
-            pairs[components[i]] = components[i + 1] || '';
+            pairs[components[i]] = components[i + 1] ?? '';
         }
+
         return new SchemaLocation(pairs);
     }
 
@@ -58,7 +59,7 @@ export class SchemaLocation {
     public import(source: SchemaLocation): void {
         this.pairs = {
             ...this.pairs,
-            ...source.pairs,
+            ...source.pairs
         };
     }
 }

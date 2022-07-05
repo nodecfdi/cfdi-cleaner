@@ -1,6 +1,28 @@
 # @nodecfdi/cfdi-cleaner
 
+## Version 1.3.0
+
+### DOM Agnostic
+
+Se agrega soporte a DOM Agnostic resaltando que para su correcto funcionamiento se debera hacer uso de la libreria común `@nodecfdi/cfdiutils-common` y su método install para proporcionarle nuestra lib preferida de gestión de DOM. Antes del uso de cfdi-cleaner.
+
+```ts
+import { install } from '@nodecfdi/cfdiutils-common';
+
+install(domParserInstance, xmlSerializerInstance, domImplementationInstance);
+```
+
+### CI
+
+- Se actualizan los workflow para usar pnpm y se refactorizan métodos para cumplir con un mayor coverage.
+- Se agrega Sonarcloud para una mejor calidad de código.
+
+### Build
+
+- Se cambia Rollup bundle por microbundle para la generación de la libreria.
+
 ## Version 1.2.3
+
 - Se agrega soporte para namespaces de cfdi4.0 donde en la busqueda de xpath no consideraba los casos de cfdi namespace para 4.0
 - Se corrige remove addendas para considerar el caso donde se desea remover la adenda de cfdi4.0
 - Se renombre clase Interna puesto que ahora no solo es una busqueda de xpath en 3.x si no que tambien 4.
@@ -17,7 +39,7 @@
 - Se actualiza `SetKnownSchemaLocations` dado que se agrego un espacio conocido IngresosHidrocarburos 1.0.
 - Actualización de dependencias.
 
-# Versión 1.2.0
+## Versión 1.2.0
 
 ### Definición de XML namespace duplicado pero sin uso
 
@@ -48,7 +70,7 @@ detecte también el prefijo. Con este cambio, el resultado de la limpieza sería
 
 ### Definición de XML namespace duplicado y sin prefijo
 
-Se han encontrado casos donde hay CFDI *sucios*, pero válidos, donde la definición de los nodos no cuenta con un
+Se han encontrado casos donde hay CFDI _sucios_, pero válidos, donde la definición de los nodos no cuenta con un
 prefijo. En estos casos el limpiador está produciendo un CFDI inválido después de limpiar.
 
 Para corregir este problema:
@@ -104,7 +126,7 @@ es correcto, pero como CFDI ya no lo es:
 
 ### Mejoras al manejo interno de definiciones de espacios de nombres XML
 
-Se modificó el *trait* `XmlNamespaceMethodsTrait` para que detectara si un elemento de espacios de nombres
+Se modificó el _trait_ `XmlNamespaceMethodsTrait` para que detectara si un elemento de espacios de nombres
 `DOMNameSpaceNode` está eliminado revisando si la propiedad `namespaceURI` es `NULL`. Antes se validaba contra la
 propiedad `nodeValue`, pero esta propiedad puede ser vacía, por ejemplo en `xmlns=""`.
 
@@ -112,17 +134,17 @@ Al momento de verificar si un espacio de nombres es reservado, ya no se excluye 
 
 ### Eliminación de definición de espacio de nombres sin prefijo
 
-Se modificó el *trait* `XmlNamespaceMethodsTrait` para que pueda eliminar un espacio de nombres sin prefijo, por
+Se modificó el _trait_ `XmlNamespaceMethodsTrait` para que pueda eliminar un espacio de nombres sin prefijo, por
 ejemplo `xmlns="http://tempuri.org/root"` o `xmlns=""`.
 
 ## Versión 1.1.2
 
 - Se actualiza la lista de espacios de nombres conocidos para:
-    - Cfdi 4.0
-    - Cfdi de retenciones e información de pagos 2.0
-    - Complemento de pagos 2.0
-    - Complemento de carta porte 1.0
-    - Complemento de carta porte 2.0
+  - Cfdi 4.0
+  - Cfdi de retenciones e información de pagos 2.0
+  - Complemento de pagos 2.0
+  - Complemento de carta porte 1.0
+  - Complemento de carta porte 2.0
 - Se agrega una prueba que usa <https://github.com/phpcdi/sat-ns-registry> para verificar que la lista se mantiene
   actualizada.
 

@@ -13,6 +13,7 @@ export class TestCase {
         if (!existsSync(path)) {
             return '';
         }
+
         return readFileSync(path).toString();
     }
 }

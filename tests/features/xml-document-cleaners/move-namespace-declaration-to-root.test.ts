@@ -1,12 +1,12 @@
-import 'jest-xml-matcher';
-import { Xml } from '@nodecfdi/cfdiutils-common';
-import { MoveNamespaceDeclarationToRoot } from '../../../src';
-import { XMLSerializer } from '@xmldom/xmldom';
+import { Xml, install } from '@nodecfdi/cfdiutils-common';
+import { DOMParser, XMLSerializer, DOMImplementation } from '@xmldom/xmldom';
+import { MoveNamespaceDeclarationToRoot } from '~/index';
 
 describe('MoveNamespaceDeclarationToRoot', () => {
     let cleaner: MoveNamespaceDeclarationToRoot;
 
     beforeAll(() => {
+        install(new DOMParser(), new XMLSerializer(), new DOMImplementation());
         cleaner = new MoveNamespaceDeclarationToRoot();
     });
 
@@ -17,7 +17,7 @@ describe('MoveNamespaceDeclarationToRoot', () => {
                 '   <foo:foo xmlns:foo="http://tempuri.org/foo"/>',
                 '   <bar:bar xmlns:bar="http://tempuri.org/bar"/>',
                 '   <xee/>',
-                '</r:root>',
+                '</r:root>'
             ].join('\n')
         );
 
@@ -29,7 +29,7 @@ describe('MoveNamespaceDeclarationToRoot', () => {
                 '   <foo:foo/>',
                 '   <bar:bar/>',
                 '   <xee/>',
-                '</r:root>',
+                '</r:root>'
             ].join('\n')
         );
 
@@ -47,7 +47,7 @@ describe('MoveNamespaceDeclarationToRoot', () => {
                 '       <cfdi:Otro xmlns:cfdi="http://www.sat.gob.mx/otro" />',
                 '       <tfd:TimbreFiscalDigital xmlns:tfd="http://www.sat.gob.mx/TimbreFiscalDigital" />',
                 '   </cfdi:Complemento>',
-                '</cfdi:Comprobante>',
+                '</cfdi:Comprobante>'
             ].join('\n')
         );
 
@@ -60,7 +60,7 @@ describe('MoveNamespaceDeclarationToRoot', () => {
                 '       <cfdi:Otro xmlns:cfdi="http://www.sat.gob.mx/otro"/>',
                 '       <tfd:TimbreFiscalDigital/>',
                 '   </cfdi:Complemento>',
-                '</cfdi:Comprobante>',
+                '</cfdi:Comprobante>'
             ].join('\n')
         );
 
@@ -78,7 +78,7 @@ describe('MoveNamespaceDeclarationToRoot', () => {
                 '       <otro:Otro xmlns:otro="http://www.sat.gob.mx/otro" />',
                 '       <tfd:TimbreFiscalDigital xmlns:tfd="http://www.sat.gob.mx/TimbreFiscalDigital" />',
                 '   </cfdi:Complemento>',
-                '</cfdi:Comprobante>',
+                '</cfdi:Comprobante>'
             ].join('\n')
         );
 
@@ -94,7 +94,7 @@ describe('MoveNamespaceDeclarationToRoot', () => {
                 '       <otro:Otro />',
                 '       <tfd:TimbreFiscalDigital />',
                 '   </cfdi:Complemento>',
-                '</cfdi:Comprobante>',
+                '</cfdi:Comprobante>'
             ].join('\n')
         );
 

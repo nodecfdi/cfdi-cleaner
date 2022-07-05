@@ -1,42 +1,43 @@
-import { Xml } from '@nodecfdi/cfdiutils-common';
-import { RemoveAddenda } from '../../../src';
+import { Xml, install } from '@nodecfdi/cfdiutils-common';
+import { DOMParser, XMLSerializer, DOMImplementation } from '@xmldom/xmldom';
+import { RemoveAddenda } from '~/index';
 
 describe('RemoveAddenda', () => {
-    let cleaner: RemoveAddenda;
+    const providerCleanDocumentWithAddenda: [string, string, string][] = [
+        [
+            'CFDI 3.3',
+            'http://www.sat.gob.mx/cfd/3',
+            [
+                '<x:Comprobante xmlns:x="http://www.sat.gob.mx/cfd/3">',
+                '    <x:Addenda>',
+                '        <o:OtherData xmlns:o="http://tempuri.org/other" foo="bar" />',
+                '    </x:Addenda>',
+                '</x:Comprobante>'
+            ].join('\n')
+        ],
+        [
+            'CFDI 4.0',
+            'http://www.sat.gob.mx/cfd/4',
+            [
+                '<x:Comprobante xmlns:x="http://www.sat.gob.mx/cfd/4">',
+                '   <x:Addenda>',
+                '       <o:OtherData xmlns:o="http://tempuri.org/other" foo="bar" />',
+                '   </x:Addenda>',
+                '</x:Comprobante>'
+            ].join('\n')
+        ]
+    ];
 
     beforeAll(() => {
-        cleaner = new RemoveAddenda();
+        install(new DOMParser(), new XMLSerializer(), new DOMImplementation());
     });
 
-    test('clean document with addenda', () => {
-        const document = Xml.newDocumentContent(
-            [
-                '<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3">',
-                '   <cfdi:Addenda>',
-                '       <o:OtherData xmlns:o="http://tempuri.org/other" foo="bar" />',
-                '   </cfdi:Addenda>',
-                '</cfdi:Comprobante>',
-            ].join('\n')
-        );
+    test.each(providerCleanDocumentWithAddenda)('clean document with addenda %s', (_name, namespace, source) => {
+        const document = Xml.newDocumentContent(source);
 
+        const cleaner = new RemoveAddenda();
         cleaner.clean(document);
         // Addenda element should not exist after cleaning
-        expect(Array.from(document.getElementsByTagNameNS('http://www.sat.gob.mx/cfd/3', 'Addenda'))).toHaveLength(0);
-    });
-
-    test('clean document with addenda cfdi4.0', () => {
-        const document = Xml.newDocumentContent(
-            [
-                '<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/4">',
-                '   <cfdi:Addenda>',
-                '       <o:OtherData xmlns:o="http://tempuri.org/other" foo="bar" />',
-                '   </cfdi:Addenda>',
-                '</cfdi:Comprobante>',
-            ].join('\n')
-        );
-
-        cleaner.clean(document);
-        // Addenda element should not exist after cleaning
-        expect(Array.from(document.getElementsByTagNameNS('http://www.sat.gob.mx/cfd/4', 'Addenda'))).toHaveLength(0);
+        expect(Array.from(document.getElementsByTagNameNS(namespace, 'Addenda'))).toHaveLength(0);
     });
 });

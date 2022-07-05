@@ -1,13 +1,9 @@
+import { Mixin } from 'ts-mixer';
+import { select } from 'xpath';
 import { XmlNamespaceMethodsTrait } from '../internal/xml-namespace-methods-trait';
 import { XmlDocumentCleanerInterface } from '../xml-document-cleaner-interface';
-import { use } from 'typescript-mix';
-import { select } from 'xpath';
 
-interface RemoveUnusedNamespaces extends XmlNamespaceMethodsTrait {}
-
-class RemoveUnusedNamespaces implements XmlDocumentCleanerInterface {
-    @use(XmlNamespaceMethodsTrait) private this: unknown;
-
+class RemoveUnusedNamespaces extends Mixin(XmlNamespaceMethodsTrait) implements XmlDocumentCleanerInterface {
     public clean(document: Document): void {
         for (const namespaceNode of this.iterateNonReservedNamespaces(document)) {
             this.checkNamespaceNode(document, namespaceNode);
@@ -15,7 +11,11 @@ class RemoveUnusedNamespaces implements XmlDocumentCleanerInterface {
     }
 
     private checkNamespaceNode(document: Document, namespaceNode: Attr): void {
-        const namespace = namespaceNode.nodeValue || '';
+        const namespace = namespaceNode.nodeValue;
+        if (namespace === null) {
+            return;
+        }
+
         const localName = '' !== namespaceNode.localName ? namespaceNode.localName + ':' : '';
         if (!this.isPrefixedNamespaceOnUse(document, namespace, localName)) {
             this.removeNamespaceNodeAttribute(namespaceNode);
@@ -29,6 +29,7 @@ class RemoveUnusedNamespaces implements XmlDocumentCleanerInterface {
         if (this.hasAttributesOnNamespace(document, namespace, prefix)) {
             return true;
         }
+
         return false;
     }
 
@@ -37,6 +38,7 @@ class RemoveUnusedNamespaces implements XmlDocumentCleanerInterface {
             `//*[namespace-uri()="${namespace}" and name()=concat("${prefix}", local-name())]`,
             document
         );
+
         return elements.length > 0;
     }
 
@@ -45,6 +47,7 @@ class RemoveUnusedNamespaces implements XmlDocumentCleanerInterface {
             `//@*[namespace-uri()="${namespace}" and name()=concat("${prefix}", local-name())]`,
             document
         );
+
         return attributes.length > 0;
     }
 }
