@@ -1,25 +1,16 @@
-# @nodecfdi/cfdi-cleaner
+# `@nodecfdi/cfdi-cleaner`
 
 [![Source Code][badge-source]][source]
-[![Software License][badge-license]][license]
-[![Latest Version][badge-release]][release]
+[![Npm Node Version Support][badge-node-version]][node-version]
 [![Discord][badge-discord]][discord]
-
-[source]: https://github.com/nodecfdi/cfdi-cleaner
-
-[badge-source]: https://img.shields.io/badge/source-nodecfdi%2Fcfdi--cleaner-blue?logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMTIgMTIgNDAgNDAiPjxwYXRoIGZpbGw9IiMzMzMzMzMiIGQ9Ik0zMiwxMy40Yy0xMC41LDAtMTksOC41LTE5LDE5YzAsOC40LDUuNSwxNS41LDEzLDE4YzEsMC4yLDEuMy0wLjQsMS4zLTAuOWMwLTAuNSwwLTEuNywwLTMuMiBjLTUuMywxLjEtNi40LTIuNi02LjQtMi42QzIwLDQxLjYsMTguOCw0MSwxOC44LDQxYy0xLjctMS4yLDAuMS0xLjEsMC4xLTEuMWMxLjksMC4xLDIuOSwyLDIuOSwyYzEuNywyLjksNC41LDIuMSw1LjUsMS42IGMwLjItMS4yLDAuNy0yLjEsMS4yLTIuNmMtNC4yLTAuNS04LjctMi4xLTguNy05LjRjMC0yLjEsMC43LTMuNywyLTUuMWMtMC4yLTAuNS0wLjgtMi40LDAuMi01YzAsMCwxLjYtMC41LDUuMiwyIGMxLjUtMC40LDMuMS0wLjcsNC44LTAuN2MxLjYsMCwzLjMsMC4yLDQuNywwLjdjMy42LTIuNCw1LjItMiw1LjItMmMxLDIuNiwwLjQsNC42LDAuMiw1YzEuMiwxLjMsMiwzLDIsNS4xYzAsNy4zLTQuNSw4LjktOC43LDkuNCBjMC43LDAuNiwxLjMsMS43LDEuMywzLjVjMCwyLjYsMCw0LjYsMCw1LjJjMCwwLjUsMC40LDEuMSwxLjMsMC45YzcuNS0yLjYsMTMtOS43LDEzLTE4LjFDNTEsMjEuOSw0Mi41LDEzLjQsMzIsMTMuNHoiLz48L3N2Zz4%3D
-
-[license]: https://github.com/nodecfdi/cfdi-cleaner/blob/master/LICENSE
-
-[badge-license]: https://img.shields.io/github/license/nodecfdi/cfdi-cleaner?logo=open-source-initiative&style=flat-square
-
-[badge-release]: https://img.shields.io/npm/v/@nodecfdi/cfdi-cleaner
-
-[release]: https://www.npmjs.com/package/@nodecfdi/cfdi-cleaner
-
-[badge-discord]: https://img.shields.io/discord/459860554090283019?logo=discord&style=flat-square
-
-[discord]: https://discord.gg/aFGYXvX
+[![Latest Version][badge-release]][release]
+[![Software License][badge-license]][license]
+[![Build Status][badge-build]][build]
+[![Reliability][badge-reliability]][reliability]
+[![Maintainability][badge-maintainability]][maintainability]
+[![Code Coverage][badge-coverage]][coverage]
+[![Violations][badge-violations]][violations]
+[![Total Downloads][badge-downloads]][downloads]
 
 > Library to clean Mexican Digital SAT Invoices.
 
@@ -27,7 +18,7 @@
 
 :mexico: La documentación del proyecto está en español porque ese es el lenguaje principal de los usuarios.
 
-## Acerca de nodecfdi/cfdi-cleaner
+## Acerca de `@nodecfdi/cfdi-cleaner`
 
 Los archivos XML de Comprobantes Fiscales Digitales por Internet (CFDI) suelen contener errores. Esta librería se
 encarga de reparar los errores (reparables) conocidos/comunes para poder trabajar con ellos.
@@ -35,7 +26,7 @@ encarga de reparar los errores (reparables) conocidos/comunes para poder trabaja
 Todas las operaciones que realiza esta librería con sobre partes del CFDI que no influyen en la generación de la cadena
 de origen ni del sello.
 
-Librería inspirada por la versión para php https://github.com/phpcfdi/cfdi-cleaner
+Librería inspirada por la versión para php <https://github.com/phpcfdi/cfdi-cleaner>
 
 ## Instalación
 
@@ -63,6 +54,10 @@ Este método es estático, por lo que no se necesita crear una instancia del obj
 ```ts
 import { readFileSync } from 'fs';
 import { Cleaner } from '@nodecfdi/cfdi-cleaner';
+import { install } from '@nodecfdi/cfdiutils-common';
+
+// from version 1.2.0 on cfdiutils-common required install dom
+install(domParserInstance, xmlSerializerInstance, domImplementationIstance);
 
 // Accedemos al contenido en nuestro archivo XML
 const xml = readFileSync('archivo-cfdi.xml').toString();
@@ -77,6 +72,10 @@ también en texto.
 ```ts
 import { readFileSync } from 'fs';
 import { Cleaner } from '@nodecfdi/cfdi-cleaner';
+import { install } from '@nodecfdi/cfdiutils-common';
+
+// from version 1.2.0 on cfdiutils-common required install dom
+install(domParserInstance, xmlSerializerInstance, domImplementationIstance);
 
 // Accedemos al contenido en nuestro archivo XML
 const xml = readFileSync('archivo-cfdi.xml').toString();
@@ -93,13 +92,16 @@ Este método es útil si se necesita utilizar inmediatamente el objeto documento
 ```ts
 import { readFileSync } from 'fs';
 import { Cleaner } from '@nodecfdi/cfdi-cleaner';
-import { XMLSerializer } from 'xmldom';
+import { install, getSerializer } from '@nodecfdi/cfdiutils-common';
+
+// from version 1.2.0 on cfdiutils-common required install dom
+install(domParserInstance, xmlSerializerInstance, domImplementationIstance);
 
 // Accedemos al contenido en nuestro archivo XML
 const xml = readFileSync('archivo-cfdi.xml').toString();
 const cleaner = new Cleaner();
 const document = cleaner.cleanStringToDocument(xml);
-console.log(new XMLSerializer().serializeToString(document));
+console.log(getSerializer().serializeToString(document));
 ```
 
 ## Acciones de limpieza
@@ -254,3 +256,51 @@ Por un lado, en el Anexo 20 de CFDI 3.3, el SAT exige que exista uno y solamente
 embargo, en el archivo de validación XSD permite que existan más de uno.
 
 Con esta limpieza, se deja un solo `cfdi:Complemento` con todos los complementos en él.
+
+## Soporte
+
+Puedes obtener soporte abriendo un ticket en Github.
+
+Adicionalmente, esta librería pertenece a la comunidad [OcelotlStudio](https://ocelotlstudio.com), así que puedes usar los mismos canales de comunicación para obtener ayuda de algún miembro de la comunidad.
+
+## Compatibilidad
+
+Esta librería se mantendrá compatible con al menos la versión con
+[soporte activo de Node](https://nodejs.org/es/about/releases/) más reciente.
+
+También utilizamos [Versionado Semántico 2.0.0](https://semver.org/lang/es/) por lo que puedes usar esta librería sin temor a romper tu aplicación.
+
+## Contribuciones
+
+Las contribuciones con bienvenidas. Por favor lee [CONTRIBUTING][] para más detalles y recuerda revisar el archivo [CHANGELOG][].
+
+## Copyright and License
+
+The `@nodecfdi/cfdi-cleaner` library is copyright © [NodeCfdi](https://github.com/nodecfdi) - [OcelotlStudio](https://ocelotlstudio.com) and licensed for use under the MIT License (MIT). Please see [LICENSE][] for more information.
+
+[contributing]: https://github.com/nodecfdi/cfdi-cleaner/blob/main/CONTRIBUTING.md
+[changelog]: https://github.com/nodecfdi/cfdi-cleaner/blob/main/CHANGELOG.md
+
+[source]: https://github.com/nodecfdi/cfdi-cleaner
+[node-version]: https://www.npmjs.com/package/@nodecfdi/cfdi-cleaner
+[discord]: https://discord.gg/AsqX8fkW2k
+[release]: https://www.npmjs.com/package/@nodecfdi/cfdi-cleaner
+[license]: https://github.com/nodecfdi/cfdi-cleaner/blob/main/LICENSE
+[build]: https://github.com/nodecfdi/cfdi-cleaner/actions/workflows/build.yml?query=branch:main
+[reliability]:https://sonarcloud.io/component_measures?id=nodecfdi_cfdi-cleaner&metric=Reliability
+[maintainability]: https://sonarcloud.io/component_measures?id=nodecfdi_cfdi-cleaner&metric=Maintainability
+[coverage]: https://sonarcloud.io/component_measures?id=nodecfdi_cfdi-cleaner&metric=Coverage
+[violations]: https://sonarcloud.io/project/issues?id=nodecfdi_cfdi-cleaner&resolved=false
+[downloads]: https://www.npmjs.com/package/@nodecfdi/cfdi-cleaner
+
+[badge-source]: https://img.shields.io/badge/source-nodecfdi/cfdi--cleaner-blue.svg?logo=github
+[badge-node-version]: https://img.shields.io/node/v/@nodecfdi/cfdi-cleaner.svg?logo=nodedotjs
+[badge-discord]: https://img.shields.io/discord/459860554090283019?logo=discord
+[badge-release]: https://img.shields.io/npm/v/@nodecfdi/cfdi-cleaner.svg?logo=npm
+[badge-license]: https://img.shields.io/github/license/nodecfdi/cfdi-cleaner.svg?logo=open-source-initiative
+[badge-build]: https://img.shields.io/github/workflow/status/nodecfdi/cfdi-cleaner/build/main?logo=github-actions
+[badge-reliability]: https://sonarcloud.io/api/project_badges/measure?project=nodecfdi_cfdi-cleaner&metric=reliability_rating
+[badge-maintainability]: https://sonarcloud.io/api/project_badges/measure?project=nodecfdi_cfdi-cleaner&metric=sqale_rating
+[badge-coverage]: https://img.shields.io/sonar/coverage/nodecfdi_cfdi-cleaner/main?logo=sonarcloud&server=https%3A%2F%2Fsonarcloud.io
+[badge-violations]: https://img.shields.io/sonar/violations/nodecfdi_cfdi-cleaner/main?format=long&logo=sonarcloud&server=https%3A%2F%2Fsonarcloud.io
+[badge-downloads]: https://img.shields.io/npm/dm/@nodecfdi/cfdi-cleaner.svg?logo=npm
