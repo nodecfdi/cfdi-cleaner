@@ -7,7 +7,7 @@ class CollapseComplemento extends Mixin(XmlElementMethodsTrait) implements XmlDo
     public clean(document: Document): void {
         const xpath = CfdiXPath.createFromDocument(document);
 
-        const complementos = xpath.queryElements<Element>('/cfdi:Comprobante/cfdi:Complemento');
+        const complementos = xpath.queryElements('/cfdi:Comprobante/cfdi:Complemento');
         if (complementos.length < 2) {
             return;
         }

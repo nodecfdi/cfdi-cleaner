@@ -3,8 +3,8 @@ import { useNamespaces } from 'xpath';
 import { XmlNamespaceMethodsTrait } from '../internal/xml-namespace-methods-trait';
 import { XmlAttributeMethodsTrait } from '../internal/xml-attribute-methods-trait';
 import { XmlDocumentCleanerInterface } from '../xml-document-cleaner-interface';
-import { XmlConstants } from '../internal/xml-constants';
 import { SchemaLocation } from '../internal/schema-location';
+import { CfdiXPath } from '../internal/cfdi-x-path';
 
 class SetKnownSchemaLocations
     extends Mixin(XmlNamespaceMethodsTrait, XmlAttributeMethodsTrait)
@@ -123,15 +123,15 @@ class SetKnownSchemaLocations
     };
 
     public clean(document: Document): void {
-        const selectXpath = useNamespaces({ xs: XmlConstants.NAMESPACE_XSI });
-        const schemaLocationAttributes = selectXpath('//@xs:schemaLocation', document) as Attr[];
-        schemaLocationAttributes.forEach((schemaLocationAttribute) => {
+        const xpath = CfdiXPath.createFromDocument(document);
+        const schemaLocationAttributes = xpath.querySchemaLocations();
+        for (const schemaLocationAttribute of schemaLocationAttributes) {
             this.cleanNodeAttribute(document, schemaLocationAttribute);
-        });
+        }
     }
 
     private cleanNodeAttribute(document: Document, attribute: Attr): void {
-        const schemaLocation = SchemaLocation.createFromValue(attribute.nodeValue || '');
+        const schemaLocation = SchemaLocation.createFromValue(attribute.nodeValue as string);
         Object.entries(schemaLocation.getPairs()).forEach(([namespace, location]) => {
             const version = this.obtainVersionOfNamespace(document, namespace);
             location = this.obtainLocationForNamespaceVersion(namespace, version, location);
@@ -159,7 +159,7 @@ class SetKnownSchemaLocations
             return '';
         }
 
-        return nodes[0].attributes.getNamedItem(attributeName)?.nodeValue || '';
+        return nodes[0].attributes.getNamedItem(attributeName)?.nodeValue as string;
     }
 
     private obtainLocationForNamespaceVersion(namespace: string, version: string, defaultV: string): string {

@@ -7,11 +7,11 @@ import { SchemaLocation } from '../internal/schema-location';
 class RemoveIncompleteSchemaLocations extends Mixin(XmlAttributeMethodsTrait) implements XmlDocumentCleanerInterface {
     public clean(document: Document): void {
         const xpath = CfdiXPath.createFromDocument(document);
-        const schemaLocations = xpath.queryAttributes<Attr>('//@xsi:schemaLocation');
-        schemaLocations.forEach((schemaLocation) => {
+        const schemaLocations = xpath.querySchemaLocations();
+        for (const schemaLocation of schemaLocations) {
             const value = this.cleanSchemaLocationValue(schemaLocation.value);
             this.attributeSetValueOrRemoveIfEmpty(schemaLocation, value);
-        }, this);
+        }
     }
 
     /**
@@ -49,7 +49,7 @@ class RemoveIncompleteSchemaLocations extends Mixin(XmlAttributeMethodsTrait) im
 
             // namespace match with location that ends with xsd
             pairs[namespace] = location;
-            c = c + 1; // skip ns declaration
+            c++; // skip ns declaration
         }
 
         return pairs;

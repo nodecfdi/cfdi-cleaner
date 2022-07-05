@@ -11,11 +11,11 @@ class RemoveNonSatSchemaLocations
 {
     public clean(document: Document): void {
         const xpath = CfdiXPath.createFromDocument(document);
-        const schemaLocations = xpath.queryAttributes<Attr>('//@xsi:schemaLocation');
-        schemaLocations.forEach((schemaLocation) => {
+        const schemaLocations = xpath.querySchemaLocations();
+        for (const schemaLocation of schemaLocations) {
             const value = this.cleanSchemaLocationsValue(schemaLocation.value);
             this.attributeSetValueOrRemoveIfEmpty(schemaLocation, value);
-        });
+        }
     }
 
     public cleanSchemaLocationsValue(schemaLocationValue: string): string {
