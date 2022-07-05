@@ -103,7 +103,7 @@ describe('Cleaner', () => {
         expect(xmlClean).toEqualXML(xmlExpected);
     });
 
-    test('clean xml document 40', () => {
+    test('clean xml document 40 with addendas', () => {
         const document = Xml.newDocumentContent(
             [
                 '<cfdi:Comprobante xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"',

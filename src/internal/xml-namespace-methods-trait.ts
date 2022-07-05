@@ -19,8 +19,8 @@ export class XmlNamespaceMethodsTrait {
         );
         let namespaceNode = namespaceNodes.iterateNext();
         while (namespaceNode) {
-            if (DomValidators.isAttr(namespaceNode)) {
-                if (!this.isNamespaceReserved(namespaceNode.nodeValue || '')) {
+            if (DomValidators.isAttr(namespaceNode) && namespaceNode.nodeValue) {
+                if (!this.isNamespaceReserved(namespaceNode.nodeValue)) {
                     yield namespaceNode;
                 }
             }
