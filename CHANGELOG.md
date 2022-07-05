@@ -1,6 +1,7 @@
 # @nodecfdi/cfdi-cleaner
 
 ## Version 1.2.3
+
 - Se agrega soporte para namespaces de cfdi4.0 donde en la busqueda de xpath no consideraba los casos de cfdi namespace para 4.0
 - Se corrige remove addendas para considerar el caso donde se desea remover la adenda de cfdi4.0
 - Se renombre clase Interna puesto que ahora no solo es una busqueda de xpath en 3.x si no que tambien 4.
@@ -17,7 +18,7 @@
 - Se actualiza `SetKnownSchemaLocations` dado que se agrego un espacio conocido IngresosHidrocarburos 1.0.
 - Actualización de dependencias.
 
-# Versión 1.2.0
+## Versión 1.2.0
 
 ### Definición de XML namespace duplicado pero sin uso
 
@@ -118,11 +119,11 @@ ejemplo `xmlns="http://tempuri.org/root"` o `xmlns=""`.
 ## Versión 1.1.2
 
 - Se actualiza la lista de espacios de nombres conocidos para:
-    - Cfdi 4.0
-    - Cfdi de retenciones e información de pagos 2.0
-    - Complemento de pagos 2.0
-    - Complemento de carta porte 1.0
-    - Complemento de carta porte 2.0
+  - Cfdi 4.0
+  - Cfdi de retenciones e información de pagos 2.0
+  - Complemento de pagos 2.0
+  - Complemento de carta porte 1.0
+  - Complemento de carta porte 2.0
 - Se agrega una prueba que usa <https://github.com/phpcdi/sat-ns-registry> para verificar que la lista se mantiene
   actualizada.
 
