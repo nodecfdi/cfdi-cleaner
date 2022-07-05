@@ -1,12 +1,8 @@
+import { Mixin } from 'ts-mixer';
 import { XmlNamespaceMethodsTrait } from '../internal/xml-namespace-methods-trait';
 import { XmlDocumentCleanerInterface } from '../xml-document-cleaner-interface';
-import { use } from 'typescript-mix';
 
-interface RenameElementAddPrefix extends XmlNamespaceMethodsTrait {}
-
-class RenameElementAddPrefix implements XmlDocumentCleanerInterface {
-    @use(XmlNamespaceMethodsTrait) private this: unknown;
-
+class RenameElementAddPrefix extends Mixin(XmlNamespaceMethodsTrait) implements XmlDocumentCleanerInterface {
     public clean(document: Document): void {
         const rootElement = document.documentElement;
         if (!rootElement) {

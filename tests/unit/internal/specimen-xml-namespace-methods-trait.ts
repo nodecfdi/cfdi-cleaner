@@ -1,14 +1,7 @@
-import { use } from 'typescript-mix';
-import { XmlNamespaceMethodsTrait } from '../../../src';
+import { Mixin } from 'ts-mixer';
+import { XmlNamespaceMethodsTrait } from '~/index';
 
-interface SpecimenXmlNamespaceMethodsTrait extends XmlNamespaceMethodsTrait {}
-
-/**
- * @mixes XmlNamespaceMethodsTrait
- */
-class SpecimenXmlNamespaceMethodsTrait {
-    @use(XmlNamespaceMethodsTrait) private this: unknown;
-
+class SpecimenXmlNamespaceMethodsTrait extends Mixin(XmlNamespaceMethodsTrait) {
     public pIterateNonReservedNamespaces(document: Document): Generator<Attr> {
         return this.iterateNonReservedNamespaces(document);
     }
@@ -22,6 +15,7 @@ class SpecimenXmlNamespaceMethodsTrait {
         for (const namespaceNode of this.iterateNonReservedNamespaces(document)) {
             namespaces[namespaceNode.localName] = namespaceNode.nodeValue || '';
         }
+
         return namespaces;
     }
 

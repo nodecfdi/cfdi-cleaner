@@ -1,12 +1,12 @@
-import 'jest-xml-matcher';
-import { Xml } from '@nodecfdi/cfdiutils-common';
-import { RemoveUnusedNamespaces } from '../../../src';
-import { XMLSerializer } from '@xmldom/xmldom';
+import { Xml, install } from '@nodecfdi/cfdiutils-common';
+import { DOMParser, XMLSerializer, DOMImplementation } from '@xmldom/xmldom';
+import { RemoveUnusedNamespaces } from '~/index';
 
 describe('RemoveUnusedNamespaces', () => {
     let cleaner: RemoveUnusedNamespaces;
 
     beforeAll(() => {
+        install(new DOMParser(), new XMLSerializer(), new DOMImplementation());
         cleaner = new RemoveUnusedNamespaces();
     });
 
@@ -17,7 +17,7 @@ describe('RemoveUnusedNamespaces', () => {
                 '   xmlns:b="http://tempuri.org/bar"',
                 '   xmlns:r="http://tempuri.org/root"',
                 '   xmlns:f="http://tempuri.org/foo"',
-                '/>',
+                '/>'
             ].join('\n')
         );
 
@@ -37,7 +37,7 @@ describe('RemoveUnusedNamespaces', () => {
                 '   <a:child xmlns:a="http://tempuri.org/a">',
                 '       <a:child xmlns:xee="http://tempuri.org/xee" f:foo="foo"/>',
                 '   </a:child>',
-                '</r:root>',
+                '</r:root>'
             ].join('\n')
         );
 
@@ -49,7 +49,7 @@ describe('RemoveUnusedNamespaces', () => {
                 '   <a:child xmlns:a="http://tempuri.org/a">',
                 '       <a:child f:foo="foo"/>',
                 '   </a:child>',
-                '</r:root>',
+                '</r:root>'
             ].join('\n')
         );
 
@@ -66,7 +66,7 @@ describe('RemoveUnusedNamespaces', () => {
                 '  xmlns:root="http://tempuri.org/root"',
                 '  xmlns:attr="http://tempuri.org/attributes">',
                 '  <fine:child xmlns:fine="http://tempuri.org/namespace" attr:x="y"/>',
-                '</root:root>',
+                '</root:root>'
             ].join('\n')
         );
 
@@ -78,7 +78,7 @@ describe('RemoveUnusedNamespaces', () => {
                 '  xmlns:root="http://tempuri.org/root"',
                 '  xmlns:attr="http://tempuri.org/attributes">',
                 '  <fine:child xmlns:fine="http://tempuri.org/namespace" attr:x="y"/>',
-                '</root:root>',
+                '</root:root>'
             ].join('\n')
         );
 

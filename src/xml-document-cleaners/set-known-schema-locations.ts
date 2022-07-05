@@ -1,16 +1,15 @@
+import { Mixin } from 'ts-mixer';
+import { useNamespaces } from 'xpath';
 import { XmlNamespaceMethodsTrait } from '../internal/xml-namespace-methods-trait';
 import { XmlAttributeMethodsTrait } from '../internal/xml-attribute-methods-trait';
 import { XmlDocumentCleanerInterface } from '../xml-document-cleaner-interface';
-import { use } from 'typescript-mix';
-import { useNamespaces } from 'xpath';
 import { XmlConstants } from '../internal/xml-constants';
 import { SchemaLocation } from '../internal/schema-location';
 
-interface SetKnownSchemaLocations extends XmlNamespaceMethodsTrait, XmlAttributeMethodsTrait {}
-
-class SetKnownSchemaLocations implements XmlDocumentCleanerInterface {
-    @use(XmlNamespaceMethodsTrait, XmlAttributeMethodsTrait) private this: unknown;
-
+class SetKnownSchemaLocations
+    extends Mixin(XmlNamespaceMethodsTrait, XmlAttributeMethodsTrait)
+    implements XmlDocumentCleanerInterface
+{
     /**
      * List of known namespace # version xsd locations as key value map
      * @see https://github.com/phpcfdi/sat-ns-registry
@@ -120,7 +119,7 @@ class SetKnownSchemaLocations implements XmlDocumentCleanerInterface {
             'http://www.sat.gob.mx/esquemas/retencionpago/1/sectorfinanciero/sectorfinanciero.xsd',
         'http://www.sat.gob.mx/esquemas/retencionpago/1/PlataformasTecnologicas10#1.0':
             'http://www.sat.gob.mx/esquemas/retencionpago/1/' +
-            'PlataformasTecnologicas10/ServiciosPlataformasTecnologicas10.xsd',
+            'PlataformasTecnologicas10/ServiciosPlataformasTecnologicas10.xsd'
     };
 
     public clean(document: Document): void {
@@ -171,7 +170,7 @@ class SetKnownSchemaLocations implements XmlDocumentCleanerInterface {
      * Pairs of key-value of namespace and version to XSD locations
      * Key: namespace#version
      * Value: location
-     * @return Record<string, string>
+     * @returns Record
      */
     public static getKnowNamespaces(): Record<string, string> {
         return SetKnownSchemaLocations.KNOWN_NAMESPACES;

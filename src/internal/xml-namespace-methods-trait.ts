@@ -5,8 +5,6 @@ import { XmlConstants } from './xml-constants';
 /**
  * This provides methods used for xml namespaces handling. It´s not meant to
  * be used directly.
- *
- * @mixin
  */
 export class XmlNamespaceMethodsTrait {
     protected *iterateNonReservedNamespaces(document: Document): Generator<Attr> {
@@ -19,8 +17,8 @@ export class XmlNamespaceMethodsTrait {
         );
         let namespaceNode = namespaceNodes.iterateNext();
         while (namespaceNode) {
-            if (DomValidators.isAttr(namespaceNode) && namespaceNode.nodeValue) {
-                if (!this.isNamespaceReserved(namespaceNode.nodeValue)) {
+            if (DomValidators.isAttr(namespaceNode)) {
+                if (!this.isNamespaceReserved(namespaceNode.nodeValue || '')) {
                     yield namespaceNode;
                 }
             }
@@ -41,8 +39,9 @@ export class XmlNamespaceMethodsTrait {
         const reservedNameSpaces: string[] = [
             XmlConstants.NAMESPACE_XML,
             XmlConstants.NAMESPACE_XMLNS,
-            XmlConstants.NAMESPACE_XSI,
+            XmlConstants.NAMESPACE_XSI
         ];
+
         return reservedNameSpaces.includes(namespace);
     }
 

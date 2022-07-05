@@ -28,7 +28,7 @@ module.exports = {
         '@typescript-eslint/no-unused-vars': [2, { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
         'semi': 'error',
         'quote-props': ['error', 'consistent'],
-        'generator-star-spacing': ['error', { before: false, after: true }],
+        'generator-star-spacing': ['error', { before: true, after: false }],
         'space-before-function-paren': 'off',
         'no-dupe-class-members': 'off',
         'no-useless-constructor': 'off',

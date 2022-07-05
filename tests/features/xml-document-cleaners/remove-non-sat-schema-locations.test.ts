@@ -1,9 +1,12 @@
-import 'jest-xml-matcher';
-import { Xml } from '@nodecfdi/cfdiutils-common';
-import { RemoveNonSatSchemaLocations } from '../../../src';
-import { XMLSerializer } from '@xmldom/xmldom';
+import { Xml, install } from '@nodecfdi/cfdiutils-common';
+import { DOMParser, XMLSerializer, DOMImplementation } from '@xmldom/xmldom';
+import { RemoveNonSatSchemaLocations } from '~/index';
 
 describe('RemoveNonSatSchemaLocations', () => {
+    beforeAll(() => {
+        install(new DOMParser(), new XMLSerializer(), new DOMImplementation());
+    });
+
     test('clean', () => {
         const document = Xml.newDocumentContent(
             [
@@ -21,7 +24,7 @@ describe('RemoveNonSatSchemaLocations', () => {
                 '   <cfdi:Addenda>',
                 '       <foo:foo xmlns:foo="http://tempuri.org/foo" xsi:schemaLocation="http://tempuri.org/foo foo.xsd"/>',
                 '   </cfdi:Addenda>',
-                '</cfdi:Comprobante>',
+                '</cfdi:Comprobante>'
             ].join('\n')
         );
 
@@ -40,7 +43,7 @@ describe('RemoveNonSatSchemaLocations', () => {
                 '   <cfdi:Addenda>',
                 '       <foo:foo xmlns:foo="http://tempuri.org/foo"/>',
                 '   </cfdi:Addenda>',
-                '</cfdi:Comprobante>',
+                '</cfdi:Comprobante>'
             ].join('\n')
         );
 

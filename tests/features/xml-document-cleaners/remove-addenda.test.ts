@@ -1,10 +1,12 @@
-import { Xml } from '@nodecfdi/cfdiutils-common';
-import { RemoveAddenda } from '../../../src';
+import { Xml, install } from '@nodecfdi/cfdiutils-common';
+import { DOMParser, XMLSerializer, DOMImplementation } from '@xmldom/xmldom';
+import { RemoveAddenda } from '~/index';
 
 describe('RemoveAddenda', () => {
     let cleaner: RemoveAddenda;
 
     beforeAll(() => {
+        install(new DOMParser(), new XMLSerializer(), new DOMImplementation());
         cleaner = new RemoveAddenda();
     });
 
@@ -15,7 +17,7 @@ describe('RemoveAddenda', () => {
                 '   <cfdi:Addenda>',
                 '       <o:OtherData xmlns:o="http://tempuri.org/other" foo="bar" />',
                 '   </cfdi:Addenda>',
-                '</cfdi:Comprobante>',
+                '</cfdi:Comprobante>'
             ].join('\n')
         );
 
@@ -31,7 +33,7 @@ describe('RemoveAddenda', () => {
                 '   <cfdi:Addenda>',
                 '       <o:OtherData xmlns:o="http://tempuri.org/other" foo="bar" />',
                 '   </cfdi:Addenda>',
-                '</cfdi:Comprobante>',
+                '</cfdi:Comprobante>'
             ].join('\n')
         );
 

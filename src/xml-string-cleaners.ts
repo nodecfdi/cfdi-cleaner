@@ -17,7 +17,7 @@ export class XmlStringCleaners implements XmlStringCleanerInterface {
                 new RemoveNonXmlStrings(),
                 new SplitXmlDeclarationFromDocument(),
                 new AppendXmlDeclaration(),
-                new XmlNsSchemaLocation(),
+                new XmlNsSchemaLocation()
             ]
         );
     }
@@ -26,6 +26,7 @@ export class XmlStringCleaners implements XmlStringCleanerInterface {
         this.cleaners.forEach((cleaner) => {
             xml = cleaner.clean(xml);
         });
+
         return xml;
     }
 }

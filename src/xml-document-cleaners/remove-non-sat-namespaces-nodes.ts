@@ -1,18 +1,14 @@
+import { Mixin } from 'ts-mixer';
 import { XmlAttributeMethodsTrait } from '../internal/xml-attribute-methods-trait';
 import { XmlElementMethodsTrait } from '../internal/xml-element-methods-trait';
 import { XmlNamespaceMethodsTrait } from '../internal/xml-namespace-methods-trait';
 import { XmlDocumentCleanerInterface } from '../xml-document-cleaner-interface';
-import { use } from 'typescript-mix';
 import { select } from 'xpath';
 
-interface RemoveNonSatNamespacesNodes
-    extends XmlAttributeMethodsTrait,
-        XmlElementMethodsTrait,
-        XmlNamespaceMethodsTrait {}
-
-class RemoveNonSatNamespacesNodes implements XmlDocumentCleanerInterface {
-    @use(XmlAttributeMethodsTrait, XmlElementMethodsTrait, XmlNamespaceMethodsTrait) private this: unknown;
-
+class RemoveNonSatNamespacesNodes
+    extends Mixin(XmlAttributeMethodsTrait, XmlElementMethodsTrait, XmlNamespaceMethodsTrait)
+    implements XmlDocumentCleanerInterface
+{
     public clean(document: Document): void {
         const namespaces = this.obtainNamespacesFromDocument(document);
         namespaces.forEach((namespace) => {
@@ -28,6 +24,7 @@ class RemoveNonSatNamespacesNodes implements XmlDocumentCleanerInterface {
         for (const namespaceNode of this.iterateNonReservedNamespaces(document)) {
             if (namespaceNode.nodeValue) namespaces.push(namespaceNode.nodeValue);
         }
+
         return namespaces.filter((v, i, a) => a.indexOf(v) === i);
     }
 

@@ -1,7 +1,12 @@
-import { CfdiXPath } from '../../../src/internal/cfdi-x-path';
-import { DomValidators, Xml } from '@nodecfdi/cfdiutils-common';
+import { DomValidators, install, Xml } from '@nodecfdi/cfdiutils-common';
+import { DOMParser, XMLSerializer, DOMImplementation } from '@xmldom/xmldom';
+import { CfdiXPath } from '~/internal/cfdi-x-path';
 
 describe('Internal/Cfdi3XPath', () => {
+    beforeAll(() => {
+        install(new DOMParser(), new XMLSerializer(), new DOMImplementation());
+    });
+
     test('query elements on cfdi with complementos', () => {
         const document = Xml.newDocumentContent(
             [
@@ -21,7 +26,7 @@ describe('Internal/Cfdi3XPath', () => {
                 '   <foo:Child/>',
                 '  </foo:Foo>',
                 ' </cfdi:Complemento>',
-                '</cfdi:Comprobante>',
+                '</cfdi:Comprobante>'
             ].join('\n')
         );
         const xpath3 = CfdiXPath.createFromDocument(document);
@@ -37,7 +42,7 @@ describe('Internal/Cfdi3XPath', () => {
                 ' <foo xsi:schemaLocation="http://tempuri.org/foo foo.xsd">',
                 '  <bar xsi:schemaLocation="http://tempuri.org/foo foo.xsd http://tempuri.org/bar bar.xsd"/>',
                 ' </foo>',
-                '</root>',
+                '</root>'
             ].join('\n')
         );
         const xpath3 = CfdiXPath.createFromDocument(document);

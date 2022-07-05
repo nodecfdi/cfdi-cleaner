@@ -1,9 +1,12 @@
-import 'jest-xml-matcher';
-import { Xml } from '@nodecfdi/cfdiutils-common';
-import { RemoveNonSatNamespacesNodes } from '../../../src';
-import { XMLSerializer } from '@xmldom/xmldom';
+import { Xml, install } from '@nodecfdi/cfdiutils-common';
+import { DOMParser, XMLSerializer, DOMImplementation } from '@xmldom/xmldom';
+import { RemoveNonSatNamespacesNodes } from '~/index';
 
 describe('RemoveNonSatNamespacesNodes', () => {
+    beforeAll(() => {
+        install(new DOMParser(), new XMLSerializer(), new DOMImplementation());
+    });
+
     test('clean', () => {
         const document = Xml.newDocumentContent(
             [
@@ -16,7 +19,7 @@ describe('RemoveNonSatNamespacesNodes', () => {
                 '       <x:remove foo="foo"/>',
                 '       <y:remove-me-too xmlns:y="lorem"/>',
                 '   </cfdi:Addenda>',
-                '</cfdi:Comprobante>',
+                '</cfdi:Comprobante>'
             ].join('\n')
         );
 
@@ -32,7 +35,7 @@ describe('RemoveNonSatNamespacesNodes', () => {
                 '   <cfdi:Emisor Rfc="COSC8001137NA"/>',
                 '   <cfdi:Addenda>',
                 '   </cfdi:Addenda>',
-                '</cfdi:Comprobante> ',
+                '</cfdi:Comprobante> '
             ].join('\n')
         );
 

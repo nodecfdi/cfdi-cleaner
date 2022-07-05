@@ -57,6 +57,7 @@
         "@types/node": "^18.0.0",
         "@typescript-eslint/eslint-plugin": "^5.30.3",
         "@typescript-eslint/parser": "^5.30.3",
+        "@xmldom/xmldom": "^0.8.2",
         "babel-plugin-dev-expression": "^0.2.3",
         "babel-plugin-transform-define": "^2.0.1",
         "cross-env": "^7.0.3",
@@ -70,6 +71,7 @@
         "jest": "^28.1.2",
         "jest-mock-console": "^2.0.0",
         "jest-watch-typeahead": "^1.1.0",
+        "jest-xml-matcher": "^1.2.0",
         "lint-staged": "^13.0.3",
         "microbundle": "^0.15.0",
         "prettier": "^2.7.1",
@@ -80,7 +82,9 @@
         "zx": "^7.0.7"
     },
     "dependencies": {
-        "@nodecfdi/cfdiutils-common": "^1.2.1"
+        "@nodecfdi/cfdiutils-common": "^1.2.1",
+        "ts-mixer": "^6.0.1",
+        "xpath": "^0.0.32"
     },
     "engines": {
         "node": ">= 14.0.0"

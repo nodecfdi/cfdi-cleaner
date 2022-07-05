@@ -1,4 +1,4 @@
-import { RemoveNonXmlStrings } from '../../../src';
+import { RemoveNonXmlStrings } from '~/index';
 
 describe('RemoveNonXmlStrings', () => {
     test.each([
@@ -13,8 +13,8 @@ describe('RemoveNonXmlStrings', () => {
         ['no xml', '< b && b >', 'a < b && b > c'],
         ['without lt or gt', '', 'a b c'],
         ['without gt ', '', 'a < b c'],
-        ['without lt ', '', 'a b > c'],
-    ])('clean %s', (name, expected, input) => {
+        ['without lt ', '', 'a b > c']
+    ])('clean %s', (_name, expected, input) => {
         const cleaner = new RemoveNonXmlStrings();
         const clean = cleaner.clean(input);
 

@@ -3,6 +3,7 @@ import { XmlConstants } from './xml-constants';
 
 export class CfdiXPath {
     private readonly document: Document;
+
     private readonly namespaces?: Record<string, string>;
 
     constructor(document: Document, namespaces?: Record<string, string>) {
@@ -20,24 +21,29 @@ export class CfdiXPath {
 
         const namespaces = {
             cfdi: namespaceCfdi,
-            xsi: XmlConstants.NAMESPACE_XSI,
+            xsi: XmlConstants.NAMESPACE_XSI
         };
+
         return new CfdiXPath(document, namespaces);
     }
 
     public queryElements<T extends SelectedValue>(xpathQuery: string): T[] {
         if (this.namespaces && this.namespaces !== {}) {
             const selectWithNS = useNamespaces(this.namespaces);
+
             return selectWithNS(xpathQuery, this.document) as T[];
         }
+
         return select(xpathQuery, this.document) as T[];
     }
 
     public queryAttributes<T extends SelectedValue>(xpathQuery: string): T[] {
         if (this.namespaces && this.namespaces !== {}) {
             const selectWithNS = useNamespaces(this.namespaces);
+
             return selectWithNS(xpathQuery, this.document) as T[];
         }
+
         return select(xpathQuery, this.document) as T[];
     }
 }

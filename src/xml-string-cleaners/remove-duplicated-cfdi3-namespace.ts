@@ -8,6 +8,7 @@ import { XmlStringCleanerInterface } from '../xml-string-cleaner-interface';
 export class RemoveDuplicatedCfdi3Namespace implements XmlStringCleanerInterface {
     public clean(xml: string): string {
         console.warn('Calling a deprecated class, use RenameElementAddPrefix');
+
         return xml;
     }
 }

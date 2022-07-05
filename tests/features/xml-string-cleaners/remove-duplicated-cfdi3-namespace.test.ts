@@ -1,4 +1,4 @@
-import { RemoveDuplicatedCfdi3Namespace } from '../../../src';
+import { RemoveDuplicatedCfdi3Namespace } from '~/index';
 
 describe('RemoveDuplicatedCfdi3Namespace', () => {
     const xmlnsCfdi = 'xmlns:cfdi="http://www.sat.gob.mx/cfd/3"';
@@ -10,9 +10,9 @@ describe('RemoveDuplicatedCfdi3Namespace', () => {
         [
             'at end',
             `<cfdi:Comprobante ${xmlnsCfdi} />`, // is replaced to a single space
-            `<cfdi:Comprobante ${xmlnsCfdi} ${xmlns}/>`,
-        ],
-    ])('clean %s', (name, expected, input) => {
+            `<cfdi:Comprobante ${xmlnsCfdi} ${xmlns}/>`
+        ]
+    ])('clean %s', (_name, _expected, input) => {
         const warnMock = jest.spyOn(console, 'warn').mockImplementation();
         const cleaner = new RemoveDuplicatedCfdi3Namespace();
         const clean = cleaner.clean(input);
