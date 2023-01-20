@@ -5,7 +5,8 @@
 export class XmlAttributeMethodsTrait {
     protected attributeRemove(attribute: Attr): void {
         const { ownerElement, nodeName } = attribute;
-        if (ownerElement !== null) ownerElement.removeAttribute(nodeName);
+        // OwnerElement never is null but if a case is found we can implement a test
+        ownerElement!.removeAttribute(nodeName);
     }
 
     protected attributeSetValueOrRemoveIfEmpty(attribute: Attr, value: string): void {

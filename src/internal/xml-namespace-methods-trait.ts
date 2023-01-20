@@ -16,7 +16,7 @@ export class XmlNamespaceMethodsTrait {
         );
         let namespaceNode = namespaceNodes.iterateNext();
         while (namespaceNode) {
-            if (!this.isNamespaceReserved(namespaceNode.nodeValue ?? '')) {
+            if (!this.isNamespaceReserved(namespaceNode.nodeValue!)) {
                 yield namespaceNode as Attr;
             }
 
@@ -26,8 +26,8 @@ export class XmlNamespaceMethodsTrait {
 
     protected removeNamespaceNodeAttribute(namespaceNode: Attr): void {
         const { ownerElement, localName, nodeName } = namespaceNode;
-        if (ownerElement?.hasAttributeNS(XmlConstants.NAMESPACE_XMLNS, localName)) {
-            ownerElement.removeAttribute(nodeName);
+        if (ownerElement!.hasAttributeNS(XmlConstants.NAMESPACE_XMLNS, localName)) {
+            ownerElement!.removeAttribute(nodeName);
         }
     }
 

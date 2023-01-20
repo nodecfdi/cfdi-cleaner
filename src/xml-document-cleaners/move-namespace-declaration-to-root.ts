@@ -19,11 +19,7 @@ class MoveNamespaceDeclarationToRoot extends Mixin(XmlNamespaceMethodsTrait) imp
 
         // If overlapped case
         if (!rootElement.hasAttribute(namespaceNode.nodeName)) {
-            rootElement.setAttributeNS(
-                XmlConstants.NAMESPACE_XMLNS,
-                namespaceNode.nodeName,
-                namespaceNode.nodeValue ?? ''
-            );
+            rootElement.setAttributeNS(XmlConstants.NAMESPACE_XMLNS, namespaceNode.nodeName, namespaceNode.nodeValue!);
         }
 
         this.removeNamespaceNodeAttribute(namespaceNode);
