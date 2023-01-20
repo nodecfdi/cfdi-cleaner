@@ -90,6 +90,6 @@ describe('Internal/XmlNamespaceMethodsTrait', () => {
 
         const xmlCleanString = new XMLSerializer().serializeToString(document);
         const xmlExpectedString = new XMLSerializer().serializeToString(expected);
-        expect(xmlCleanString).toEqualXML(xmlExpectedString);
+        expect(xmlCleanString, 'Expected XML is not identical').toEqualXML(xmlExpectedString);
     });
 });

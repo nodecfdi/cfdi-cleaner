@@ -26,4 +26,5 @@ export * from './xml-string-cleaners/xml-ns-schema-location';
 
 export * from './xml-document-cleaners';
 export * from './xml-string-cleaners';
+export * from './exclude-list';
 export * from './cleaner';

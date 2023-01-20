@@ -9,6 +9,7 @@ import { MoveSchemaLocationsToRoot } from './xml-document-cleaners/move-schema-l
 import { SetKnownSchemaLocations } from './xml-document-cleaners/set-known-schema-locations';
 import { CollapseComplemento } from './xml-document-cleaners/collapse-complemento';
 import { RenameElementAddPrefix } from './xml-document-cleaners/rename-element-add-prefix';
+import { type ExcludeList } from './exclude-list';
 
 export class XmlDocumentCleaners implements XmlDocumentCleanerInterface {
     public static createDefault(): XmlDocumentCleaners {
@@ -36,5 +37,10 @@ export class XmlDocumentCleaners implements XmlDocumentCleanerInterface {
         for (const cleaner of this.cleaners) {
             cleaner.clean(document);
         }
+    }
+
+    public withOutCleaners(excludeList: ExcludeList): XmlDocumentCleaners {
+        const cleaners = excludeList.filterObjects(...this.cleaners);
+        return new XmlDocumentCleaners(...cleaners);
     }
 }
