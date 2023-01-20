@@ -1,15 +1,18 @@
+/**
+ * \@vitest-environment jsdom
+ */
+
 import 'jest-xml-matcher';
 import { Xml, install } from '@nodecfdi/cfdiutils-common';
-import { DOMParser, XMLSerializer, DOMImplementation } from '@xmldom/xmldom';
 import { RemoveNonSatSchemaLocations } from '~/xml-document-cleaners/remove-non-sat-schema-locations';
 
-describe('RemoveNonSatSchemaLocations', () => {
+describe('RemoveNonSatSchemaLocations_Browser', () => {
     beforeAll(() => {
-        install(new DOMParser(), new XMLSerializer(), new DOMImplementation());
+        install(new DOMParser(), new XMLSerializer(), document.implementation);
     });
 
     test('clean', () => {
-        const document = Xml.newDocumentContent(
+        const _document = Xml.newDocumentContent(
             [
                 '<cfdi:Comprobante xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"',
                 '   xmlns:cfdi="http://www.sat.gob.mx/cfd/3"',
@@ -30,7 +33,7 @@ describe('RemoveNonSatSchemaLocations', () => {
         );
 
         const cleaner = new RemoveNonSatSchemaLocations();
-        cleaner.clean(document);
+        cleaner.clean(_document);
 
         const expected = Xml.newDocumentContent(
             [
@@ -48,7 +51,7 @@ describe('RemoveNonSatSchemaLocations', () => {
             ].join('\n')
         );
 
-        const xmlClean = new XMLSerializer().serializeToString(document);
+        const xmlClean = new XMLSerializer().serializeToString(_document);
         const xmlExpected = new XMLSerializer().serializeToString(expected);
         expect(xmlClean).toEqualXML(xmlExpected);
     });

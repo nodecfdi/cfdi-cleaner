@@ -1,18 +1,21 @@
+/**
+ * \@vitest-environment jsdom
+ */
+
 import 'jest-xml-matcher';
 import { Xml, install } from '@nodecfdi/cfdiutils-common';
-import { DOMParser, XMLSerializer, DOMImplementation } from '@xmldom/xmldom';
 import { MoveNamespaceDeclarationToRoot } from '~/xml-document-cleaners/move-namespace-declaration-to-root';
 
-describe('MoveNamespaceDeclarationToRoot', () => {
+describe('MoveNamespaceDeclarationToRoot_Browser', () => {
     let cleaner: MoveNamespaceDeclarationToRoot;
 
     beforeAll(() => {
-        install(new DOMParser(), new XMLSerializer(), new DOMImplementation());
+        install(new DOMParser(), new XMLSerializer(), document.implementation);
         cleaner = new MoveNamespaceDeclarationToRoot();
     });
 
     test('move namespace declaration to root', () => {
-        const document = Xml.newDocumentContent(
+        const _document = Xml.newDocumentContent(
             [
                 '<r:root xmlns:r="http://tempuri.org/root">',
                 '   <foo:foo xmlns:foo="http://tempuri.org/foo"/>',
@@ -22,7 +25,7 @@ describe('MoveNamespaceDeclarationToRoot', () => {
             ].join('\n')
         );
 
-        cleaner.clean(document);
+        cleaner.clean(_document);
 
         const expected = Xml.newDocumentContent(
             [
@@ -34,14 +37,14 @@ describe('MoveNamespaceDeclarationToRoot', () => {
             ].join('\n')
         );
 
-        const xmlClean = new XMLSerializer().serializeToString(document);
+        const xmlClean = new XMLSerializer().serializeToString(_document);
         const xmlExpected = new XMLSerializer().serializeToString(expected);
 
         expect(xmlClean).toEqualXML(xmlExpected);
     });
 
     test('move namespace declaration to root with overlapped namespaces different', () => {
-        const document = Xml.newDocumentContent(
+        const _document = Xml.newDocumentContent(
             [
                 '<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3">',
                 '   <cfdi:Complemento>',
@@ -52,7 +55,7 @@ describe('MoveNamespaceDeclarationToRoot', () => {
             ].join('\n')
         );
 
-        cleaner.clean(document);
+        cleaner.clean(_document);
 
         const expected = Xml.newDocumentContent(
             [
@@ -65,14 +68,14 @@ describe('MoveNamespaceDeclarationToRoot', () => {
             ].join('\n')
         );
 
-        const xmlClean = new XMLSerializer().serializeToString(document);
+        const xmlClean = new XMLSerializer().serializeToString(_document);
         const xmlExpected = new XMLSerializer().serializeToString(expected);
 
         expect(xmlClean).toEqualXML(xmlExpected);
     });
 
     test('move namespace declaration to root with overlapped namespaces equal', () => {
-        const document = Xml.newDocumentContent(
+        const _document = Xml.newDocumentContent(
             [
                 '<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3">',
                 '   <cfdi:Complemento xmlns:cfdi="http://www.sat.gob.mx/cfd/3">',
@@ -83,7 +86,7 @@ describe('MoveNamespaceDeclarationToRoot', () => {
             ].join('\n')
         );
 
-        cleaner.clean(document);
+        cleaner.clean(_document);
 
         const expected = Xml.newDocumentContent(
             [
@@ -99,7 +102,7 @@ describe('MoveNamespaceDeclarationToRoot', () => {
             ].join('\n')
         );
 
-        const xmlClean = new XMLSerializer().serializeToString(document);
+        const xmlClean = new XMLSerializer().serializeToString(_document);
         const xmlExpected = new XMLSerializer().serializeToString(expected);
 
         expect(xmlClean).toEqualXML(xmlExpected);

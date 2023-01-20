@@ -1,4 +1,4 @@
-import { XmlDocumentCleanerInterface } from './xml-document-cleaner-interface';
+import { type XmlDocumentCleanerInterface } from './xml-document-cleaner-interface';
 import { RemoveAddenda } from './xml-document-cleaners/remove-addenda';
 import { RemoveIncompleteSchemaLocations } from './xml-document-cleaners/remove-incomplete-schema-locations';
 import { RemoveNonSatNamespacesNodes } from './xml-document-cleaners/remove-non-sat-namespaces-nodes';
@@ -11,27 +11,25 @@ import { CollapseComplemento } from './xml-document-cleaners/collapse-complement
 import { RenameElementAddPrefix } from './xml-document-cleaners/rename-element-add-prefix';
 
 export class XmlDocumentCleaners implements XmlDocumentCleanerInterface {
-    private cleaners: XmlDocumentCleanerInterface[];
+    public static createDefault(): XmlDocumentCleaners {
+        return new XmlDocumentCleaners(
+            new RemoveAddenda(),
+            new RemoveIncompleteSchemaLocations(),
+            new RemoveNonSatNamespacesNodes(),
+            new RemoveNonSatSchemaLocations(),
+            new RemoveUnusedNamespaces(),
+            new RenameElementAddPrefix(),
+            new MoveNamespaceDeclarationToRoot(),
+            new MoveSchemaLocationsToRoot(),
+            new SetKnownSchemaLocations(),
+            new CollapseComplemento()
+        );
+    }
+
+    private readonly cleaners: XmlDocumentCleanerInterface[];
 
     constructor(...cleaners: XmlDocumentCleanerInterface[]) {
         this.cleaners = cleaners;
-    }
-
-    public static createDefault(): XmlDocumentCleaners {
-        return new XmlDocumentCleaners(
-            ...[
-                new RemoveAddenda(),
-                new RemoveIncompleteSchemaLocations(),
-                new RemoveNonSatNamespacesNodes(),
-                new RemoveNonSatSchemaLocations(),
-                new RemoveUnusedNamespaces(),
-                new RenameElementAddPrefix(),
-                new MoveNamespaceDeclarationToRoot(),
-                new MoveSchemaLocationsToRoot(),
-                new SetKnownSchemaLocations(),
-                new CollapseComplemento()
-            ]
-        );
     }
 
     public clean(document: Document): void {

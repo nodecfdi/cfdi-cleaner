@@ -1,6 +1,6 @@
 import { Mixin } from 'ts-mixer';
 import { XmlElementMethodsTrait } from '../internal/xml-element-methods-trait';
-import { XmlDocumentCleanerInterface } from '../xml-document-cleaner-interface';
+import { type XmlDocumentCleanerInterface } from '../xml-document-cleaner-interface';
 
 class RemoveAddenda extends Mixin(XmlElementMethodsTrait) implements XmlDocumentCleanerInterface {
     public clean(document: Document): void {
@@ -10,6 +10,7 @@ class RemoveAddenda extends Mixin(XmlElementMethodsTrait) implements XmlDocument
 
     private removeAddendas(document: Document, namespace: string): void {
         const addendas = document.getElementsByTagNameNS(namespace, 'Addenda');
+        // eslint-disable-next-line unicorn/prefer-spread
         for (const element of Array.from(addendas)) {
             this.elementRemove(element);
         }

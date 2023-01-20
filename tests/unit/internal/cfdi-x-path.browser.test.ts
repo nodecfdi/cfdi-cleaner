@@ -1,8 +1,11 @@
+/**
+ * \@vitest-environment jsdom
+ */
+
 import { install, Xml } from '@nodecfdi/cfdiutils-common';
-import { DOMParser, XMLSerializer, DOMImplementation } from '@xmldom/xmldom';
 import { CfdiXPath } from '~/internal/cfdi-x-path';
 
-describe('Internal/Cfdi3XPath', () => {
+describe('Internal/Cfdi3XPath_Browser', () => {
     const providerCreateCfdiVersions: ReadonlyArray<[string, string]> = [
         [
             'CFDI33',
@@ -55,12 +58,12 @@ describe('Internal/Cfdi3XPath', () => {
     ];
 
     beforeAll(() => {
-        install(new DOMParser(), new XMLSerializer(), new DOMImplementation());
+        install(new DOMParser(), new XMLSerializer(), document.implementation);
     });
 
     test.each(providerCreateCfdiVersions)('create cfdi versions %s', (_name, source) => {
-        const document = Xml.newDocumentContent(source);
-        const xpath = CfdiXPath.createFromDocument(document);
+        const _document = Xml.newDocumentContent(source);
+        const xpath = CfdiXPath.createFromDocument(_document);
 
         const attributes: string[] = [];
         for (const attribute of xpath.queryAttributes('//cfdi:Complemento//@Version')) {
@@ -83,26 +86,26 @@ describe('Internal/Cfdi3XPath', () => {
     });
 
     test('non allowed namespace', () => {
-        const document = Xml.newDocumentContent(
+        const _document = Xml.newDocumentContent(
             ['<cfdi:Comprobante xmlns:cfdi="http://tempuri.org/cfdi"/>'].join('\n')
         );
 
-        const xpath = CfdiXPath.createFromDocument(document);
+        const xpath = CfdiXPath.createFromDocument(_document);
         expect(xpath.queryElements('/cfdi:Comprobante')).toHaveLength(0);
     });
 
     test('allowed namespace with different prefix', () => {
-        const document = Xml.newDocumentContent(
+        const _document = Xml.newDocumentContent(
             ['<factura:Comprobante xmlns:factura="http://www.sat.gob.mx/cfd/4"/>'].join('\n')
         );
 
-        const xpath = CfdiXPath.createFromDocument(document);
+        const xpath = CfdiXPath.createFromDocument(_document);
         expect(xpath.queryElements('/cfdi:Comprobante')).toHaveLength(1);
     });
 
     test('allowed work with no namespace definition', () => {
-        const document = Xml.newDocumentContent('<book><title>Facturación</title></book>');
-        const xpath = new CfdiXPath(document);
+        const _document = Xml.newDocumentContent('<book><title>Facturación</title></book>');
+        const xpath = new CfdiXPath(_document);
 
         expect(xpath.queryElements('//title')).toHaveLength(1);
     });

@@ -1,18 +1,21 @@
+/**
+ * \@vitest-environment jsdom
+ */
+
 import 'jest-xml-matcher';
 import { Xml, install } from '@nodecfdi/cfdiutils-common';
-import { DOMParser, XMLSerializer, DOMImplementation } from '@xmldom/xmldom';
 import { RemoveUnusedNamespaces } from '~/xml-document-cleaners/remove-unused-namespaces';
 
-describe('RemoveUnusedNamespaces', () => {
+describe('RemoveUnusedNamespaces_Browser', () => {
     let cleaner: RemoveUnusedNamespaces;
 
     beforeAll(() => {
-        install(new DOMParser(), new XMLSerializer(), new DOMImplementation());
+        install(new DOMParser(), new XMLSerializer(), document.implementation);
         cleaner = new RemoveUnusedNamespaces();
     });
 
     test('remove unused namespaces on root', () => {
-        const document = Xml.newDocumentContent(
+        const _document = Xml.newDocumentContent(
             [
                 '<r:root',
                 '   xmlns:b="http://tempuri.org/bar"',
@@ -22,17 +25,17 @@ describe('RemoveUnusedNamespaces', () => {
             ].join('\n')
         );
 
-        cleaner.clean(document);
+        cleaner.clean(_document);
 
         const expected = Xml.newDocumentContent(['<r:root xmlns:r="http://tempuri.org/root"/>'].join('\n'));
 
-        const xmlClean = new XMLSerializer().serializeToString(document);
+        const xmlClean = new XMLSerializer().serializeToString(_document);
         const xmlExpected = new XMLSerializer().serializeToString(expected);
         expect(xmlClean).toEqualXML(xmlExpected);
     });
 
     test('remove unused namespaces on children', () => {
-        const document = Xml.newDocumentContent(
+        const _document = Xml.newDocumentContent(
             [
                 '<r:root xmlns:b="http://tempuri.org/bar" xmlns:r="http://tempuri.org/root" xmlns:f="http://tempuri.org/foo">',
                 '   <a:child xmlns:a="http://tempuri.org/a">',
@@ -42,7 +45,7 @@ describe('RemoveUnusedNamespaces', () => {
             ].join('\n')
         );
 
-        cleaner.clean(document);
+        cleaner.clean(_document);
 
         const expected = Xml.newDocumentContent(
             [
@@ -54,13 +57,13 @@ describe('RemoveUnusedNamespaces', () => {
             ].join('\n')
         );
 
-        const xmlClean = new XMLSerializer().serializeToString(document);
+        const xmlClean = new XMLSerializer().serializeToString(_document);
         const xmlExpected = new XMLSerializer().serializeToString(expected);
         expect(xmlClean).toEqualXML(xmlExpected);
     });
 
     test('remove duplicated namespaces prefixes', () => {
-        const document = Xml.newDocumentContent(
+        const _document = Xml.newDocumentContent(
             [
                 '<root:root',
                 '  xmlns:wrong="http://tempuri.org/namespace"',
@@ -71,7 +74,7 @@ describe('RemoveUnusedNamespaces', () => {
             ].join('\n')
         );
 
-        cleaner.clean(document);
+        cleaner.clean(_document);
 
         const expected = Xml.newDocumentContent(
             [
@@ -83,7 +86,7 @@ describe('RemoveUnusedNamespaces', () => {
             ].join('\n')
         );
 
-        const xmlClean = new XMLSerializer().serializeToString(document);
+        const xmlClean = new XMLSerializer().serializeToString(_document);
         const xmlExpected = new XMLSerializer().serializeToString(expected);
         expect(xmlClean).toEqualXML(xmlExpected);
     });

@@ -1,15 +1,18 @@
+/**
+ * \@vitest-environment jsdom
+ */
+
 import 'jest-xml-matcher';
 import { Xml, install } from '@nodecfdi/cfdiutils-common';
-import { DOMParser, XMLSerializer, DOMImplementation } from '@xmldom/xmldom';
 import { RemoveIncompleteSchemaLocations } from '~/xml-document-cleaners/remove-incomplete-schema-locations';
 
-describe('RemoveIncompleteSchemaLocations', () => {
+describe('RemoveIncompleteSchemaLocations_Browser', () => {
     beforeAll(() => {
-        install(new DOMParser(), new XMLSerializer(), new DOMImplementation());
+        install(new DOMParser(), new XMLSerializer(), document.implementation);
     });
 
     test('clean schema locations with incomplete pairs only on root', () => {
-        const document = Xml.newDocumentContent(
+        const _document = Xml.newDocumentContent(
             [
                 '<r xmlns="http://tempuri.org/r" xmlns:x="http://www.w3.org/2001/XMLSchema-instance"',
                 ' x:schemaLocation="http://tempuri.org/r r.xsd http://tempuri.org/foo http://tempuri.org/bar bar.xsd"',
@@ -25,16 +28,16 @@ describe('RemoveIncompleteSchemaLocations', () => {
         );
 
         const cleaner = new RemoveIncompleteSchemaLocations();
-        cleaner.clean(document);
+        cleaner.clean(_document);
 
-        const xmlClean = new XMLSerializer().serializeToString(document);
+        const xmlClean = new XMLSerializer().serializeToString(_document);
         const xmlExpected = new XMLSerializer().serializeToString(expected);
         expect(xmlClean).toEqualXML(xmlExpected);
     });
 
     test('clean schema locations with incomplete pairs only on children', () => {
         // Content has incomplete schema location "foo"
-        const document = Xml.newDocumentContent(
+        const _document = Xml.newDocumentContent(
             [
                 '<root>',
                 '<child xmlns="http://tempuri.org/r" xmlns:x="http://www.w3.org/2001/XMLSchema-instance"',
@@ -58,9 +61,9 @@ describe('RemoveIncompleteSchemaLocations', () => {
         );
 
         const cleaner = new RemoveIncompleteSchemaLocations();
-        cleaner.clean(document);
+        cleaner.clean(_document);
 
-        const xmlClean = new XMLSerializer().serializeToString(document);
+        const xmlClean = new XMLSerializer().serializeToString(_document);
         const xmlExpected = new XMLSerializer().serializeToString(expected);
         expect(xmlClean).toEqualXML(xmlExpected);
     });

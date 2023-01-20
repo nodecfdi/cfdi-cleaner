@@ -3,28 +3,27 @@ import { XmlDocumentCleaners } from './xml-document-cleaners';
 import { Xml, getSerializer } from '@nodecfdi/cfdiutils-common';
 
 export class Cleaner {
-    private stringCleaners: XmlStringCleaners;
+    public static staticClean(xml: string): string {
+        return new Cleaner().cleanStringToString(xml);
+    }
 
-    private xmlCleaners: XmlDocumentCleaners;
+    private readonly _stringCleaners: XmlStringCleaners;
+    private readonly _xmlCleaners: XmlDocumentCleaners;
 
     constructor(
         stringCleaners: XmlStringCleaners | null = null,
         xmlDocumentCleaners: XmlDocumentCleaners | null = null
     ) {
-        this.stringCleaners = stringCleaners || XmlStringCleaners.createDefault();
-        this.xmlCleaners = xmlDocumentCleaners || XmlDocumentCleaners.createDefault();
-    }
-
-    public static staticClean(xml: string): string {
-        return new Cleaner().cleanStringToString(xml);
+        this._stringCleaners = stringCleaners ?? XmlStringCleaners.createDefault();
+        this._xmlCleaners = xmlDocumentCleaners ?? XmlDocumentCleaners.createDefault();
     }
 
     public cleanString(xml: string): string {
-        return this.stringCleaners.clean(xml);
+        return this._stringCleaners.clean(xml);
     }
 
     public cleanDocument(document: Document): void {
-        this.xmlCleaners.clean(document);
+        this._xmlCleaners.clean(document);
     }
 
     public cleanStringToDocument(xml: string): Document {

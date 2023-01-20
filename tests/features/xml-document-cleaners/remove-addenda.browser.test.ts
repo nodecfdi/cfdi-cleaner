@@ -1,8 +1,11 @@
+/**
+ * \@vitest-environment jsdom
+ */
+
 import { Xml, install } from '@nodecfdi/cfdiutils-common';
-import { DOMParser, XMLSerializer, DOMImplementation } from '@xmldom/xmldom';
 import { RemoveAddenda } from '~/xml-document-cleaners/remove-addenda';
 
-describe('RemoveAddenda', () => {
+describe('RemoveAddenda_Browser', () => {
     const providerCleanDocumentWithAddenda: Array<[string, string, string]> = [
         [
             'CFDI 3.3',
@@ -29,16 +32,16 @@ describe('RemoveAddenda', () => {
     ];
 
     beforeAll(() => {
-        install(new DOMParser(), new XMLSerializer(), new DOMImplementation());
+        install(new DOMParser(), new XMLSerializer(), document.implementation);
     });
 
     test.each(providerCleanDocumentWithAddenda)('clean document with addenda %s', (_name, namespace, source) => {
-        const document = Xml.newDocumentContent(source);
+        const _document = Xml.newDocumentContent(source);
 
         const cleaner = new RemoveAddenda();
-        cleaner.clean(document);
+        cleaner.clean(_document);
         // Addenda element should not exist after cleaning
         // eslint-disable-next-line unicorn/prefer-spread
-        expect(Array.from(document.getElementsByTagNameNS(namespace, 'Addenda'))).toHaveLength(0);
+        expect(Array.from(_document.getElementsByTagNameNS(namespace, 'Addenda'))).toHaveLength(0);
     });
 });

@@ -1,18 +1,21 @@
+/**
+ * \@vitest-environment jsdom
+ */
+
 import 'jest-xml-matcher';
 import { Xml, install } from '@nodecfdi/cfdiutils-common';
-import { DOMParser, XMLSerializer, DOMImplementation } from '@xmldom/xmldom';
 import { MoveSchemaLocationsToRoot } from '~/xml-document-cleaners/move-schema-locations-to-root';
 
-describe('MoveSchemaLocationToRoot', () => {
+describe('MoveSchemaLocationToRoot_Browser', () => {
     let cleaner: MoveSchemaLocationsToRoot;
 
     beforeAll(() => {
-        install(new DOMParser(), new XMLSerializer(), new DOMImplementation());
+        install(new DOMParser(), new XMLSerializer(), document.implementation);
         cleaner = new MoveSchemaLocationsToRoot();
     });
 
-    test('move schema locations to root', () => {
-        const document = Xml.newDocumentContent(
+    test('move_schema_locations_to_root_with_children_schemaLocations', () => {
+        const _document = Xml.newDocumentContent(
             [
                 '<root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"',
                 ' xsi:schemaLocation="http://tempuri.org/root root.xsd http://tempuri.org/bar bar.xsd">',
@@ -23,7 +26,7 @@ describe('MoveSchemaLocationToRoot', () => {
             ].join('\n')
         );
 
-        cleaner.clean(document);
+        cleaner.clean(_document);
 
         const expectedLocations = [
             'http://tempuri.org/root root.xsd',
@@ -40,13 +43,14 @@ describe('MoveSchemaLocationToRoot', () => {
                 '</root>'
             ].join('\n')
         );
-        const xmlClean = new XMLSerializer().serializeToString(document);
+
+        const xmlClean = new XMLSerializer().serializeToString(_document);
         const xmlExpected = new XMLSerializer().serializeToString(expected);
         expect(xmlClean).toEqualXML(xmlExpected);
     });
 
     test('move schema locations to root with different prefix', () => {
-        const document = Xml.newDocumentContent(
+        const _document = Xml.newDocumentContent(
             [
                 '<root xmlns:xs="http://www.w3.org/2001/XMLSchema-instance"',
                 '   xs:schemaLocation="http://tempuri.org/root root.xsd">',
@@ -55,7 +59,7 @@ describe('MoveSchemaLocationToRoot', () => {
             ].join('\n')
         );
 
-        cleaner.clean(document);
+        cleaner.clean(_document);
 
         const expected = Xml.newDocumentContent(
             [
@@ -65,13 +69,13 @@ describe('MoveSchemaLocationToRoot', () => {
                 '</root>'
             ].join('\n')
         );
-        const xmlClean = new XMLSerializer().serializeToString(document);
+        const xmlClean = new XMLSerializer().serializeToString(_document);
         const xmlExpected = new XMLSerializer().serializeToString(expected);
         expect(xmlClean).toEqualXML(xmlExpected);
     });
 
     test('move schema locations to root without root schema location', () => {
-        const document = Xml.newDocumentContent(
+        const _document = Xml.newDocumentContent(
             [
                 '<root>',
                 '    <foo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"',
@@ -80,7 +84,7 @@ describe('MoveSchemaLocationToRoot', () => {
             ].join('\n')
         );
 
-        cleaner.clean(document);
+        cleaner.clean(_document);
 
         const expected = Xml.newDocumentContent(
             [
@@ -90,7 +94,7 @@ describe('MoveSchemaLocationToRoot', () => {
                 '</root>'
             ].join('\n')
         );
-        const xmlClean = new XMLSerializer().serializeToString(document);
+        const xmlClean = new XMLSerializer().serializeToString(_document);
         const xmlExpected = new XMLSerializer().serializeToString(expected);
         expect(xmlClean).toEqualXML(xmlExpected);
     });

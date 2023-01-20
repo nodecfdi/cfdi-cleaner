@@ -3,7 +3,7 @@ import { select } from 'xpath';
 import { XmlAttributeMethodsTrait } from '../internal/xml-attribute-methods-trait';
 import { XmlElementMethodsTrait } from '../internal/xml-element-methods-trait';
 import { XmlNamespaceMethodsTrait } from '../internal/xml-namespace-methods-trait';
-import { XmlDocumentCleanerInterface } from '../xml-document-cleaner-interface';
+import { type XmlDocumentCleanerInterface } from '../xml-document-cleaner-interface';
 
 class RemoveNonSatNamespacesNodes
     extends Mixin(XmlAttributeMethodsTrait, XmlElementMethodsTrait, XmlNamespaceMethodsTrait)
@@ -22,10 +22,10 @@ class RemoveNonSatNamespacesNodes
     private obtainNamespacesFromDocument(document: Document): string[] {
         const namespaces: string[] = [];
         for (const namespaceNode of this.iterateNonReservedNamespaces(document)) {
-            namespaces.push(namespaceNode.nodeValue as string);
+            namespaces.push(namespaceNode.nodeValue!);
         }
 
-        return namespaces.filter((v, i, a) => a.indexOf(v) === i);
+        return namespaces.filter((v, index, a) => a.indexOf(v) === index);
     }
 
     private removeElementsWithNamespace(document: Document, namespace: string): void {

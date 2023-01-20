@@ -1,4 +1,4 @@
-import { XmlStringCleanerInterface } from '../xml-string-cleaner-interface';
+import { type XmlStringCleanerInterface } from '../xml-string-cleaner-interface';
 
 /**
  * @deprecated Since version 1.2.0

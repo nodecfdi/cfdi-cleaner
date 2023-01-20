@@ -1,4 +1,4 @@
-import { AppendXmlDeclaration } from '~/index';
+import { AppendXmlDeclaration } from '~/xml-string-cleaners/append-xml-declaration';
 
 describe('AppendXmlDeclaration', () => {
     test.each([
@@ -9,7 +9,7 @@ describe('AppendXmlDeclaration', () => {
         ],
         ['add to xml without header', '<?xml version="1.0"?>\n<root/>', '<root/>'],
         ['add to non xml', '<?xml version="1.0"?>\nfoo', 'foo']
-    ])('clean %s', (_msg, expected, input) => {
+    ])('clean %s', (_message, expected, input) => {
         const cleaner = new AppendXmlDeclaration();
         const clean = cleaner.clean(input);
 

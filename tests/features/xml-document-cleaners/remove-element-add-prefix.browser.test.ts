@@ -1,13 +1,16 @@
+/**
+ * \@vitest-environment jsdom
+ */
+
 import 'jest-xml-matcher';
 import { Xml, install } from '@nodecfdi/cfdiutils-common';
-import { DOMParser, XMLSerializer, DOMImplementation } from '@xmldom/xmldom';
 import { RenameElementAddPrefix } from '~/xml-document-cleaners/rename-element-add-prefix';
 
-describe('RemoveElementAddPrefix', () => {
+describe('RemoveElementAddPrefix_Browser', () => {
     const cleaner = new RenameElementAddPrefix();
 
     beforeAll(() => {
-        install(new DOMParser(), new XMLSerializer(), new DOMImplementation());
+        install(new DOMParser(), new XMLSerializer(), document.implementation);
     });
 
     test('rename element add prefix', () => {
@@ -16,7 +19,7 @@ describe('RemoveElementAddPrefix', () => {
         // - first element is not prefixed
         // - second element is prefixed but contains superfluous declaration
         // - third element is prefixed but contains unused declaration
-        const document = Xml.newDocumentContent(
+        const _document = Xml.newDocumentContent(
             [
                 '<r:root xmlns="http://tempuri.org/root" xmlns:r="http://tempuri.org/root" id="0">',
                 '  <first xmlns="http://tempuri.org/root" id="1" />',
@@ -26,7 +29,7 @@ describe('RemoveElementAddPrefix', () => {
             ].join('\n')
         );
 
-        cleaner.clean(document);
+        cleaner.clean(_document);
 
         const expected = Xml.newDocumentContent(
             [
@@ -38,35 +41,35 @@ describe('RemoveElementAddPrefix', () => {
             ].join('\n')
         );
 
-        const xmlClean = new XMLSerializer().serializeToString(document);
+        const xmlClean = new XMLSerializer().serializeToString(_document);
         const xmlExpected = new XMLSerializer().serializeToString(expected);
 
         expect(xmlClean).toEqualXML(xmlExpected);
     });
 
     test('remove duplicated namespace as default', () => {
-        const document = Xml.newDocumentContent(
+        const _document = Xml.newDocumentContent(
             ['<r:root xmlns:r="http://tempuri.org/root" xmlns="http://www.sat.gob.mx/cfd/3"/>'].join('\n')
         );
 
-        cleaner.clean(document);
+        cleaner.clean(_document);
 
         const expected = Xml.newDocumentContent(['<r:root xmlns:r="http://tempuri.org/root"/>'].join('\n'));
 
-        const xmlClean = new XMLSerializer().serializeToString(document);
+        const xmlClean = new XMLSerializer().serializeToString(_document);
         const xmlExpected = new XMLSerializer().serializeToString(expected);
 
         expect(xmlClean).toEqualXML(xmlExpected);
     });
 
     test('remove empty namespace without prefix', () => {
-        const document = Xml.newDocumentContent(['<r:root xmlns:r="http://tempuri.org/root" xmlns=""/>'].join('\n'));
+        const _document = Xml.newDocumentContent(['<r:root xmlns:r="http://tempuri.org/root" xmlns=""/>'].join('\n'));
 
-        cleaner.clean(document);
+        cleaner.clean(_document);
 
         const expected = Xml.newDocumentContent(['<r:root xmlns:r="http://tempuri.org/root"/>'].join('\n'));
 
-        const xmlClean = new XMLSerializer().serializeToString(document);
+        const xmlClean = new XMLSerializer().serializeToString(_document);
         const xmlExpected = new XMLSerializer().serializeToString(expected);
 
         expect(xmlClean).toEqualXML(xmlExpected);

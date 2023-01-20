@@ -1,5 +1,5 @@
 import { Mixin } from 'ts-mixer';
-import { XmlNamespaceMethodsTrait } from '~/index';
+import { XmlNamespaceMethodsTrait } from '~/internal/xml-namespace-methods-trait';
 
 class SpecimenXmlNamespaceMethodsTrait extends Mixin(XmlNamespaceMethodsTrait) {
     public pIterateNonReservedNamespaces(document: Document): Generator<Attr> {
@@ -7,13 +7,13 @@ class SpecimenXmlNamespaceMethodsTrait extends Mixin(XmlNamespaceMethodsTrait) {
     }
 
     public pRemoveNamespaceNodeAttribute(namespaceNode: Attr): void {
-        return this.removeNamespaceNodeAttribute(namespaceNode);
+        this.removeNamespaceNodeAttribute(namespaceNode);
     }
 
     public obtainNamespaces(document: Document): Record<string, string> {
         const namespaces: Record<string, string> = {};
         for (const namespaceNode of this.iterateNonReservedNamespaces(document)) {
-            namespaces[namespaceNode.localName] = namespaceNode.nodeValue || '';
+            namespaces[namespaceNode.localName] = namespaceNode.nodeValue ?? '';
         }
 
         return namespaces;
