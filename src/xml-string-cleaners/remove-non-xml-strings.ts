@@ -1,4 +1,4 @@
-import { XmlStringCleanerInterface } from '../xml-string-cleaner-interface';
+import { type XmlStringCleanerInterface } from '../xml-string-cleaner-interface';
 
 export class RemoveNonXmlStrings implements XmlStringCleanerInterface {
     public clean(xml: string): string {
@@ -18,6 +18,6 @@ export class RemoveNonXmlStrings implements XmlStringCleanerInterface {
             return '';
         }
 
-        return xml.substring(posFirstLessThan, posFirstLessThan + length);
+        return xml.slice(posFirstLessThan, posFirstLessThan + length);
     }
 }

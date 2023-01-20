@@ -1,3 +1,4 @@
+import 'jest-xml-matcher';
 import { Xml, install } from '@nodecfdi/cfdiutils-common';
 import { DOMParser, XMLSerializer, DOMImplementation } from '@xmldom/xmldom';
 import { SpecimenXmlNamespaceMethodsTrait } from './specimen-xml-namespace-methods-trait';
@@ -24,11 +25,11 @@ describe('Internal/XmlNamespaceMethodsTrait', () => {
         );
         expect(specimen.obtainNamespaces(document)).toEqual(namespaces);
 
-        // remove unused namespace
+        // Remove unused namespace
         specimen.removeNamespaceNodesWithNamespace(document, 'http://tempuri.org/unused');
         delete namespaces.unused;
 
-        // list of nodes should be the same
+        // List of nodes should be the same
         expect(specimen.obtainNamespaces(document)).toEqual(namespaces);
 
         const expected = Xml.newDocumentContent(
@@ -78,7 +79,7 @@ describe('Internal/XmlNamespaceMethodsTrait', () => {
 
         const testElement = document.getElementsByTagName('test').item(0);
 
-        // find an remove unused "xmlns:unused"
+        // Find an remove unused "xmlns:unused"
         for (const namespaceNode of specimen.pIterateNonReservedNamespaces(document)) {
             if (testElement === namespaceNode.parentElement && target === namespaceNode.nodeName) {
                 specimen.pRemoveNamespaceNodeAttribute(namespaceNode);
@@ -87,8 +88,8 @@ describe('Internal/XmlNamespaceMethodsTrait', () => {
 
         const expected = Xml.newDocumentContent(xmlExpected);
 
-        const xmlCleanStr = new XMLSerializer().serializeToString(document);
-        const xmlExpectedStr = new XMLSerializer().serializeToString(expected);
-        expect(xmlCleanStr).toEqualXML(xmlExpectedStr);
+        const xmlCleanString = new XMLSerializer().serializeToString(document);
+        const xmlExpectedString = new XMLSerializer().serializeToString(expected);
+        expect(xmlCleanString, 'Expected XML is not identical').toEqualXML(xmlExpectedString);
     });
 });

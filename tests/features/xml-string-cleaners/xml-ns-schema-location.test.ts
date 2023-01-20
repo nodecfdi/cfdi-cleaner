@@ -1,4 +1,4 @@
-import { XmlNsSchemaLocation } from '~/index';
+import { XmlNsSchemaLocation } from '~/xml-string-cleaners/xml-ns-schema-location';
 
 describe('XmlNsSchemaLocation', () => {
     test.each([

@@ -1,8 +1,24 @@
 # @nodecfdi/cfdi-cleaner
 
+## 1.4.0
+
+### Change build tool from microbundle to rollup
+
+- Change build tool
+- Update dependencies
+- Added api-extractor for check types `.d.ts`
+- Replace microbundle to rollup
+- Replace jest for vitest (added support to multiple environment tests like a node or browser env)
+- Added all required test for browser
+- Resolve potentials bugs on browser
+
+### Exclude cleaners
+
+- Added option to exclude specific cleaners
+
 ## Version 1.3.0
 
-### DOM Agnostic
+### DOM Agnostic>
 
 Se agrega soporte a DOM Agnostic resaltando que para su correcto funcionamiento se debera hacer uso de la libreria común `@nodecfdi/cfdiutils-common` y su método install para proporcionarle nuestra lib preferida de gestión de DOM. Antes del uso de cfdi-cleaner.
 
@@ -35,7 +51,7 @@ install(domParserInstance, xmlSerializerInstance, domImplementationInstance);
 ## Version 1.2.1
 
 - Se corrige `XmlNamespaceMethosTrait` estaba retornando en algunos casos específicos namespaceNodes que no eran
-  namespaces, haciendo que al iterar sobre ellos se consideraran atributos no namespace como namespace.
+    namespaces, haciendo que al iterar sobre ellos se consideraran atributos no namespace como namespace.
 - Se actualiza `SetKnownSchemaLocations` dado que se agrego un espacio conocido IngresosHidrocarburos 1.0.
 - Actualización de dependencias.
 
@@ -78,7 +94,7 @@ Para corregir este problema:
 - Se elimina de la lista de limpiadores de texto por defecto a `RemoveDuplicatedCfdi3Namespace`.
 - Se quita la funcionalidad de `RemoveDuplicatedCfdi3Namespace` y se emite un `console.warn`.
 - Se crea un nuevo limpiador `RenameElementAddPrefix` que agrega el prefijo al nodo que no lo tiene por estar utilizando
-  la definición simple `xmlns`. Además elimina los namespace superfluos y las definiciones `xmlns` redundantes.
+    la definición simple `xmlns`. Además elimina los namespace superfluos y las definiciones `xmlns` redundantes.
 
 Ejemplo de CFDI sucio:
 
@@ -146,13 +162,13 @@ ejemplo `xmlns="http://tempuri.org/root"` o `xmlns=""`.
   - Complemento de carta porte 1.0
   - Complemento de carta porte 2.0
 - Se agrega una prueba que usa <https://github.com/phpcdi/sat-ns-registry> para verificar que la lista se mantiene
-  actualizada.
+    actualizada.
 
 ## Versión 1.1.1
 
 - Se corrige `MoveNamespaceDeclarationToRoot` estaba generando una salida de XML no válida, mantenía la definición de
-  Namespace cuando este ya se encontraba definido en el Nodo padre, por ejemplo se esperaba
-  que `<cfdi:Complemento xmlns:cfdi="http://www.sat.gob.mx/cfd/3">` se removiera quedando solo `<cfdi:Complemento>`.
+    Namespace cuando este ya se encontraba definido en el Nodo padre, por ejemplo se esperaba
+    que `<cfdi:Complemento xmlns:cfdi="http://www.sat.gob.mx/cfd/3">` se removiera quedando solo `<cfdi:Complemento>`.
 - Se agrega un test que comprueba dicho caso.
 
 ## Versión 1.1.0

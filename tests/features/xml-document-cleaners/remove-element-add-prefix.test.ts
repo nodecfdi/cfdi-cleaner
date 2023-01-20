@@ -1,3 +1,4 @@
+import 'jest-xml-matcher';
 import { Xml, install } from '@nodecfdi/cfdiutils-common';
 import { DOMParser, XMLSerializer, DOMImplementation } from '@xmldom/xmldom';
 import { RenameElementAddPrefix } from '~/xml-document-cleaners/rename-element-add-prefix';

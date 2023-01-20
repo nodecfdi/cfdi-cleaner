@@ -1,8 +1,9 @@
+import 'jest-xml-matcher';
 import { Xml, install } from '@nodecfdi/cfdiutils-common';
 import { DOMParser, XMLSerializer, DOMImplementation } from '@xmldom/xmldom';
-import { RemoveIncompleteSchemaLocations } from '~/index';
+import { RemoveIncompleteSchemaLocations } from '~/xml-document-cleaners/remove-incomplete-schema-locations';
 
-describe('Feat/RemoveIncompleteSchemaLocations', () => {
+describe('RemoveIncompleteSchemaLocations', () => {
     beforeAll(() => {
         install(new DOMParser(), new XMLSerializer(), new DOMImplementation());
     });
@@ -32,7 +33,7 @@ describe('Feat/RemoveIncompleteSchemaLocations', () => {
     });
 
     test('clean schema locations with incomplete pairs only on children', () => {
-        // content has incomplete schema location "foo"
+        // Content has incomplete schema location "foo"
         const document = Xml.newDocumentContent(
             [
                 '<root>',

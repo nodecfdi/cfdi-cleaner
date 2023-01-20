@@ -1,4 +1,4 @@
-import { XmlStringCleanerInterface } from '../xml-string-cleaner-interface';
+import { type XmlStringCleanerInterface } from '../xml-string-cleaner-interface';
 
 export class AppendXmlDeclaration implements XmlStringCleanerInterface {
     public clean(xml: string): string {

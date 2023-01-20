@@ -1,6 +1,7 @@
+import 'jest-xml-matcher';
 import { Xml, install } from '@nodecfdi/cfdiutils-common';
 import { DOMParser, XMLSerializer, DOMImplementation } from '@xmldom/xmldom';
-import { CollapseComplemento } from '~/index';
+import { CollapseComplemento } from '~/xml-document-cleaners/collapse-complemento';
 
 describe('CollapseComplemento', () => {
     let cleaner: CollapseComplemento;

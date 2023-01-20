@@ -1,8 +1,8 @@
 import { Mixin } from 'ts-mixer';
-import { useNamespaces } from 'xpath';
+import xpath from 'xpath';
 import { XmlNamespaceMethodsTrait } from '../internal/xml-namespace-methods-trait';
 import { XmlAttributeMethodsTrait } from '../internal/xml-attribute-methods-trait';
-import { XmlDocumentCleanerInterface } from '../xml-document-cleaner-interface';
+import { type XmlDocumentCleanerInterface } from '../xml-document-cleaner-interface';
 import { SchemaLocation } from '../internal/schema-location';
 import { CfdiXPath } from '../internal/cfdi-x-path';
 
@@ -11,10 +11,20 @@ class SetKnownSchemaLocations
     implements XmlDocumentCleanerInterface
 {
     /**
+     * Pairs of key-value of namespace and version to XSD locations
+     * Key: namespace#version
+     * Value: location
+     * @returns Record
+     */
+    public static getKnowNamespaces(): Record<string, string> {
+        return SetKnownSchemaLocations.KNOWN_NAMESPACES;
+    }
+
+    /**
      * List of known namespace # version xsd locations as key value map
      * @see https://github.com/phpcfdi/sat-ns-registry
      */
-    private static KNOWN_NAMESPACES: Record<string, string> = {
+    private static readonly KNOWN_NAMESPACES: Record<string, string> = {
         'http://www.sat.gob.mx/cfd/4#4.0': 'http://www.sat.gob.mx/sitio_internet/cfd/4/cfdv40.xsd',
         'http://www.sat.gob.mx/cfd/3#3.3': 'http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd',
         'http://www.sat.gob.mx/cfd/3#3.2': 'http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv32.xsd',
@@ -123,20 +133,21 @@ class SetKnownSchemaLocations
     };
 
     public clean(document: Document): void {
-        const xpath = CfdiXPath.createFromDocument(document);
-        const schemaLocationAttributes = xpath.querySchemaLocations();
+        const xpathX = CfdiXPath.createFromDocument(document);
+        const schemaLocationAttributes = xpathX.querySchemaLocations();
         for (const schemaLocationAttribute of schemaLocationAttributes) {
             this.cleanNodeAttribute(document, schemaLocationAttribute);
         }
     }
 
     private cleanNodeAttribute(document: Document, attribute: Attr): void {
-        const schemaLocation = SchemaLocation.createFromValue(attribute.nodeValue as string);
-        Object.entries(schemaLocation.getPairs()).forEach(([namespace, location]) => {
+        const schemaLocation = SchemaLocation.createFromValue(attribute.nodeValue!);
+        for (const [namespace, location] of Object.entries(schemaLocation.getPairs())) {
             const version = this.obtainVersionOfNamespace(document, namespace);
-            location = this.obtainLocationForNamespaceVersion(namespace, version, location);
-            schemaLocation.setPair(namespace, location);
-        });
+            const temporaryLocation = this.obtainLocationForNamespaceVersion(namespace, version, location);
+            schemaLocation.setPair(namespace, temporaryLocation);
+        }
+
         attribute.nodeValue = schemaLocation.asValue();
         attribute.value = schemaLocation.asValue();
     }
@@ -153,27 +164,17 @@ class SetKnownSchemaLocations
         namespace: string,
         attributeName: string
     ): string {
-        const selectXpath = useNamespaces({ q: namespace });
+        const selectXpath = xpath.useNamespaces({ q: namespace });
         const nodes = selectXpath(`//q:*[@${attributeName}]`, document) as Element[];
         if (nodes.length === 0) {
             return '';
         }
 
-        return nodes[0].attributes.getNamedItem(attributeName)?.nodeValue as string;
+        return nodes[0].attributes.getNamedItem(attributeName)?.nodeValue ?? '';
     }
 
     private obtainLocationForNamespaceVersion(namespace: string, version: string, defaultV: string): string {
         return SetKnownSchemaLocations.KNOWN_NAMESPACES[`${namespace}#${version}`] ?? defaultV;
-    }
-
-    /**
-     * Pairs of key-value of namespace and version to XSD locations
-     * Key: namespace#version
-     * Value: location
-     * @returns Record
-     */
-    public static getKnowNamespaces(): Record<string, string> {
-        return SetKnownSchemaLocations.KNOWN_NAMESPACES;
     }
 }
 

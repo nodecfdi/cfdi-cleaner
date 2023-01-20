@@ -1,6 +1,7 @@
+import 'jest-xml-matcher';
 import { Xml, install } from '@nodecfdi/cfdiutils-common';
 import { DOMParser, XMLSerializer, DOMImplementation } from '@xmldom/xmldom';
-import { RemoveUnusedNamespaces } from '~/index';
+import { RemoveUnusedNamespaces } from '~/xml-document-cleaners/remove-unused-namespaces';
 
 describe('RemoveUnusedNamespaces', () => {
     let cleaner: RemoveUnusedNamespaces;

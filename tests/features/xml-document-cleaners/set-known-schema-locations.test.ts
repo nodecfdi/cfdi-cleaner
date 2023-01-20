@@ -1,10 +1,34 @@
+import 'jest-xml-matcher';
 import { Xml, install } from '@nodecfdi/cfdiutils-common';
 import { DOMParser, XMLSerializer, DOMImplementation } from '@xmldom/xmldom';
-import * as https from 'https';
-import { SetKnownSchemaLocations } from '~/index';
+import * as https from 'node:https';
+import { SetKnownSchemaLocations } from '~/xml-document-cleaners/set-known-schema-locations';
 
 describe('SetKnownSchemaLocations', () => {
     let cleaner: SetKnownSchemaLocations;
+    const fetch = async (
+        urlOptions: string | https.RequestOptions | URL,
+        data: unknown = ''
+    ): Promise<{ statusCode: number; headers: unknown; body: string }> =>
+        new Promise((resolve, reject) => {
+            const request = https.request(urlOptions, (response) => {
+                let body = '';
+                response.on('data', (chunk: string) => {
+                    body += chunk.toString();
+                });
+                response.on('error', reject);
+                response.on('end', () => {
+                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                        resolve({ statusCode: response.statusCode, headers: response.headers, body });
+                    } else {
+                        reject(new Error(`Request failed. status: ${response.statusCode ?? 500}, body: ${body}`));
+                    }
+                });
+            });
+            request.on('error', reject);
+            request.write(data, 'binary');
+            request.end();
+        });
 
     beforeAll(() => {
         install(new DOMParser(), new XMLSerializer(), new DOMImplementation());
@@ -98,46 +122,24 @@ describe('SetKnownSchemaLocations', () => {
         expect(xmlClean).toEqualXML(xmlExpected);
     });
 
-    test('know all locations from sat ns registry', () => {
-        // obtain the list of known locations from phpcfdi/sat-ns-registry
+    test('know all locations from sat ns registry', async () => {
+        // Obtain the list of known locations from phpcfdi/sat-ns-registry
         const satNsRegistryUrl =
             'https://raw.githubusercontent.com/phpcfdi/sat-ns-registry/master/complementos_v1.json';
-        const fetch = (
-            urlOptions: string | https.RequestOptions | URL,
-            data: unknown = ''
-        ): Promise<{ statusCode: number; headers: unknown; body: string }> => {
-            return new Promise((resolve, reject) => {
-                const req = https.request(urlOptions, (res) => {
-                    let body = '';
-                    res.on('data', (chunk) => (body += chunk.toString()));
-                    res.on('error', reject);
-                    res.on('end', () => {
-                        if (res.statusCode && res.statusCode >= 200 && res.statusCode <= 299) {
-                            resolve({ statusCode: res.statusCode, headers: res.headers, body: body });
-                        } else {
-                            reject('Request failed. status: ' + res.statusCode + ', body: ' + body);
-                        }
-                    });
-                });
-                req.on('error', reject);
-                req.write(data, 'binary');
-                req.end();
-            });
-        };
 
-        return fetch(satNsRegistryUrl).then((res) => {
-            const registry = JSON.parse(res.body) as { namespace?: string; version?: string; xsd?: string }[];
+        return fetch(satNsRegistryUrl).then((response) => {
+            const registry = JSON.parse(response.body) as Array<{ namespace?: string; version?: string; xsd?: string }>;
 
-            // re-creat the known list of namespace#version => xsd-location
+            // Re-creat the known list of namespace#version => xsd-location
             const expected: Record<string, string> = {};
-            registry.forEach((entry) => {
+            for (const entry of registry) {
                 const namespace = entry.namespace ?? '';
                 const version = entry.version ?? '';
                 const xsd = entry.xsd ?? '';
                 if (namespace && xsd) {
                     expected[`${namespace}#${version}`] = xsd;
                 }
-            });
+            }
 
             const knownLocations = SetKnownSchemaLocations.getKnowNamespaces();
 

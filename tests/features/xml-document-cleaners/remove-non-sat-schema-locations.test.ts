@@ -1,6 +1,7 @@
+import 'jest-xml-matcher';
 import { Xml, install } from '@nodecfdi/cfdiutils-common';
 import { DOMParser, XMLSerializer, DOMImplementation } from '@xmldom/xmldom';
-import { RemoveNonSatSchemaLocations } from '~/index';
+import { RemoveNonSatSchemaLocations } from '~/xml-document-cleaners/remove-non-sat-schema-locations';
 
 describe('RemoveNonSatSchemaLocations', () => {
     beforeAll(() => {

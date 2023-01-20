@@ -1,6 +1,6 @@
 import { Mixin } from 'ts-mixer';
 import { XmlAttributeMethodsTrait } from '../internal/xml-attribute-methods-trait';
-import { XmlDocumentCleanerInterface } from '../xml-document-cleaner-interface';
+import { type XmlDocumentCleanerInterface } from '../xml-document-cleaner-interface';
 import { CfdiXPath } from '../internal/cfdi-x-path';
 import { SchemaLocation } from '../internal/schema-location';
 
@@ -34,22 +34,22 @@ class RemoveIncompleteSchemaLocations extends Mixin(XmlAttributeMethodsTrait) im
     public schemaLocationValueNamespaceXsdPairToArray(schemaLocationValue: string): Record<string, string> {
         const components = SchemaLocation.valueToComponents(schemaLocationValue);
         const pairs: Record<string, string> = {};
-        for (let c = 0; c < components.length; c = c + 1) {
+        for (let c = 0; c < components.length; c += 1) {
             const namespace = components[c];
             if (this.uriEndsWithXsd(namespace)) {
-                // namespace is a location
+                // Namespace is a location
                 continue;
             }
 
             const location = components[c + 1] ?? '';
             if (!this.uriEndsWithXsd(location)) {
-                // location is a namespace
+                // Location is a namespace
                 continue;
             }
 
-            // namespace match with location that ends with xsd
+            // Namespace match with location that ends with xsd
             pairs[namespace] = location;
-            c++; // skip ns declaration
+            c++; // Skip ns declaration
         }
 
         return pairs;

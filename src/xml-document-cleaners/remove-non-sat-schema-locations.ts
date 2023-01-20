@@ -1,7 +1,7 @@
 import { Mixin } from 'ts-mixer';
 import { XmlNamespaceMethodsTrait } from '../internal/xml-namespace-methods-trait';
 import { XmlAttributeMethodsTrait } from '../internal/xml-attribute-methods-trait';
-import { XmlDocumentCleanerInterface } from '../xml-document-cleaner-interface';
+import { type XmlDocumentCleanerInterface } from '../xml-document-cleaner-interface';
 import { CfdiXPath } from '../internal/cfdi-x-path';
 import { SchemaLocation } from '../internal/schema-location';
 
@@ -20,9 +20,7 @@ class RemoveNonSatSchemaLocations
 
     public cleanSchemaLocationsValue(schemaLocationValue: string): string {
         const schemaLocation = SchemaLocation.createFromValue(schemaLocationValue);
-        schemaLocation.filterUsingNamespace((namespace): boolean => {
-            return this.isNamespaceRelatedToSat(namespace);
-        });
+        schemaLocation.filterUsingNamespace((namespace): boolean => this.isNamespaceRelatedToSat(namespace));
 
         return schemaLocation.asValue();
     }

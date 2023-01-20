@@ -1,21 +1,10 @@
-import { select, SelectedValue, useNamespaces } from 'xpath';
+import xpath, { type SelectedValue } from 'xpath';
 import { XmlConstants } from './xml-constants';
 
 export class CfdiXPath {
-    private static ALLOWED_NAMESPACES = ['http://www.sat.gob.mx/cfd/3', 'http://www.sat.gob.mx/cfd/4'];
-
-    private readonly document: Document;
-
-    private readonly namespaces?: Record<string, string>;
-
-    constructor(document: Document, namespaces?: Record<string, string>) {
-        this.document = document;
-        this.namespaces = namespaces;
-    }
-
     public static createFromDocument(document: Document): CfdiXPath {
         const root = document.documentElement;
-        let rootNamespace = root.namespaceURI || '';
+        let rootNamespace = root.namespaceURI ?? '';
         if (!this.ALLOWED_NAMESPACES.includes(rootNamespace)) {
             rootNamespace = '';
         }
@@ -28,14 +17,14 @@ export class CfdiXPath {
         return new CfdiXPath(document, namespaces);
     }
 
-    private querySelect<T extends SelectedValue>(xpathQuery: string): T[] {
-        if (this.namespaces && this.namespaces !== {}) {
-            const selectWithNS = useNamespaces(this.namespaces);
+    private static readonly ALLOWED_NAMESPACES = ['http://www.sat.gob.mx/cfd/3', 'http://www.sat.gob.mx/cfd/4'];
 
-            return selectWithNS(xpathQuery, this.document) as T[];
-        }
+    private readonly _document: Document;
+    private readonly _namespaces?: Record<string, string>;
 
-        return select(xpathQuery, this.document) as T[];
+    constructor(document: Document, namespaces?: Record<string, string>) {
+        this._document = document;
+        this._namespaces = namespaces;
     }
 
     public queryElements<T extends Element>(xpathQuery: string): T[] {
@@ -53,5 +42,15 @@ export class CfdiXPath {
      */
     public querySchemaLocations(): Attr[] {
         return this.queryAttributes<Attr>('//@xsi:schemaLocation');
+    }
+
+    private querySelect<T extends SelectedValue>(xpathQuery: string): T[] {
+        if (this._namespaces && Object.entries(this._namespaces).length > 0) {
+            const selectWithNS = xpath.useNamespaces(this._namespaces);
+
+            return selectWithNS(xpathQuery, this._document) as T[];
+        }
+
+        return xpath.select(xpathQuery, this._document) as T[];
     }
 }

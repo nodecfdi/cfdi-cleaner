@@ -1,30 +1,35 @@
 import { XmlStringCleaners } from './xml-string-cleaners';
 import { XmlDocumentCleaners } from './xml-document-cleaners';
 import { Xml, getSerializer } from '@nodecfdi/cfdiutils-common';
+import { type ExcludeList } from './exclude-list';
 
 export class Cleaner {
-    private stringCleaners: XmlStringCleaners;
+    public static staticClean(xml: string): string {
+        return new Cleaner().cleanStringToString(xml);
+    }
 
-    private xmlCleaners: XmlDocumentCleaners;
+    private _stringCleaners: XmlStringCleaners;
+    private _xmlCleaners: XmlDocumentCleaners;
 
     constructor(
         stringCleaners: XmlStringCleaners | null = null,
         xmlDocumentCleaners: XmlDocumentCleaners | null = null
     ) {
-        this.stringCleaners = stringCleaners || XmlStringCleaners.createDefault();
-        this.xmlCleaners = xmlDocumentCleaners || XmlDocumentCleaners.createDefault();
+        this._stringCleaners = stringCleaners ?? XmlStringCleaners.createDefault();
+        this._xmlCleaners = xmlDocumentCleaners ?? XmlDocumentCleaners.createDefault();
     }
 
-    public static staticClean(xml: string): string {
-        return new Cleaner().cleanStringToString(xml);
+    public exclude(excludeList: ExcludeList): void {
+        this._stringCleaners = this._stringCleaners.withOutCleaners(excludeList);
+        this._xmlCleaners = this._xmlCleaners.withOutCleaners(excludeList);
     }
 
     public cleanString(xml: string): string {
-        return this.stringCleaners.clean(xml);
+        return this._stringCleaners.clean(xml);
     }
 
     public cleanDocument(document: Document): void {
-        this.xmlCleaners.clean(document);
+        this._xmlCleaners.clean(document);
     }
 
     public cleanStringToDocument(xml: string): Document {

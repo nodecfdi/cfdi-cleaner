@@ -3,7 +3,7 @@ import { DOMParser, XMLSerializer, DOMImplementation } from '@xmldom/xmldom';
 import { CfdiXPath } from '~/internal/cfdi-x-path';
 
 describe('Internal/Cfdi3XPath', () => {
-    const providerCreateCfdiVersions: readonly [string, string][] = [
+    const providerCreateCfdiVersions: ReadonlyArray<[string, string]> = [
         [
             'CFDI33',
             [
@@ -64,7 +64,7 @@ describe('Internal/Cfdi3XPath', () => {
 
         const attributes: string[] = [];
         for (const attribute of xpath.queryAttributes('//cfdi:Complemento//@Version')) {
-            attributes.push(attribute.nodeValue || '');
+            attributes.push(attribute.nodeValue ?? '');
         }
 
         expect(attributes).toEqual(['1.0', '1.1']);

@@ -1,6 +1,7 @@
+import 'jest-xml-matcher';
 import { Xml, install } from '@nodecfdi/cfdiutils-common';
 import { DOMParser, XMLSerializer, DOMImplementation } from '@xmldom/xmldom';
-import { MoveNamespaceDeclarationToRoot } from '~/index';
+import { MoveNamespaceDeclarationToRoot } from '~/xml-document-cleaners/move-namespace-declaration-to-root';
 
 describe('MoveNamespaceDeclarationToRoot', () => {
     let cleaner: MoveNamespaceDeclarationToRoot;

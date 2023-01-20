@@ -1,23 +1,23 @@
 import { Mixin } from 'ts-mixer';
 import { XmlNamespaceMethodsTrait } from '../internal/xml-namespace-methods-trait';
-import { XmlDocumentCleanerInterface } from '../xml-document-cleaner-interface';
+import { type XmlDocumentCleanerInterface } from '../xml-document-cleaner-interface';
 
 class RenameElementAddPrefix extends Mixin(XmlNamespaceMethodsTrait) implements XmlDocumentCleanerInterface {
     public clean(document: Document): void {
         const rootElement = document.documentElement;
 
-        // remove unused xmlns declarations
+        // Remove unused xmlns declarations
         for (const namespaceNode of this.iterateNonReservedNamespaces(document)) {
-            // remove xmlns only
-            if ('xmlns' === namespaceNode.nodeName) {
+            // Remove xmlns only
+            if (namespaceNode.nodeName === 'xmlns') {
                 this.removeNamespaceNodeAttribute(namespaceNode);
             }
 
-            // remove namespace prefix
+            // Remove namespace prefix
             if (
                 namespaceNode.ownerElement &&
                 namespaceNode.ownerElement !== rootElement &&
-                '' !== this.queryPrefix(namespaceNode.ownerElement)
+                this.queryPrefix(namespaceNode.ownerElement) !== ''
             ) {
                 this.removeNamespaceNodeAttribute(namespaceNode);
             }
@@ -25,8 +25,8 @@ class RenameElementAddPrefix extends Mixin(XmlNamespaceMethodsTrait) implements 
     }
 
     private queryPrefix(element: Element): string {
-        const namespace = element.namespaceURI;
-        if (namespace === null) {
+        const namespace = element.namespaceURI ?? '';
+        if (namespace === '') {
             return '';
         }
 
@@ -37,7 +37,7 @@ class RenameElementAddPrefix extends Mixin(XmlNamespaceMethodsTrait) implements 
             }
 
             const prefix = namespaceNode.localName;
-            if ('' !== prefix && namespaceNode.nodeValue === namespace) {
+            if (prefix !== '' && namespaceNode.nodeValue === namespace) {
                 return prefix;
             }
         }

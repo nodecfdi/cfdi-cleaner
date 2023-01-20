@@ -30,14 +30,30 @@ Librería inspirada por la versión para php <https://github.com/phpcfdi/cfdi-cl
 
 ## Instalación
 
-```shell
+NPM
+
+```bash
 npm i @nodecfdi/cfdi-cleaner --save
 ```
 
-o
+YARN
 
-```shell
+```bash
 yarn add @nodecfdi/cfdi-cleaner
+```
+
+PNPM
+
+```bash
+pnpm add @nodecfdi/cfdi-cleaner
+```
+
+CDN - Browser
+
+Usa la versión mas reciente publicada cambiando `<latest-version>` por la última versión. Ex. ...cfdi-cleaner@1.4.0/dist...
+
+```html
+<script src="https://unpkg.com/@nodecfdi/cfdi-cleaner@<latest-version>/dist/cfdi-cleaner.global.js"></script>
 ```
 
 ## Referencia de uso
@@ -298,7 +314,7 @@ The `@nodecfdi/cfdi-cleaner` library is copyright © [NodeCfdi](https://github.c
 [badge-discord]: https://img.shields.io/discord/459860554090283019?logo=discord
 [badge-release]: https://img.shields.io/npm/v/@nodecfdi/cfdi-cleaner.svg?logo=npm
 [badge-license]: https://img.shields.io/github/license/nodecfdi/cfdi-cleaner.svg?logo=open-source-initiative
-[badge-build]: https://img.shields.io/github/workflow/status/nodecfdi/cfdi-cleaner/build/main?logo=github-actions
+[badge-build]: https://img.shields.io/github/actions/workflow/status/nodecfdi/cfdi-cleaner/build.yml?branch=main&logo=github-actions
 [badge-reliability]: https://sonarcloud.io/api/project_badges/measure?project=nodecfdi_cfdi-cleaner&metric=reliability_rating
 [badge-maintainability]: https://sonarcloud.io/api/project_badges/measure?project=nodecfdi_cfdi-cleaner&metric=sqale_rating
 [badge-coverage]: https://img.shields.io/sonar/coverage/nodecfdi_cfdi-cleaner/main?logo=sonarcloud&server=https%3A%2F%2Fsonarcloud.io

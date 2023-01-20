@@ -1,6 +1,6 @@
 import { Mixin } from 'ts-mixer';
 import { XmlElementMethodsTrait } from '../internal/xml-element-methods-trait';
-import { XmlDocumentCleanerInterface } from '../xml-document-cleaner-interface';
+import { type XmlDocumentCleanerInterface } from '../xml-document-cleaner-interface';
 import { CfdiXPath } from '../internal/cfdi-x-path';
 
 class CollapseComplemento extends Mixin(XmlElementMethodsTrait) implements XmlDocumentCleanerInterface {
@@ -14,17 +14,18 @@ class CollapseComplemento extends Mixin(XmlElementMethodsTrait) implements XmlDo
 
         let receiver: Element | null = null;
         for (const complemento of complementos) {
-            // first complemento
+            // First complemento
             if (!receiver) {
                 receiver = complemento;
                 continue;
             }
 
-            // non-first complemento
+            // Non-first complemento
             while (complemento.childNodes.length > 0) {
                 const child = complemento.childNodes.item(0);
                 this.elementMove(child as Element, receiver);
             }
+
             this.elementRemove(complemento);
         }
     }

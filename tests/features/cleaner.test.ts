@@ -1,9 +1,12 @@
+import 'jest-xml-matcher';
 import { Xml, install } from '@nodecfdi/cfdiutils-common';
 import { DOMParser, XMLSerializer, DOMImplementation } from '@xmldom/xmldom';
-import { Cleaner } from '~/index';
-import { TestCase } from '../test-case';
+import { Cleaner } from '~/cleaner';
+import { useTestCase } from '../test-case';
 
 describe('Cleaner', () => {
+    const { fileContents } = useTestCase();
+
     beforeAll(() => {
         install(new DOMParser(), new XMLSerializer(), new DOMImplementation());
     });
@@ -21,8 +24,8 @@ describe('Cleaner', () => {
 
         const expected = [
             '<?xml version="1.0"?>',
-            '<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3"',
-            ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"',
+            '<cfdi:Comprobante xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"',
+            ' xmlns:cfdi="http://www.sat.gob.mx/cfd/3"',
             ' xsi:schemaLocation="http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd"',
             ' Version="3.3"/>'
         ].join('');
@@ -45,10 +48,10 @@ describe('Cleaner', () => {
 
         const expected = Xml.newDocumentContent(
             [
-                '<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3"',
-                'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"',
-                'xsi:schemaLocation="http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd"',
-                'Version="3.3"/>'
+                '<cfdi:Comprobante xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"',
+                ' xmlns:cfdi="http://www.sat.gob.mx/cfd/3"',
+                ' xsi:schemaLocation="http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd"',
+                ' Version="3.3"/>'
             ].join('\n')
         );
 
@@ -70,8 +73,8 @@ describe('Cleaner', () => {
 
         const expected = [
             '<?xml version="1.0"?>',
-            '<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/4"',
-            ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"',
+            '<cfdi:Comprobante xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"',
+            ' xmlns:cfdi="http://www.sat.gob.mx/cfd/4"',
             ' xsi:schemaLocation="http://www.sat.gob.mx/cfd/4 http://www.sat.gob.mx/sitio_internet/cfd/4/cfdv40.xsd"',
             ' Version="4.0"/>'
         ].join('');
@@ -94,9 +97,9 @@ describe('Cleaner', () => {
 
         const expected = Xml.newDocumentContent(
             [
-                '<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/4"',
-                'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"',
-                'xsi:schemaLocation="http://www.sat.gob.mx/cfd/4 http://www.sat.gob.mx/sitio_internet/cfd/4/cfdv40.xsd"',
+                '<cfdi:Comprobante xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"',
+                ' xmlns:cfdi="http://www.sat.gob.mx/cfd/4"',
+                ' xsi:schemaLocation="http://www.sat.gob.mx/cfd/4 http://www.sat.gob.mx/sitio_internet/cfd/4/cfdv40.xsd"',
                 'Version="4.0"/>'
             ].join('\n')
         );
@@ -125,10 +128,10 @@ describe('Cleaner', () => {
 
         const expected = Xml.newDocumentContent(
             [
-                '<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/4"',
-                'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"',
-                'xsi:schemaLocation="http://www.sat.gob.mx/cfd/4 http://www.sat.gob.mx/sitio_internet/cfd/4/cfdv40.xsd"',
-                'Version="4.0">',
+                '<cfdi:Comprobante xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"',
+                ' xmlns:cfdi="http://www.sat.gob.mx/cfd/4"',
+                ' xsi:schemaLocation="http://www.sat.gob.mx/cfd/4 http://www.sat.gob.mx/sitio_internet/cfd/4/cfdv40.xsd"',
+                ' Version="4.0">',
                 '</cfdi:Comprobante>'
             ].join('\n')
         );
@@ -139,7 +142,7 @@ describe('Cleaner', () => {
     });
 
     test.each([['cfdi32-real.xml'], ['cfdi33-real.xml']])('clean known files %s', (filename: string) => {
-        const contents = TestCase.fileContents(filename);
+        const contents = fileContents(filename);
         const document = Xml.newDocumentContent(contents);
 
         const cleaner = new Cleaner();

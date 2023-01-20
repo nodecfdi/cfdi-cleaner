@@ -1,8 +1,9 @@
-import { RemoveNonXmlStrings } from '~/index';
+import { RemoveNonXmlStrings } from '~/xml-string-cleaners/remove-non-xml-strings';
 
 describe('RemoveNonXmlStrings', () => {
     test.each([
         ['nothing', '<a></a>', '<a></a>'],
+        // eslint-disable-next-line unicorn/no-hex-escape
         ['utf-8 bom', '<a></a>', '\xEF\xBB\xBF<a></a>'],
         ['content at begin', '<a></a>', 'begin<a></a>'],
         ['content at end', '<a></a>', '<a></a>end'],

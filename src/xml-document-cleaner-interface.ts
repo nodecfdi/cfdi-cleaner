@@ -1,3 +1,3 @@
-export interface XmlDocumentCleanerInterface {
+export type XmlDocumentCleanerInterface = {
     clean(document: Document): void;
-}
+};

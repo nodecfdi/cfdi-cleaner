@@ -1,6 +1,7 @@
+import 'jest-xml-matcher';
 import { Xml, install } from '@nodecfdi/cfdiutils-common';
 import { DOMParser, XMLSerializer, DOMImplementation } from '@xmldom/xmldom';
-import { RemoveNonSatNamespacesNodes } from '~/index';
+import { RemoveNonSatNamespacesNodes } from '~/xml-document-cleaners/remove-non-sat-namespaces-nodes';
 
 describe('RemoveNonSatNamespacesNodes', () => {
     beforeAll(() => {
