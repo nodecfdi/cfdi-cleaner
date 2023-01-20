@@ -33,7 +33,7 @@ describe('Cleaner_Browser', () => {
             ' Version="3.3"/>'
         ].join('');
 
-        // Actually exists a bug on environment browser with jsdom this block is for temporally workaround
+        // At the moment 20/01/2023 exists a bug on environment browser with jsdom this block is a temporally workaround
         if (!xmlClean.startsWith('<?xml version="1.0"?>')) {
             xmlClean = `<?xml version="1.0"?>${xmlClean}`;
         }
@@ -87,7 +87,7 @@ describe('Cleaner_Browser', () => {
             ' Version="4.0"/>'
         ].join('');
 
-        // Actually exists a bug on environment browser with jsdom this block is for temporally workaround
+        // At the moment 20/01/2023 exists a bug on environment browser with jsdom this block is a temporally workaround
         if (!xmlClean.startsWith('<?xml version="1.0"?>')) {
             xmlClean = `<?xml version="1.0"?>${xmlClean}`;
         }
