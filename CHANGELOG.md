@@ -1,5 +1,12 @@
 # @nodecfdi/cfdi-cleaner
 
+## 1.4.1
+
+### Patch Changes - Change export for build process using bundlers
+
+- Resolve exports for usage with bundlers like a vite|rollup
+- Update dependencies
+
 ## 1.4.0
 
 ### Change build tool from microbundle to rollup

@@ -50,7 +50,7 @@ pnpm add @nodecfdi/cfdi-cleaner
 
 CDN - Browser
 
-Usa la versión mas reciente publicada cambiando `<latest-version>` por la última versión. Ex. ...cfdi-cleaner@1.4.0/dist...
+Usa la versión mas reciente publicada cambiando `<latest-version>` por la última versión. Ex. ...cfdi-cleaner@1.4.1/dist...
 
 ```html
 <script src="https://unpkg.com/@nodecfdi/cfdi-cleaner@<latest-version>/dist/cfdi-cleaner.global.js"></script>
