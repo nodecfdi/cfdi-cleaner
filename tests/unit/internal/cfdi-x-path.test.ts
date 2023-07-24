@@ -1,6 +1,6 @@
 import { install, Xml } from '@nodecfdi/cfdiutils-common';
 import { DOMParser, XMLSerializer, DOMImplementation } from '@xmldom/xmldom';
-import { CfdiXPath } from '~/internal/cfdi-x-path';
+import { CfdiXPath } from 'src/internal/cfdi-x-path';
 
 describe('Internal/Cfdi3XPath', () => {
     const providerCreateCfdiVersions: ReadonlyArray<[string, string]> = [
@@ -25,8 +25,8 @@ describe('Internal/Cfdi3XPath', () => {
                 '    FechaTimbrado="2022-01-12T12:39:34" RfcProvCertif="SAT970701NN3"',
                 '    SelloCFD="...5tSZhA==" SelloSAT="...aobTwQ=="/>',
                 '</cfdi:Complemento>',
-                '</cfdi:Comprobante>'
-            ].join('\n')
+                '</cfdi:Comprobante>',
+            ].join('\n'),
         ],
         [
             'CFDI40',
@@ -49,9 +49,9 @@ describe('Internal/Cfdi3XPath', () => {
                 '    FechaTimbrado="2022-01-12T12:39:34" RfcProvCertif="SAT970701NN3"',
                 '    SelloCFD="...5tSZhA==" SelloSAT="...aobTwQ=="/>',
                 '</cfdi:Complemento>',
-                '</cfdi:Comprobante>'
-            ].join('\n')
-        ]
+                '</cfdi:Comprobante>',
+            ].join('\n'),
+        ],
     ];
 
     beforeAll(() => {
@@ -84,7 +84,7 @@ describe('Internal/Cfdi3XPath', () => {
 
     test('non allowed namespace', () => {
         const document = Xml.newDocumentContent(
-            ['<cfdi:Comprobante xmlns:cfdi="http://tempuri.org/cfdi"/>'].join('\n')
+            ['<cfdi:Comprobante xmlns:cfdi="http://tempuri.org/cfdi"/>'].join('\n'),
         );
 
         const xpath = CfdiXPath.createFromDocument(document);
@@ -93,7 +93,7 @@ describe('Internal/Cfdi3XPath', () => {
 
     test('allowed namespace with different prefix', () => {
         const document = Xml.newDocumentContent(
-            ['<factura:Comprobante xmlns:factura="http://www.sat.gob.mx/cfd/4"/>'].join('\n')
+            ['<factura:Comprobante xmlns:factura="http://www.sat.gob.mx/cfd/4"/>'].join('\n'),
         );
 
         const xpath = CfdiXPath.createFromDocument(document);

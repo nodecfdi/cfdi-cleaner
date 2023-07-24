@@ -1,4 +1,4 @@
-import { RemoveNonXmlStrings } from '~/xml-string-cleaners/remove-non-xml-strings';
+import { RemoveNonXmlStrings } from 'src/xml-string-cleaners/remove-non-xml-strings';
 
 describe('RemoveNonXmlStrings', () => {
     test.each([
@@ -14,7 +14,7 @@ describe('RemoveNonXmlStrings', () => {
         ['no xml', '< b && b >', 'a < b && b > c'],
         ['without lt or gt', '', 'a b c'],
         ['without gt ', '', 'a < b c'],
-        ['without lt ', '', 'a b > c']
+        ['without lt ', '', 'a b > c'],
     ])('clean %s', (_name, expected, input) => {
         const cleaner = new RemoveNonXmlStrings();
         const clean = cleaner.clean(input);

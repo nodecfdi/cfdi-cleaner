@@ -1,4 +1,4 @@
-import xpathjs from 'xpath';
+import xpath from 'xpath';
 import { XmlConstants } from './xml-constants';
 
 /**
@@ -7,16 +7,21 @@ import { XmlConstants } from './xml-constants';
  */
 export class XmlNamespaceMethodsTrait {
     protected *iterateNonReservedNamespaces(document: Document): Generator<Attr> {
-        const namespaceNodes = xpathjs.evaluate(
+        const namespaceNodes = (xpath as unknown as XPathEvaluator).evaluate(
             "(//*|//@*)[local-name(.)='xmlns' or starts-with(name(), 'xmlns')]",
             document,
             null,
             0,
-            null
+            null,
         );
+
         let namespaceNode = namespaceNodes.iterateNext();
         while (namespaceNode) {
             if (!this.isNamespaceReserved(namespaceNode.nodeValue!)) {
+                yield namespaceNode as Attr;
+            }
+
+            if (!this.isNamespaceReserved((namespaceNode as Attr).namespaceURI!)) {
                 yield namespaceNode as Attr;
             }
 
@@ -35,7 +40,7 @@ export class XmlNamespaceMethodsTrait {
         const reservedNameSpaces: string[] = [
             XmlConstants.NAMESPACE_XML,
             XmlConstants.NAMESPACE_XMLNS,
-            XmlConstants.NAMESPACE_XSI
+            XmlConstants.NAMESPACE_XSI,
         ];
 
         return reservedNameSpaces.includes(namespace);

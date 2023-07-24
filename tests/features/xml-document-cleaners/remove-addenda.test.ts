@@ -1,6 +1,6 @@
 import { Xml, install } from '@nodecfdi/cfdiutils-common';
 import { DOMParser, XMLSerializer, DOMImplementation } from '@xmldom/xmldom';
-import { RemoveAddenda } from '~/xml-document-cleaners/remove-addenda';
+import { RemoveAddenda } from 'src/xml-document-cleaners/remove-addenda';
 
 describe('RemoveAddenda', () => {
     const providerCleanDocumentWithAddenda: Array<[string, string, string]> = [
@@ -12,8 +12,8 @@ describe('RemoveAddenda', () => {
                 '    <x:Addenda>',
                 '        <o:OtherData xmlns:o="http://tempuri.org/other" foo="bar" />',
                 '    </x:Addenda>',
-                '</x:Comprobante>'
-            ].join('\n')
+                '</x:Comprobante>',
+            ].join('\n'),
         ],
         [
             'CFDI 4.0',
@@ -23,9 +23,9 @@ describe('RemoveAddenda', () => {
                 '   <x:Addenda>',
                 '       <o:OtherData xmlns:o="http://tempuri.org/other" foo="bar" />',
                 '   </x:Addenda>',
-                '</x:Comprobante>'
-            ].join('\n')
-        ]
+                '</x:Comprobante>',
+            ].join('\n'),
+        ],
     ];
 
     beforeAll(() => {

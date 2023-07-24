@@ -4,7 +4,7 @@
 
 import 'jest-xml-matcher';
 import { Xml, install } from '@nodecfdi/cfdiutils-common';
-import { SetKnownSchemaLocations } from '~/xml-document-cleaners/set-known-schema-locations';
+import { SetKnownSchemaLocations } from 'src/xml-document-cleaners/set-known-schema-locations';
 
 describe('SetKnownSchemaLocations_Browser', () => {
     let cleaner: SetKnownSchemaLocations;
@@ -26,8 +26,8 @@ describe('SetKnownSchemaLocations_Browser', () => {
                 '           xsi:schemaLocation="http://www.sat.gob.mx/TimbreFiscalDigital tfd.xsd"',
                 '       />',
                 '   </cfdi:Complemento>',
-                '</cfdi:Comprobante>'
-            ].join('\n')
+                '</cfdi:Comprobante>',
+            ].join('\n'),
         );
 
         cleaner.clean(_document);
@@ -46,8 +46,8 @@ describe('SetKnownSchemaLocations_Browser', () => {
                 `           xsi:schemaLocation="http://www.sat.gob.mx/TimbreFiscalDigital ${xsdTfd}"`,
                 '       />',
                 '   </cfdi:Complemento>',
-                '</cfdi:Comprobante>'
-            ].join('\n')
+                '</cfdi:Comprobante>',
+            ].join('\n'),
         );
 
         const xmlClean = new XMLSerializer().serializeToString(_document);
@@ -60,8 +60,8 @@ describe('SetKnownSchemaLocations_Browser', () => {
             [
                 '<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3"',
                 '   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"',
-                '   xsi:schemaLocation="http://www.sat.gob.mx/cfd/3 cfdi.xsd"/>'
-            ].join('\n')
+                '   xsi:schemaLocation="http://www.sat.gob.mx/cfd/3 cfdi.xsd"/>',
+            ].join('\n'),
         );
 
         cleaner.clean(_document);
@@ -70,8 +70,8 @@ describe('SetKnownSchemaLocations_Browser', () => {
             [
                 '<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3"',
                 '   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"',
-                '   xsi:schemaLocation="http://www.sat.gob.mx/cfd/3 cfdi.xsd"/>'
-            ].join('\n')
+                '   xsi:schemaLocation="http://www.sat.gob.mx/cfd/3 cfdi.xsd"/>',
+            ].join('\n'),
         );
 
         const xmlClean = new XMLSerializer().serializeToString(_document);
@@ -83,8 +83,8 @@ describe('SetKnownSchemaLocations_Browser', () => {
         const _document = Xml.newDocumentContent(
             [
                 '<foo:Foo xmlns:foo="http://tempuri.org/foo" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"',
-                '   xsi:schemaLocation="http://tempuri.org/foo foo.xsd" />'
-            ].join('\n')
+                '   xsi:schemaLocation="http://tempuri.org/foo foo.xsd" />',
+            ].join('\n'),
         );
 
         cleaner.clean(_document);
@@ -92,8 +92,8 @@ describe('SetKnownSchemaLocations_Browser', () => {
         const expected = Xml.newDocumentContent(
             [
                 ' <foo:Foo xmlns:foo="http://tempuri.org/foo" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"',
-                '   xsi:schemaLocation="http://tempuri.org/foo foo.xsd" />'
-            ].join('\n')
+                '   xsi:schemaLocation="http://tempuri.org/foo foo.xsd" />',
+            ].join('\n'),
         );
 
         const xmlClean = new XMLSerializer().serializeToString(_document);

@@ -1,7 +1,7 @@
 import 'jest-xml-matcher';
 import { Xml, install } from '@nodecfdi/cfdiutils-common';
 import { DOMParser, XMLSerializer, DOMImplementation } from '@xmldom/xmldom';
-import { RemoveNonSatNamespacesNodes } from '~/xml-document-cleaners/remove-non-sat-namespaces-nodes';
+import { RemoveNonSatNamespacesNodes } from 'src/xml-document-cleaners/remove-non-sat-namespaces-nodes';
 
 describe('RemoveNonSatNamespacesNodes', () => {
     beforeAll(() => {
@@ -20,8 +20,8 @@ describe('RemoveNonSatNamespacesNodes', () => {
                 '       <x:remove foo="foo"/>',
                 '       <y:remove-me-too xmlns:y="lorem"/>',
                 '   </cfdi:Addenda>',
-                '</cfdi:Comprobante>'
-            ].join('\n')
+                '</cfdi:Comprobante>',
+            ].join('\n'),
         );
 
         const cleaner = new RemoveNonSatNamespacesNodes();
@@ -36,8 +36,8 @@ describe('RemoveNonSatNamespacesNodes', () => {
                 '   <cfdi:Emisor Rfc="COSC8001137NA"/>',
                 '   <cfdi:Addenda>',
                 '   </cfdi:Addenda>',
-                '</cfdi:Comprobante> '
-            ].join('\n')
+                '</cfdi:Comprobante> ',
+            ].join('\n'),
         );
 
         const xmlClean = new XMLSerializer().serializeToString(document);

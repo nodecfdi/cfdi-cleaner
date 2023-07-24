@@ -1,7 +1,7 @@
 import 'jest-xml-matcher';
 import { Xml, install } from '@nodecfdi/cfdiutils-common';
 import { DOMParser, XMLSerializer, DOMImplementation } from '@xmldom/xmldom';
-import { RenameElementAddPrefix } from '~/xml-document-cleaners/rename-element-add-prefix';
+import { RenameElementAddPrefix } from 'src/xml-document-cleaners/rename-element-add-prefix';
 
 describe('RemoveElementAddPrefix', () => {
     const cleaner = new RenameElementAddPrefix();
@@ -22,8 +22,8 @@ describe('RemoveElementAddPrefix', () => {
                 '  <first xmlns="http://tempuri.org/root" id="1" />',
                 '  <r:second xmlns:r="http://tempuri.org/root" id="2" />',
                 '  <r:third xmlns="http://tempuri.org/root" id="3" />',
-                '</r:root>'
-            ].join('\n')
+                '</r:root>',
+            ].join('\n'),
         );
 
         cleaner.clean(document);
@@ -34,8 +34,8 @@ describe('RemoveElementAddPrefix', () => {
                 '  <r:first id="1" />',
                 '  <r:second id="2" />',
                 '  <r:third id="3" />',
-                '</r:root>'
-            ].join('\n')
+                '</r:root>',
+            ].join('\n'),
         );
 
         const xmlClean = new XMLSerializer().serializeToString(document);
@@ -46,7 +46,7 @@ describe('RemoveElementAddPrefix', () => {
 
     test('remove duplicated namespace as default', () => {
         const document = Xml.newDocumentContent(
-            ['<r:root xmlns:r="http://tempuri.org/root" xmlns="http://www.sat.gob.mx/cfd/3"/>'].join('\n')
+            ['<r:root xmlns:r="http://tempuri.org/root" xmlns="http://www.sat.gob.mx/cfd/3"/>'].join('\n'),
         );
 
         cleaner.clean(document);

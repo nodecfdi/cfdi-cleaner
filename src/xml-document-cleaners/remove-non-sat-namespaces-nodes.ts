@@ -1,5 +1,5 @@
 import { Mixin } from 'ts-mixer';
-import { select } from 'xpath';
+import xpath from 'xpath';
 import { XmlAttributeMethodsTrait } from '../internal/xml-attribute-methods-trait';
 import { XmlElementMethodsTrait } from '../internal/xml-element-methods-trait';
 import { XmlNamespaceMethodsTrait } from '../internal/xml-namespace-methods-trait';
@@ -29,14 +29,16 @@ class RemoveNonSatNamespacesNodes
     }
 
     private removeElementsWithNamespace(document: Document, namespace: string): void {
-        const elements = select(`//*[namespace-uri()="${namespace}"]`, document) as Element[];
+        // eslint-disable-next-line import/no-named-as-default-member
+        const elements = xpath.select(`//*[namespace-uri()="${namespace}"]`, document) as Element[];
         for (const element of elements) {
             this.elementRemove(element);
         }
     }
 
     private removeAttributesWithNamespace(document: Document, namespace: string): void {
-        const attributes = select(`//@*[namespace-uri()="${namespace}"]`, document) as Attr[];
+        // eslint-disable-next-line import/no-named-as-default-member
+        const attributes = xpath.select(`//@*[namespace-uri()="${namespace}"]`, document) as Attr[];
         for (const attribute of attributes) {
             this.attributeRemove(attribute);
         }

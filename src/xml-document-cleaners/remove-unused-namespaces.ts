@@ -1,5 +1,5 @@
 import { Mixin } from 'ts-mixer';
-import { select } from 'xpath';
+import xpath from 'xpath';
 import { XmlNamespaceMethodsTrait } from '../internal/xml-namespace-methods-trait';
 import { type XmlDocumentCleanerInterface } from '../xml-document-cleaner-interface';
 
@@ -11,21 +11,23 @@ class RemoveUnusedNamespaces extends Mixin(XmlNamespaceMethodsTrait) implements 
     }
 
     protected hasElementsOnNamespace(document: Document, namespace: string, prefix: string): boolean {
-        const elements = select(
+        // eslint-disable-next-line import/no-named-as-default-member
+        const elements = xpath.select(
             `//*[namespace-uri()="${namespace}" and name()=concat("${prefix}", local-name())]`,
-            document
-        );
+            document,
+        ) as Node[] | null;
 
-        return elements.length > 0;
+        return Boolean(elements && elements.length > 0);
     }
 
     protected hasAttributesOnNamespace(document: Document, namespace: string, prefix: string): boolean {
-        const attributes = select(
+        // eslint-disable-next-line import/no-named-as-default-member
+        const attributes = xpath.select(
             `//@*[namespace-uri()="${namespace}" and name()=concat("${prefix}", local-name())]`,
-            document
-        );
+            document,
+        ) as Node[] | null;
 
-        return attributes.length > 0;
+        return Boolean(attributes && attributes.length > 0);
     }
 
     private checkNamespaceNode(document: Document, namespaceNode: Attr): void {

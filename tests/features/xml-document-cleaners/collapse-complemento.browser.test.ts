@@ -4,7 +4,7 @@
 
 import 'jest-xml-matcher';
 import { Xml, install } from '@nodecfdi/cfdiutils-common';
-import { CollapseComplemento } from '~/xml-document-cleaners/collapse-complemento';
+import { CollapseComplemento } from 'src/xml-document-cleaners/collapse-complemento';
 
 describe('CollapseComplemento_Browser', () => {
     let cleaner: CollapseComplemento;
@@ -28,8 +28,8 @@ describe('CollapseComplemento_Browser', () => {
                 '           <foo:Child/>',
                 '       </foo:Foo>',
                 '   </cfdi:Complemento>',
-                '</cfdi:Comprobante>'
-            ].join('\n')
+                '</cfdi:Comprobante>',
+            ].join('\n'),
         );
         const xmlBeforeClean = new XMLSerializer().serializeToString(_document);
 
@@ -51,8 +51,8 @@ describe('CollapseComplemento_Browser', () => {
                 '            <foo:Child/>',
                 '        </foo:Foo>',
                 '    </cfdi:Complemento>',
-                '</cfdi:Comprobante>'
-            ].join('\n')
+                '</cfdi:Comprobante>',
+            ].join('\n'),
         );
         const xmlBeforeClean = new XMLSerializer().serializeToString(_document);
 
@@ -82,8 +82,8 @@ describe('CollapseComplemento_Browser', () => {
                 '     <foo:Child/>',
                 '   </foo:Foo>',
                 ' </cfdi:Complemento>',
-                '</cfdi:Comprobante>'
-            ].join('')
+                '</cfdi:Comprobante>',
+            ].join(''),
         );
         const expected = Xml.newDocumentContent(
             [
@@ -99,8 +99,8 @@ describe('CollapseComplemento_Browser', () => {
                 '     <foo:Child/>',
                 '   </foo:Foo>',
                 ' </cfdi:Complemento>',
-                '</cfdi:Comprobante>'
-            ].join('')
+                '</cfdi:Comprobante>',
+            ].join(''),
         );
 
         const xmlExpected = new XMLSerializer().serializeToString(expected);

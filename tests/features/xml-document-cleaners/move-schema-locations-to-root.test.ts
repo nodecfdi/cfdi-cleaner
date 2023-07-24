@@ -1,7 +1,7 @@
 import 'jest-xml-matcher';
 import { Xml, install } from '@nodecfdi/cfdiutils-common';
 import { DOMParser, XMLSerializer, DOMImplementation } from '@xmldom/xmldom';
-import { MoveSchemaLocationsToRoot } from '~/xml-document-cleaners/move-schema-locations-to-root';
+import { MoveSchemaLocationsToRoot } from 'src/xml-document-cleaners/move-schema-locations-to-root';
 
 describe('MoveSchemaLocationToRoot', () => {
     let cleaner: MoveSchemaLocationsToRoot;
@@ -19,8 +19,8 @@ describe('MoveSchemaLocationToRoot', () => {
                 '    <foo xsi:schemaLocation="http://tempuri.org/foo foo.xsd">',
                 '        <bar xsi:schemaLocation="http://tempuri.org/foo foo.xsd http://tempuri.org/bar bar.xsd"/>',
                 '    </foo>',
-                '</root>'
-            ].join('\n')
+                '</root>',
+            ].join('\n'),
         );
 
         cleaner.clean(document);
@@ -28,7 +28,7 @@ describe('MoveSchemaLocationToRoot', () => {
         const expectedLocations = [
             'http://tempuri.org/root root.xsd',
             'http://tempuri.org/bar bar.xsd',
-            'http://tempuri.org/foo foo.xsd'
+            'http://tempuri.org/foo foo.xsd',
         ].join(' ');
         const expected = Xml.newDocumentContent(
             [
@@ -37,8 +37,8 @@ describe('MoveSchemaLocationToRoot', () => {
                 '   <foo>',
                 '       <bar />',
                 '   </foo>',
-                '</root>'
-            ].join('\n')
+                '</root>',
+            ].join('\n'),
         );
         const xmlClean = new XMLSerializer().serializeToString(document);
         const xmlExpected = new XMLSerializer().serializeToString(expected);
@@ -51,8 +51,8 @@ describe('MoveSchemaLocationToRoot', () => {
                 '<root xmlns:xs="http://www.w3.org/2001/XMLSchema-instance"',
                 '   xs:schemaLocation="http://tempuri.org/root root.xsd">',
                 '    <foo xs:schemaLocation="http://tempuri.org/foo foo.xsd"/>',
-                '</root>'
-            ].join('\n')
+                '</root>',
+            ].join('\n'),
         );
 
         cleaner.clean(document);
@@ -62,8 +62,8 @@ describe('MoveSchemaLocationToRoot', () => {
                 '<root xmlns:xs="http://www.w3.org/2001/XMLSchema-instance"',
                 '  xs:schemaLocation="http://tempuri.org/root root.xsd http://tempuri.org/foo foo.xsd">',
                 '   <foo/>',
-                '</root>'
-            ].join('\n')
+                '</root>',
+            ].join('\n'),
         );
         const xmlClean = new XMLSerializer().serializeToString(document);
         const xmlExpected = new XMLSerializer().serializeToString(expected);
@@ -76,8 +76,8 @@ describe('MoveSchemaLocationToRoot', () => {
                 '<root>',
                 '    <foo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"',
                 '       xsi:schemaLocation="http://tempuri.org/foo foo.xsd"/>',
-                '</root>'
-            ].join('\n')
+                '</root>',
+            ].join('\n'),
         );
 
         cleaner.clean(document);
@@ -87,8 +87,8 @@ describe('MoveSchemaLocationToRoot', () => {
                 '<root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"',
                 '   xsi:schemaLocation="http://tempuri.org/foo foo.xsd">',
                 '   <foo/>',
-                '</root>'
-            ].join('\n')
+                '</root>',
+            ].join('\n'),
         );
         const xmlClean = new XMLSerializer().serializeToString(document);
         const xmlExpected = new XMLSerializer().serializeToString(expected);

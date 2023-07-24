@@ -1,8 +1,8 @@
 import 'jest-xml-matcher';
 import { Xml, install } from '@nodecfdi/cfdiutils-common';
 import { DOMParser, XMLSerializer, DOMImplementation } from '@xmldom/xmldom';
-import { Cleaner } from '~/cleaner';
 import { useTestCase } from '../test-case';
+import { Cleaner } from 'src/cleaner';
 
 describe('Cleaner', () => {
     const { fileContents } = useTestCase();
@@ -17,7 +17,7 @@ describe('Cleaner', () => {
             '<cfdi:Comprobante xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"',
             ' xmlns:cfdi="http://www.sat.gob.mx/cfd/3"',
             ' xsi:schemaLocation="http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd http://nrfm.tbwa.mx/AddendaEmisor http://nrfm.tbwa.mx/AddendaEmisor/AddendaEmisorNFRM.xsd http://www.pegasotecnologia.com/secfd/Schemas/AddendaDomicilioEmisor http://www.pegasotecnologia.com/secfd/schemas/AddendaDomicilioEmisor.xsd http://www.pegasotecnologia.com/secfd/Schemas/AddendaDomicilioExpedidoEn http://www.pegasotecnologia.com/secfd/schemas/AddendaDomicilioExpedidoEn.xsd"',
-            ' Version="3.3"/>'
+            ' Version="3.3"/>',
         ].join('');
 
         const xmlClean = Cleaner.staticClean(xmlDirty);
@@ -27,7 +27,7 @@ describe('Cleaner', () => {
             '<cfdi:Comprobante xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"',
             ' xmlns:cfdi="http://www.sat.gob.mx/cfd/3"',
             ' xsi:schemaLocation="http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd"',
-            ' Version="3.3"/>'
+            ' Version="3.3"/>',
         ].join('');
 
         expect(xmlClean).toEqualXML(expected);
@@ -39,8 +39,8 @@ describe('Cleaner', () => {
                 '<cfdi:Comprobante xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"',
                 ' xmlns:cfdi="http://www.sat.gob.mx/cfd/3"',
                 ' xsi:schemaLocation="http://www.sat.gob.mx/cfd/3 cfdi33.xsd"',
-                ' Version="3.3"/>'
-            ].join('\n')
+                ' Version="3.3"/>',
+            ].join('\n'),
         );
 
         const cleaner = new Cleaner();
@@ -51,8 +51,8 @@ describe('Cleaner', () => {
                 '<cfdi:Comprobante xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"',
                 ' xmlns:cfdi="http://www.sat.gob.mx/cfd/3"',
                 ' xsi:schemaLocation="http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd"',
-                ' Version="3.3"/>'
-            ].join('\n')
+                ' Version="3.3"/>',
+            ].join('\n'),
         );
 
         const xmlClean = new XMLSerializer().serializeToString(document);
@@ -66,7 +66,7 @@ describe('Cleaner', () => {
             '<cfdi:Comprobante xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"',
             ' xmlns:cfdi="http://www.sat.gob.mx/cfd/4"',
             ' xsi:schemaLocation="http://www.sat.gob.mx/cfd/4 cfdi40.xsd"',
-            ' Version="4.0"/>'
+            ' Version="4.0"/>',
         ].join('');
 
         const xmlClean = Cleaner.staticClean(xmlDirty);
@@ -76,7 +76,7 @@ describe('Cleaner', () => {
             '<cfdi:Comprobante xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"',
             ' xmlns:cfdi="http://www.sat.gob.mx/cfd/4"',
             ' xsi:schemaLocation="http://www.sat.gob.mx/cfd/4 http://www.sat.gob.mx/sitio_internet/cfd/4/cfdv40.xsd"',
-            ' Version="4.0"/>'
+            ' Version="4.0"/>',
         ].join('');
 
         expect(xmlClean).toEqualXML(expected);
@@ -88,8 +88,8 @@ describe('Cleaner', () => {
                 '<cfdi:Comprobante xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"',
                 ' xmlns:cfdi="http://www.sat.gob.mx/cfd/4"',
                 ' xsi:schemaLocation="http://www.sat.gob.mx/cfd/4 cfdi44.xsd"',
-                ' Version="4.0"/>'
-            ].join('\n')
+                ' Version="4.0"/>',
+            ].join('\n'),
         );
 
         const cleaner = new Cleaner();
@@ -100,8 +100,8 @@ describe('Cleaner', () => {
                 '<cfdi:Comprobante xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"',
                 ' xmlns:cfdi="http://www.sat.gob.mx/cfd/4"',
                 ' xsi:schemaLocation="http://www.sat.gob.mx/cfd/4 http://www.sat.gob.mx/sitio_internet/cfd/4/cfdv40.xsd"',
-                'Version="4.0"/>'
-            ].join('\n')
+                'Version="4.0"/>',
+            ].join('\n'),
         );
 
         const xmlClean = new XMLSerializer().serializeToString(document);
@@ -119,8 +119,8 @@ describe('Cleaner', () => {
                 '   <cfdi:Addenda>',
                 '       <o:OtherData xmlns:o="http://tempuri.org/other" foo="bar" />',
                 '   </cfdi:Addenda>',
-                '</cfdi:Comprobante>'
-            ].join('\n')
+                '</cfdi:Comprobante>',
+            ].join('\n'),
         );
 
         const cleaner = new Cleaner();
@@ -132,8 +132,8 @@ describe('Cleaner', () => {
                 ' xmlns:cfdi="http://www.sat.gob.mx/cfd/4"',
                 ' xsi:schemaLocation="http://www.sat.gob.mx/cfd/4 http://www.sat.gob.mx/sitio_internet/cfd/4/cfdv40.xsd"',
                 ' Version="4.0">',
-                '</cfdi:Comprobante>'
-            ].join('\n')
+                '</cfdi:Comprobante>',
+            ].join('\n'),
         );
 
         const xmlClean = new XMLSerializer().serializeToString(document);

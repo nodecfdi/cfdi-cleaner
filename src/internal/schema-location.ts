@@ -4,13 +4,25 @@
  * @internal
  */
 export class SchemaLocation {
+    private _pairs: Record<string, string>;
+
+    /**
+     * SchemaLocation constructor
+     *
+     * @param pairs - On each entry: key is namespace, value is location
+     *
+     */
+    constructor(pairs: Record<string, string>) {
+        this._pairs = pairs;
+    }
+
     public static createFromValue(value: string): SchemaLocation {
         return SchemaLocation.createFromComponents(SchemaLocation.valueToComponents(value));
     }
 
     public static valueToComponents(schemaLocationValue: string): string[] {
         return schemaLocationValue
-            .replace(/\s/g, ' ')
+            .replaceAll(/\s/g, ' ')
             .split(' ')
             .filter((x) => x && x !== '');
     }
@@ -22,18 +34,6 @@ export class SchemaLocation {
         }
 
         return new SchemaLocation(pairs);
-    }
-
-    private _pairs: Record<string, string>;
-
-    /**
-     * SchemaLocation constructor
-     *
-     * @param pairs - On each entry: key is namespace, value is location
-     *
-     */
-    constructor(pairs: Record<string, string>) {
-        this._pairs = pairs;
     }
 
     public getPairs(): Record<string, string> {
@@ -57,7 +57,7 @@ export class SchemaLocation {
     public import(source: SchemaLocation): void {
         this._pairs = {
             ...this._pairs,
-            ...source._pairs
+            ...source._pairs,
         };
     }
 }

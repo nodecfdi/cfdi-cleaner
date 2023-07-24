@@ -12,6 +12,12 @@ import { RenameElementAddPrefix } from './xml-document-cleaners/rename-element-a
 import { type ExcludeList } from './exclude-list';
 
 export class XmlDocumentCleaners implements XmlDocumentCleanerInterface {
+    private readonly cleaners: XmlDocumentCleanerInterface[];
+
+    constructor(...cleaners: XmlDocumentCleanerInterface[]) {
+        this.cleaners = cleaners;
+    }
+
     public static createDefault(): XmlDocumentCleaners {
         return new XmlDocumentCleaners(
             new RemoveAddenda(),
@@ -23,14 +29,8 @@ export class XmlDocumentCleaners implements XmlDocumentCleanerInterface {
             new MoveNamespaceDeclarationToRoot(),
             new MoveSchemaLocationsToRoot(),
             new SetKnownSchemaLocations(),
-            new CollapseComplemento()
+            new CollapseComplemento(),
         );
-    }
-
-    private readonly cleaners: XmlDocumentCleanerInterface[];
-
-    constructor(...cleaners: XmlDocumentCleanerInterface[]) {
-        this.cleaners = cleaners;
     }
 
     public clean(document: Document): void {

@@ -6,19 +6,19 @@ import { XmlNsSchemaLocation } from './xml-string-cleaners/xml-ns-schema-locatio
 import { type ExcludeList } from './exclude-list';
 
 export class XmlStringCleaners implements XmlStringCleanerInterface {
+    private readonly cleaners: XmlStringCleanerInterface[];
+
+    constructor(...cleaners: XmlStringCleanerInterface[]) {
+        this.cleaners = cleaners;
+    }
+
     public static createDefault(): XmlStringCleaners {
         return new XmlStringCleaners(
             new RemoveNonXmlStrings(),
             new SplitXmlDeclarationFromDocument(),
             new AppendXmlDeclaration(),
-            new XmlNsSchemaLocation()
+            new XmlNsSchemaLocation(),
         );
-    }
-
-    private readonly cleaners: XmlStringCleanerInterface[];
-
-    constructor(...cleaners: XmlStringCleanerInterface[]) {
-        this.cleaners = cleaners;
     }
 
     public clean(xml: string): string {

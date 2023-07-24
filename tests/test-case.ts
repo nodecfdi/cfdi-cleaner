@@ -10,7 +10,9 @@ const useTestCase = (): {
     const filePath = (append = ''): string => join(dirname(fileURLToPath(import.meta.url)), '_files', append);
 
     const fileContent = (path: string): string => {
-        if (!existsSync(path)) return '';
+        if (!existsSync(path)) {
+            return '';
+        }
 
         return readFileSync(path).toString();
     };
@@ -20,7 +22,7 @@ const useTestCase = (): {
     return {
         filePath,
         fileContent,
-        fileContents
+        fileContents,
     };
 };
 

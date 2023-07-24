@@ -16,15 +16,15 @@ describe('Internal/XmlNamespaceMethodsTrait_Browser', () => {
         const namespaces: Record<string, string> = {
             root: 'http://tempuri.org/root',
             unused: 'http://tempuri.org/unused',
-            foo: 'http://tempuri.org/foo'
+            foo: 'http://tempuri.org/foo',
         };
 
         const _document = Xml.newDocumentContent(
             [
                 '<root:root xmlns:root="http://tempuri.org/root" xmlns:unused="http://tempuri.org/unused">',
                 '   <foo:foo xmlns:foo="http://tempuri.org/foo"/>',
-                '</root:root>'
-            ].join('\n')
+                '</root:root>',
+            ].join('\n'),
         );
         expect(specimen.obtainNamespaces(_document)).toEqual(namespaces);
 
@@ -39,8 +39,8 @@ describe('Internal/XmlNamespaceMethodsTrait_Browser', () => {
             [
                 '<root:root xmlns:root="http://tempuri.org/root">',
                 '   <foo:foo xmlns:foo="http://tempuri.org/foo"/>',
-                '</root:root>'
-            ].join('\n')
+                '</root:root>',
+            ].join('\n'),
         );
 
         const xmlClean = new XMLSerializer().serializeToString(_document);
@@ -55,9 +55,9 @@ describe('Internal/XmlNamespaceMethodsTrait_Browser', () => {
             [
                 '<r:root xmlns:r="http://tempuri.org/root">',
                 '  <r:test xmlns:unused="http://tempuri.org/root"/>',
-                '</r:root>'
+                '</r:root>',
             ].join('\n'),
-            ['<r:root xmlns:r="http://tempuri.org/root">', '  <r:test/>', '</r:root>'].join('\n')
+            ['<r:root xmlns:r="http://tempuri.org/root">', '  <r:test/>', '</r:root>'].join('\n'),
         ],
         [
             'no prefix',
@@ -65,21 +65,22 @@ describe('Internal/XmlNamespaceMethodsTrait_Browser', () => {
             [
                 '<r:root xmlns:r="http://tempuri.org/root">',
                 '  <r:test xmlns="http://tempuri.org/root"/>',
-                '</r:root>'
+                '</r:root>',
             ].join('\n'),
-            ['<r:root xmlns:r="http://tempuri.org/root">', '  <r:test/>', '</r:root>'].join('\n')
+            ['<r:root xmlns:r="http://tempuri.org/root">', '  <r:test/>', '</r:root>'].join('\n'),
         ],
         [
             'no prefix no content',
             'xmlns',
             ['<r:root xmlns:r="http://tempuri.org/root">', '  <r:test xmlns=""/>', '</r:root>'].join('\n'),
-            ['<r:root xmlns:r="http://tempuri.org/root">', '  <r:test/>', '</r:root>'].join('\n')
-        ]
+            ['<r:root xmlns:r="http://tempuri.org/root">', '  <r:test/>', '</r:root>'].join('\n'),
+        ],
     ])('remove namespace node attribute %s', (_name: string, target: string, xmlImput: string, xmlExpected: string) => {
         const specimen = new SpecimenXmlNamespaceMethodsTrait();
 
         const _document = Xml.newDocumentContent(xmlImput);
 
+        // eslint-disable-next-line unicorn/prefer-query-selector
         const testElement = _document.getElementsByTagName('test').item(0);
 
         // Find an remove unused "xmlns:unused"

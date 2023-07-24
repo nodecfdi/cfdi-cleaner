@@ -1,5 +1,5 @@
 import { Mixin } from 'ts-mixer';
-import { XmlNamespaceMethodsTrait } from '~/internal/xml-namespace-methods-trait';
+import { XmlNamespaceMethodsTrait } from 'src/internal/xml-namespace-methods-trait';
 
 class SpecimenXmlNamespaceMethodsTrait extends Mixin(XmlNamespaceMethodsTrait) {
     public pIterateNonReservedNamespaces(document: Document): Generator<Attr> {
