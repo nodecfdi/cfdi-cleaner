@@ -1,5 +1,16 @@
 # @nodecfdi/cfdi-cleaner
 
+## 1.4.2
+
+### Patch Changes - Maintenance and Small Optimizations
+
+- Update dependencies
+- Update types exports for typescript module and commonjs
+- Update to ESM support
+- Update CI workflow for fix pipeline to latest github and pnpm changes
+- Increment code coverage
+- Drop support to node versions < 16
+
 ## 1.4.1
 
 ### Patch Changes - Change export for build process using bundlers

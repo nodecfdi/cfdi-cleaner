@@ -1,27 +1,27 @@
 import 'jest-xml-matcher';
 import { Xml, install } from '@nodecfdi/cfdiutils-common';
 import { DOMParser, XMLSerializer, DOMImplementation } from '@xmldom/xmldom';
-import { RemoveIncompleteSchemaLocations } from '~/xml-document-cleaners/remove-incomplete-schema-locations';
+import { RemoveIncompleteSchemaLocations } from 'src/xml-document-cleaners/remove-incomplete-schema-locations';
 
-describe('RemoveIncompleteSchemaLocations', () => {
+describe('remove_incomplete_schema_locations', () => {
     beforeAll(() => {
         install(new DOMParser(), new XMLSerializer(), new DOMImplementation());
     });
 
-    test('clean schema locations with incomplete pairs only on root', () => {
+    test('clean_schema_locations_with_incomplete_pairs_only_on_root', () => {
         const document = Xml.newDocumentContent(
             [
                 '<r xmlns="http://tempuri.org/r" xmlns:x="http://www.w3.org/2001/XMLSchema-instance"',
                 ' x:schemaLocation="http://tempuri.org/r r.xsd http://tempuri.org/foo http://tempuri.org/bar bar.xsd"',
-                '/>'
-            ].join('\n')
+                '/>',
+            ].join('\n'),
         );
         const expected = Xml.newDocumentContent(
             [
                 '<r xmlns="http://tempuri.org/r" xmlns:x="http://www.w3.org/2001/XMLSchema-instance"',
                 ' x:schemaLocation="http://tempuri.org/r r.xsd http://tempuri.org/bar bar.xsd"',
-                '/>'
-            ].join('\n')
+                '/>',
+            ].join('\n'),
         );
 
         const cleaner = new RemoveIncompleteSchemaLocations();
@@ -32,7 +32,7 @@ describe('RemoveIncompleteSchemaLocations', () => {
         expect(xmlClean).toEqualXML(xmlExpected);
     });
 
-    test('clean schema locations with incomplete pairs only on children', () => {
+    test('clean_schema_locations_with_incomplete_pairs_only_on_children', () => {
         // Content has incomplete schema location "foo"
         const document = Xml.newDocumentContent(
             [
@@ -44,8 +44,8 @@ describe('RemoveIncompleteSchemaLocations', () => {
                 'http://tempuri.org/remove-other',
                 'http://tempuri.org/remove-ns      http://tempuri.org/remove-non-xsd  "',
                 '/>',
-                '</root>'
-            ].join('\n')
+                '</root>',
+            ].join('\n'),
         );
 
         const expected = Xml.newDocumentContent(
@@ -53,8 +53,8 @@ describe('RemoveIncompleteSchemaLocations', () => {
                 '<root>',
                 '<child xmlns="http://tempuri.org/r" xmlns:x="http://www.w3.org/2001/XMLSchema-instance"',
                 'x:schemaLocation="http://tempuri.org/foo foo.xsd http://tempuri.org/bar bar.xsd"/>',
-                '</root>'
-            ].join('\n')
+                '</root>',
+            ].join('\n'),
         );
 
         const cleaner = new RemoveIncompleteSchemaLocations();

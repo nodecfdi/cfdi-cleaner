@@ -4,13 +4,14 @@ export default defineConfig({
     test: {
         globals: true,
         alias: {
-            '~': './src'
+            src: './src',
         },
         coverage: {
             all: true,
             provider: 'istanbul',
             reporter: ['text', 'lcov'],
-            include: ['src/**/*.ts']
-        }
-    }
+            include: ['src/**/*.ts'],
+        },
+        environmentMatchGlobs: [['**/*.browser.test.ts', 'jsdom']],
+    },
 });

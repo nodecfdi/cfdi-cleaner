@@ -1,19 +1,19 @@
 import 'jest-xml-matcher';
 import { install } from '@nodecfdi/cfdiutils-common';
 import { DOMParser, XMLSerializer, DOMImplementation } from '@xmldom/xmldom';
-import { Cleaner } from '~/cleaner';
-import { ExcludeList } from '~/exclude-list';
-import { MoveNamespaceDeclarationToRoot } from '~/xml-document-cleaners/move-namespace-declaration-to-root';
-import { RemoveAddenda } from '~/xml-document-cleaners/remove-addenda';
-import { RemoveNonSatNamespacesNodes } from '~/xml-document-cleaners/remove-non-sat-namespaces-nodes';
-import { RemoveNonSatSchemaLocations } from '~/xml-document-cleaners/remove-non-sat-schema-locations';
+import { Cleaner } from 'src/cleaner';
+import { ExcludeList } from 'src/exclude-list';
+import { MoveNamespaceDeclarationToRoot } from 'src/xml-document-cleaners/move-namespace-declaration-to-root';
+import { RemoveAddenda } from 'src/xml-document-cleaners/remove-addenda';
+import { RemoveNonSatNamespacesNodes } from 'src/xml-document-cleaners/remove-non-sat-namespaces-nodes';
+import { RemoveNonSatSchemaLocations } from 'src/xml-document-cleaners/remove-non-sat-schema-locations';
 
-describe('Cleanes_Exclude', () => {
+describe('cleanes_exclude', () => {
     beforeAll(() => {
         install(new DOMParser(), new XMLSerializer(), new DOMImplementation());
     });
 
-    test('cleaner exclude addenda', () => {
+    test('cleaner_exclude_addenda', () => {
         const xml = [
             '<?xml version="1.0"?>',
             '<cfdi:Comprobante xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"',
@@ -23,14 +23,14 @@ describe('Cleanes_Exclude', () => {
             '<cfdi:Addenda>',
             '    <foo:Main id="1" xmlns:foo="urn:foo"/>',
             '</cfdi:Addenda>',
-            '</cfdi:Comprobante>'
+            '</cfdi:Comprobante>',
         ].join('');
 
         const excludeList = new ExcludeList(
             RemoveAddenda,
             RemoveNonSatNamespacesNodes,
             RemoveNonSatSchemaLocations,
-            MoveNamespaceDeclarationToRoot
+            MoveNamespaceDeclarationToRoot,
         );
 
         const cleaner = new Cleaner();

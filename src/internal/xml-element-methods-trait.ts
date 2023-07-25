@@ -5,12 +5,16 @@
 export class XmlElementMethodsTrait {
     protected elementRemove(element: Element): void {
         const parent = element.parentNode;
-        // Node parentNode never is null but if a case is found we can implement a test
-        parent!.removeChild(element);
+        /* istanbul ignore else -- For usage always is not null but for default parent is posible null @preserve */
+        if (parent !== null) {
+            // eslint-disable-next-line unicorn/prefer-dom-node-remove
+            parent.removeChild(element);
+        }
     }
 
     protected elementMove(element: Element, parent: Element): void {
         this.elementRemove(element);
+        // eslint-disable-next-line unicorn/prefer-dom-node-append
         parent.appendChild(element);
     }
 }

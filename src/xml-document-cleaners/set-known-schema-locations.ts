@@ -11,16 +11,6 @@ class SetKnownSchemaLocations
     implements XmlDocumentCleanerInterface
 {
     /**
-     * Pairs of key-value of namespace and version to XSD locations
-     * Key: namespace#version
-     * Value: location
-     * @returns Record
-     */
-    public static getKnowNamespaces(): Record<string, string> {
-        return SetKnownSchemaLocations.KNOWN_NAMESPACES;
-    }
-
-    /**
      * List of known namespace # version xsd locations as key value map
      * @see https://github.com/phpcfdi/sat-ns-registry
      */
@@ -129,8 +119,18 @@ class SetKnownSchemaLocations
             'http://www.sat.gob.mx/esquemas/retencionpago/1/sectorfinanciero/sectorfinanciero.xsd',
         'http://www.sat.gob.mx/esquemas/retencionpago/1/PlataformasTecnologicas10#1.0':
             'http://www.sat.gob.mx/esquemas/retencionpago/1/' +
-            'PlataformasTecnologicas10/ServiciosPlataformasTecnologicas10.xsd'
+            'PlataformasTecnologicas10/ServiciosPlataformasTecnologicas10.xsd',
     };
+
+    /**
+     * Pairs of key-value of namespace and version to XSD locations
+     * Key: namespace#version
+     * Value: location
+     * @returns Record
+     */
+    public static getKnowNamespaces(): Record<string, string> {
+        return SetKnownSchemaLocations.KNOWN_NAMESPACES;
+    }
 
     public clean(document: Document): void {
         const xpathX = CfdiXPath.createFromDocument(document);
@@ -162,8 +162,9 @@ class SetKnownSchemaLocations
     private obtainAttributeValueFromFirstNodeOfNamespace(
         document: Document,
         namespace: string,
-        attributeName: string
+        attributeName: string,
     ): string {
+        // eslint-disable-next-line import/no-named-as-default-member
         const selectXpath = xpath.useNamespaces({ q: namespace });
         const nodes = selectXpath(`//q:*[@${attributeName}]`, document) as Element[];
         if (nodes.length === 0) {
@@ -174,7 +175,7 @@ class SetKnownSchemaLocations
     }
 
     private obtainLocationForNamespaceVersion(namespace: string, version: string, defaultV: string): string {
-        return SetKnownSchemaLocations.KNOWN_NAMESPACES[`${namespace}#${version}`] ?? defaultV;
+        return SetKnownSchemaLocations.KNOWN_NAMESPACES[`${namespace}#${version}`] || defaultV;
     }
 }
 

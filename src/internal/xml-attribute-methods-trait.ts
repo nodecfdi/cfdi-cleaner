@@ -5,8 +5,11 @@
 export class XmlAttributeMethodsTrait {
     protected attributeRemove(attribute: Attr): void {
         const { ownerElement, nodeName } = attribute;
-        // OwnerElement never is null but if a case is found we can implement a test
-        ownerElement!.removeAttribute(nodeName);
+
+        /* istanbul ignore else -- For usage always is not null but for default ownerElement is posible null @preserve */
+        if (ownerElement !== null) {
+            ownerElement.removeAttribute(nodeName);
+        }
     }
 
     protected attributeSetValueOrRemoveIfEmpty(attribute: Attr, value: string): void {

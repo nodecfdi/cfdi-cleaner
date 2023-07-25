@@ -1,22 +1,23 @@
+import { Xml, getSerializer } from '@nodecfdi/cfdiutils-common';
 import { XmlStringCleaners } from './xml-string-cleaners';
 import { XmlDocumentCleaners } from './xml-document-cleaners';
-import { Xml, getSerializer } from '@nodecfdi/cfdiutils-common';
 import { type ExcludeList } from './exclude-list';
 
 export class Cleaner {
-    public static staticClean(xml: string): string {
-        return new Cleaner().cleanStringToString(xml);
-    }
-
     private _stringCleaners: XmlStringCleaners;
+
     private _xmlCleaners: XmlDocumentCleaners;
 
     constructor(
         stringCleaners: XmlStringCleaners | null = null,
-        xmlDocumentCleaners: XmlDocumentCleaners | null = null
+        xmlDocumentCleaners: XmlDocumentCleaners | null = null,
     ) {
         this._stringCleaners = stringCleaners ?? XmlStringCleaners.createDefault();
         this._xmlCleaners = xmlDocumentCleaners ?? XmlDocumentCleaners.createDefault();
+    }
+
+    public static staticClean(xml: string): string {
+        return new Cleaner().cleanStringToString(xml);
     }
 
     public exclude(excludeList: ExcludeList): void {

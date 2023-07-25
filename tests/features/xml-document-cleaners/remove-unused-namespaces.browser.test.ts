@@ -1,12 +1,8 @@
-/**
- * \@vitest-environment jsdom
- */
-
 import 'jest-xml-matcher';
 import { Xml, install } from '@nodecfdi/cfdiutils-common';
-import { RemoveUnusedNamespaces } from '~/xml-document-cleaners/remove-unused-namespaces';
+import { RemoveUnusedNamespaces } from 'src/xml-document-cleaners/remove-unused-namespaces';
 
-describe('RemoveUnusedNamespaces_Browser', () => {
+describe('remove_unused_namespaces_browser', () => {
     let cleaner: RemoveUnusedNamespaces;
 
     beforeAll(() => {
@@ -14,15 +10,15 @@ describe('RemoveUnusedNamespaces_Browser', () => {
         cleaner = new RemoveUnusedNamespaces();
     });
 
-    test('remove unused namespaces on root', () => {
+    test('remove_unused_namespaces_on_root', () => {
         const _document = Xml.newDocumentContent(
             [
                 '<r:root',
                 '   xmlns:b="http://tempuri.org/bar"',
                 '   xmlns:r="http://tempuri.org/root"',
                 '   xmlns:f="http://tempuri.org/foo"',
-                '/>'
-            ].join('\n')
+                '/>',
+            ].join('\n'),
         );
 
         cleaner.clean(_document);
@@ -34,15 +30,15 @@ describe('RemoveUnusedNamespaces_Browser', () => {
         expect(xmlClean).toEqualXML(xmlExpected);
     });
 
-    test('remove unused namespaces on children', () => {
+    test('remove_unused_namespaces_on_children', () => {
         const _document = Xml.newDocumentContent(
             [
                 '<r:root xmlns:b="http://tempuri.org/bar" xmlns:r="http://tempuri.org/root" xmlns:f="http://tempuri.org/foo">',
                 '   <a:child xmlns:a="http://tempuri.org/a">',
                 '       <a:child xmlns:xee="http://tempuri.org/xee" f:foo="foo"/>',
                 '   </a:child>',
-                '</r:root>'
-            ].join('\n')
+                '</r:root>',
+            ].join('\n'),
         );
 
         cleaner.clean(_document);
@@ -53,8 +49,8 @@ describe('RemoveUnusedNamespaces_Browser', () => {
                 '   <a:child xmlns:a="http://tempuri.org/a">',
                 '       <a:child f:foo="foo"/>',
                 '   </a:child>',
-                '</r:root>'
-            ].join('\n')
+                '</r:root>',
+            ].join('\n'),
         );
 
         const xmlClean = new XMLSerializer().serializeToString(_document);
@@ -62,7 +58,7 @@ describe('RemoveUnusedNamespaces_Browser', () => {
         expect(xmlClean).toEqualXML(xmlExpected);
     });
 
-    test('remove duplicated namespaces prefixes', () => {
+    test('remove_duplicated_namespaces_prefixes', () => {
         const _document = Xml.newDocumentContent(
             [
                 '<root:root',
@@ -70,8 +66,8 @@ describe('RemoveUnusedNamespaces_Browser', () => {
                 '  xmlns:root="http://tempuri.org/root"',
                 '  xmlns:attr="http://tempuri.org/attributes">',
                 '  <fine:child xmlns:fine="http://tempuri.org/namespace" attr:x="y"/>',
-                '</root:root>'
-            ].join('\n')
+                '</root:root>',
+            ].join('\n'),
         );
 
         cleaner.clean(_document);
@@ -82,8 +78,8 @@ describe('RemoveUnusedNamespaces_Browser', () => {
                 '  xmlns:root="http://tempuri.org/root"',
                 '  xmlns:attr="http://tempuri.org/attributes">',
                 '  <fine:child xmlns:fine="http://tempuri.org/namespace" attr:x="y"/>',
-                '</root:root>'
-            ].join('\n')
+                '</root:root>',
+            ].join('\n'),
         );
 
         const xmlClean = new XMLSerializer().serializeToString(_document);

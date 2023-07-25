@@ -1,9 +1,9 @@
 import 'jest-xml-matcher';
 import { Xml, install } from '@nodecfdi/cfdiutils-common';
 import { DOMParser, XMLSerializer, DOMImplementation } from '@xmldom/xmldom';
-import { MoveNamespaceDeclarationToRoot } from '~/xml-document-cleaners/move-namespace-declaration-to-root';
+import { MoveNamespaceDeclarationToRoot } from 'src/xml-document-cleaners/move-namespace-declaration-to-root';
 
-describe('MoveNamespaceDeclarationToRoot', () => {
+describe('move_namespace_declaration_to_root', () => {
     let cleaner: MoveNamespaceDeclarationToRoot;
 
     beforeAll(() => {
@@ -11,15 +11,15 @@ describe('MoveNamespaceDeclarationToRoot', () => {
         cleaner = new MoveNamespaceDeclarationToRoot();
     });
 
-    test('move namespace declaration to root', () => {
+    test('move_namespace_declaration_to_root', () => {
         const document = Xml.newDocumentContent(
             [
                 '<r:root xmlns:r="http://tempuri.org/root">',
                 '   <foo:foo xmlns:foo="http://tempuri.org/foo"/>',
                 '   <bar:bar xmlns:bar="http://tempuri.org/bar"/>',
                 '   <xee/>',
-                '</r:root>'
-            ].join('\n')
+                '</r:root>',
+            ].join('\n'),
         );
 
         cleaner.clean(document);
@@ -30,8 +30,8 @@ describe('MoveNamespaceDeclarationToRoot', () => {
                 '   <foo:foo/>',
                 '   <bar:bar/>',
                 '   <xee/>',
-                '</r:root>'
-            ].join('\n')
+                '</r:root>',
+            ].join('\n'),
         );
 
         const xmlClean = new XMLSerializer().serializeToString(document);
@@ -40,7 +40,7 @@ describe('MoveNamespaceDeclarationToRoot', () => {
         expect(xmlClean).toEqualXML(xmlExpected);
     });
 
-    test('move namespace declaration to root with overlapped namespaces different', () => {
+    test('move_namespace_declaration_to_root_with_overlapped_namespaces_different', () => {
         const document = Xml.newDocumentContent(
             [
                 '<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3">',
@@ -48,8 +48,8 @@ describe('MoveNamespaceDeclarationToRoot', () => {
                 '       <cfdi:Otro xmlns:cfdi="http://www.sat.gob.mx/otro" />',
                 '       <tfd:TimbreFiscalDigital xmlns:tfd="http://www.sat.gob.mx/TimbreFiscalDigital" />',
                 '   </cfdi:Complemento>',
-                '</cfdi:Comprobante>'
-            ].join('\n')
+                '</cfdi:Comprobante>',
+            ].join('\n'),
         );
 
         cleaner.clean(document);
@@ -61,8 +61,8 @@ describe('MoveNamespaceDeclarationToRoot', () => {
                 '       <cfdi:Otro xmlns:cfdi="http://www.sat.gob.mx/otro"/>',
                 '       <tfd:TimbreFiscalDigital/>',
                 '   </cfdi:Complemento>',
-                '</cfdi:Comprobante>'
-            ].join('\n')
+                '</cfdi:Comprobante>',
+            ].join('\n'),
         );
 
         const xmlClean = new XMLSerializer().serializeToString(document);
@@ -71,7 +71,7 @@ describe('MoveNamespaceDeclarationToRoot', () => {
         expect(xmlClean).toEqualXML(xmlExpected);
     });
 
-    test('move namespace declaration to root with overlapped namespaces equal', () => {
+    test('move_namespace_declaration_to_root_with_overlapped_namespaces_equal', () => {
         const document = Xml.newDocumentContent(
             [
                 '<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3">',
@@ -79,8 +79,8 @@ describe('MoveNamespaceDeclarationToRoot', () => {
                 '       <otro:Otro xmlns:otro="http://www.sat.gob.mx/otro" />',
                 '       <tfd:TimbreFiscalDigital xmlns:tfd="http://www.sat.gob.mx/TimbreFiscalDigital" />',
                 '   </cfdi:Complemento>',
-                '</cfdi:Comprobante>'
-            ].join('\n')
+                '</cfdi:Comprobante>',
+            ].join('\n'),
         );
 
         cleaner.clean(document);
@@ -95,8 +95,8 @@ describe('MoveNamespaceDeclarationToRoot', () => {
                 '       <otro:Otro />',
                 '       <tfd:TimbreFiscalDigital />',
                 '   </cfdi:Complemento>',
-                '</cfdi:Comprobante>'
-            ].join('\n')
+                '</cfdi:Comprobante>',
+            ].join('\n'),
         );
 
         const xmlClean = new XMLSerializer().serializeToString(document);

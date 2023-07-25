@@ -1,12 +1,8 @@
-/**
- * \@vitest-environment jsdom
- */
-
 import 'jest-xml-matcher';
 import { Xml, install } from '@nodecfdi/cfdiutils-common';
-import { RemoveNonSatNamespacesNodes } from '~/xml-document-cleaners/remove-non-sat-namespaces-nodes';
+import { RemoveNonSatNamespacesNodes } from 'src/xml-document-cleaners/remove-non-sat-namespaces-nodes';
 
-describe('RemoveNonSatNamespacesNodes_Browser', () => {
+describe('remove_non_sat_namespaces_nodes_browser', () => {
     beforeAll(() => {
         install(new DOMParser(), new XMLSerializer(), document.implementation);
     });
@@ -23,8 +19,8 @@ describe('RemoveNonSatNamespacesNodes_Browser', () => {
                 '       <x:remove foo="foo"/>',
                 '       <y:remove-me-too xmlns:y="lorem"/>',
                 '   </cfdi:Addenda>',
-                '</cfdi:Comprobante>'
-            ].join('\n')
+                '</cfdi:Comprobante>',
+            ].join('\n'),
         );
 
         const cleaner = new RemoveNonSatNamespacesNodes();
@@ -39,8 +35,8 @@ describe('RemoveNonSatNamespacesNodes_Browser', () => {
                 '   <cfdi:Emisor Rfc="COSC8001137NA"/>',
                 '   <cfdi:Addenda>',
                 '   </cfdi:Addenda>',
-                '</cfdi:Comprobante> '
-            ].join('\n')
+                '</cfdi:Comprobante> ',
+            ].join('\n'),
         );
 
         const xmlClean = new XMLSerializer().serializeToString(_document);

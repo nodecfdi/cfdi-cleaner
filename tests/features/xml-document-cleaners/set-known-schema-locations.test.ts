@@ -1,14 +1,14 @@
+import * as https from 'node:https';
 import 'jest-xml-matcher';
 import { Xml, install } from '@nodecfdi/cfdiutils-common';
 import { DOMParser, XMLSerializer, DOMImplementation } from '@xmldom/xmldom';
-import * as https from 'node:https';
-import { SetKnownSchemaLocations } from '~/xml-document-cleaners/set-known-schema-locations';
+import { SetKnownSchemaLocations } from 'src/xml-document-cleaners/set-known-schema-locations';
 
-describe('SetKnownSchemaLocations', () => {
+describe('set_known_schema_locations', () => {
     let cleaner: SetKnownSchemaLocations;
     const fetch = async (
         urlOptions: string | https.RequestOptions | URL,
-        data: unknown = ''
+        data: unknown = '',
     ): Promise<{ statusCode: number; headers: unknown; body: string }> =>
         new Promise((resolve, reject) => {
             const request = https.request(urlOptions, (response) => {
@@ -35,7 +35,7 @@ describe('SetKnownSchemaLocations', () => {
         cleaner = new SetKnownSchemaLocations();
     });
 
-    test('set known schema locations', () => {
+    test('set_known_schema_locations', () => {
         const document = Xml.newDocumentContent(
             [
                 '<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3" Version="3.3"',
@@ -47,8 +47,8 @@ describe('SetKnownSchemaLocations', () => {
                 '           xsi:schemaLocation="http://www.sat.gob.mx/TimbreFiscalDigital tfd.xsd"',
                 '       />',
                 '   </cfdi:Complemento>',
-                '</cfdi:Comprobante>'
-            ].join('\n')
+                '</cfdi:Comprobante>',
+            ].join('\n'),
         );
 
         cleaner.clean(document);
@@ -67,8 +67,8 @@ describe('SetKnownSchemaLocations', () => {
                 `           xsi:schemaLocation="http://www.sat.gob.mx/TimbreFiscalDigital ${xsdTfd}"`,
                 '       />',
                 '   </cfdi:Complemento>',
-                '</cfdi:Comprobante>'
-            ].join('\n')
+                '</cfdi:Comprobante>',
+            ].join('\n'),
         );
 
         const xmlClean = new XMLSerializer().serializeToString(document);
@@ -76,13 +76,13 @@ describe('SetKnownSchemaLocations', () => {
         expect(xmlClean).toEqualXML(xmlExpected);
     });
 
-    test('set known schema locations without version', () => {
+    test('set_known_schema_locations_without_version', () => {
         const document = Xml.newDocumentContent(
             [
                 '<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3"',
                 '   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"',
-                '   xsi:schemaLocation="http://www.sat.gob.mx/cfd/3 cfdi.xsd"/>'
-            ].join('\n')
+                '   xsi:schemaLocation="http://www.sat.gob.mx/cfd/3 cfdi.xsd"/>',
+            ].join('\n'),
         );
 
         cleaner.clean(document);
@@ -91,8 +91,8 @@ describe('SetKnownSchemaLocations', () => {
             [
                 '<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3"',
                 '   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"',
-                '   xsi:schemaLocation="http://www.sat.gob.mx/cfd/3 cfdi.xsd"/>'
-            ].join('\n')
+                '   xsi:schemaLocation="http://www.sat.gob.mx/cfd/3 cfdi.xsd"/>',
+            ].join('\n'),
         );
 
         const xmlClean = new XMLSerializer().serializeToString(document);
@@ -100,12 +100,12 @@ describe('SetKnownSchemaLocations', () => {
         expect(xmlClean).toEqualXML(xmlExpected);
     });
 
-    test('set known schema locations with unknown namespace', () => {
+    test('set_known_schema_locations_with_unknown_namespace', () => {
         const document = Xml.newDocumentContent(
             [
                 '<foo:Foo xmlns:foo="http://tempuri.org/foo" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"',
-                '   xsi:schemaLocation="http://tempuri.org/foo foo.xsd" />'
-            ].join('\n')
+                '   xsi:schemaLocation="http://tempuri.org/foo foo.xsd" />',
+            ].join('\n'),
         );
 
         cleaner.clean(document);
@@ -113,8 +113,8 @@ describe('SetKnownSchemaLocations', () => {
         const expected = Xml.newDocumentContent(
             [
                 ' <foo:Foo xmlns:foo="http://tempuri.org/foo" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"',
-                '   xsi:schemaLocation="http://tempuri.org/foo foo.xsd" />'
-            ].join('\n')
+                '   xsi:schemaLocation="http://tempuri.org/foo foo.xsd" />',
+            ].join('\n'),
         );
 
         const xmlClean = new XMLSerializer().serializeToString(document);
@@ -122,7 +122,7 @@ describe('SetKnownSchemaLocations', () => {
         expect(xmlClean).toEqualXML(xmlExpected);
     });
 
-    test('know all locations from sat ns registry', async () => {
+    test('know_all_locations_from_sat_ns_registry', async () => {
         // Obtain the list of known locations from phpcfdi/sat-ns-registry
         const satNsRegistryUrl =
             'https://raw.githubusercontent.com/phpcfdi/sat-ns-registry/master/complementos_v1.json';
