@@ -1,6 +1,6 @@
 {
     "name": "@nodecfdi/cfdi-cleaner",
-    "version": "1.4.1",
+    "version": "1.4.2",
     "description": "Librería para limpiar comprobantes fiscales digitales v3.3 y v4.0",
     "keywords": [
         "cfdi",
