@@ -3,7 +3,7 @@ import { Xml, install } from '@nodecfdi/cfdiutils-common';
 import { DOMParser, XMLSerializer, DOMImplementation } from '@xmldom/xmldom';
 import { RemoveNonSatSchemaLocations } from 'src/xml-document-cleaners/remove-non-sat-schema-locations';
 
-describe('RemoveNonSatSchemaLocations', () => {
+describe('remove_non_sat_schema_locations', () => {
     beforeAll(() => {
         install(new DOMParser(), new XMLSerializer(), new DOMImplementation());
     });

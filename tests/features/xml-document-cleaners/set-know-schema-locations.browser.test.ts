@@ -1,12 +1,8 @@
-/**
- * \@vitest-environment jsdom
- */
-
 import 'jest-xml-matcher';
 import { Xml, install } from '@nodecfdi/cfdiutils-common';
 import { SetKnownSchemaLocations } from 'src/xml-document-cleaners/set-known-schema-locations';
 
-describe('SetKnownSchemaLocations_Browser', () => {
+describe('set_known_schema_locations_browser', () => {
     let cleaner: SetKnownSchemaLocations;
 
     beforeAll(() => {
@@ -14,7 +10,7 @@ describe('SetKnownSchemaLocations_Browser', () => {
         cleaner = new SetKnownSchemaLocations();
     });
 
-    test('set known schema locations', () => {
+    test('set_known_schema_locations', () => {
         const _document = Xml.newDocumentContent(
             [
                 '<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3" Version="3.3"',
@@ -55,7 +51,7 @@ describe('SetKnownSchemaLocations_Browser', () => {
         expect(xmlClean).toEqualXML(xmlExpected);
     });
 
-    test('set known schema locations without version', () => {
+    test('set_known_schema_locations_without_version', () => {
         const _document = Xml.newDocumentContent(
             [
                 '<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3"',
@@ -79,7 +75,7 @@ describe('SetKnownSchemaLocations_Browser', () => {
         expect(xmlClean).toEqualXML(xmlExpected);
     });
 
-    test('set known schema locations with unknown namespace', () => {
+    test('set_known_schema_locations_with_unknown_namespace', () => {
         const _document = Xml.newDocumentContent(
             [
                 '<foo:Foo xmlns:foo="http://tempuri.org/foo" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"',

@@ -1,20 +1,16 @@
-/**
- * \@vitest-environment jsdom
- */
-
 import 'jest-xml-matcher';
 import { Xml, install } from '@nodecfdi/cfdiutils-common';
 import { useTestCase } from '../test-case';
 import { Cleaner } from 'src/cleaner';
 
-describe('Cleaner_Browser', () => {
+describe('cleaner_browser', () => {
     const { fileContents } = useTestCase();
 
     beforeAll(() => {
         install(new DOMParser(), new XMLSerializer(), document.implementation);
     });
 
-    test('static clean string document 33', () => {
+    test('static_clean_string_document_33', () => {
         const xmlDirty = [
             'DIRTY',
             '<cfdi:Comprobante xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"',
@@ -41,7 +37,7 @@ describe('Cleaner_Browser', () => {
         expect(xmlClean).toEqualXML(expected);
     });
 
-    test('clean xml document 33', () => {
+    test('clean_xml_document_33', () => {
         const _document = Xml.newDocumentContent(
             [
                 '<cfdi:Comprobante xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"',
@@ -68,7 +64,7 @@ describe('Cleaner_Browser', () => {
         expect(xmlClean).toEqualXML(xmlExpected);
     });
 
-    test('static clean string document 40', () => {
+    test('static_clean_string_document_40', () => {
         const xmlDirty = [
             'DIRTY',
             '<cfdi:Comprobante xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"',
@@ -95,7 +91,7 @@ describe('Cleaner_Browser', () => {
         expect(xmlClean).toEqualXML(expected);
     });
 
-    test('clean xml document 40', () => {
+    test('clean_xml_document_40', () => {
         const _document = Xml.newDocumentContent(
             [
                 '<cfdi:Comprobante xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"',
@@ -122,7 +118,7 @@ describe('Cleaner_Browser', () => {
         expect(xmlClean).toEqualXML(xmlExpected);
     });
 
-    test('clean xml document 40 with addendas', () => {
+    test('clean_xml_document_40_with_addendas', () => {
         const _document = Xml.newDocumentContent(
             [
                 '<cfdi:Comprobante xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"',
@@ -154,7 +150,7 @@ describe('Cleaner_Browser', () => {
         expect(xmlClean).toEqualXML(xmlExpected);
     });
 
-    test.each([['cfdi32-real.xml'], ['cfdi33-real.xml']])('clean known files %s', (filename: string) => {
+    test.each([['cfdi32-real.xml'], ['cfdi33-real.xml']])('clean_known_files_%s', (filename: string) => {
         const contents = fileContents(filename);
         const _document = Xml.newDocumentContent(contents);
 

@@ -3,7 +3,7 @@ import { Xml, install } from '@nodecfdi/cfdiutils-common';
 import { DOMParser, XMLSerializer, DOMImplementation } from '@xmldom/xmldom';
 import { RemoveUnusedNamespaces } from 'src/xml-document-cleaners/remove-unused-namespaces';
 
-describe('RemoveUnusedNamespaces', () => {
+describe('remove_unused_namespaces', () => {
     let cleaner: RemoveUnusedNamespaces;
 
     beforeAll(() => {
@@ -11,7 +11,7 @@ describe('RemoveUnusedNamespaces', () => {
         cleaner = new RemoveUnusedNamespaces();
     });
 
-    test('remove unused namespaces on root', () => {
+    test('remove_unused_namespaces_on_root', () => {
         const document = Xml.newDocumentContent(
             [
                 '<r:root',
@@ -31,7 +31,7 @@ describe('RemoveUnusedNamespaces', () => {
         expect(xmlClean).toEqualXML(xmlExpected);
     });
 
-    test('remove unused namespaces on children', () => {
+    test('remove_unused_namespaces_on_children', () => {
         const document = Xml.newDocumentContent(
             [
                 '<r:root xmlns:b="http://tempuri.org/bar" xmlns:r="http://tempuri.org/root" xmlns:f="http://tempuri.org/foo">',
@@ -59,7 +59,7 @@ describe('RemoveUnusedNamespaces', () => {
         expect(xmlClean).toEqualXML(xmlExpected);
     });
 
-    test('remove duplicated namespaces prefixes', () => {
+    test('remove_duplicated_namespaces_prefixes', () => {
         const document = Xml.newDocumentContent(
             [
                 '<root:root',

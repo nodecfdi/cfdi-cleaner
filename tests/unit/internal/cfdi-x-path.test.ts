@@ -2,7 +2,7 @@ import { install, Xml } from '@nodecfdi/cfdiutils-common';
 import { DOMParser, XMLSerializer, DOMImplementation } from '@xmldom/xmldom';
 import { CfdiXPath } from 'src/internal/cfdi-x-path';
 
-describe('Internal/Cfdi3XPath', () => {
+describe('internal_cfdi3_xpath', () => {
     const providerCreateCfdiVersions: ReadonlyArray<[string, string]> = [
         [
             'CFDI33',
@@ -58,7 +58,7 @@ describe('Internal/Cfdi3XPath', () => {
         install(new DOMParser(), new XMLSerializer(), new DOMImplementation());
     });
 
-    test.each(providerCreateCfdiVersions)('create cfdi versions %s', (_name, source) => {
+    test.each(providerCreateCfdiVersions)('create_cfdi_versions_%s', (_name, source) => {
         const document = Xml.newDocumentContent(source);
         const xpath = CfdiXPath.createFromDocument(document);
 
@@ -82,7 +82,7 @@ describe('Internal/Cfdi3XPath', () => {
         expect(xpath.queryElements('//FOOBAR')).toEqual([]);
     });
 
-    test('non allowed namespace', () => {
+    test('non_allowed_namespace', () => {
         const document = Xml.newDocumentContent(
             ['<cfdi:Comprobante xmlns:cfdi="http://tempuri.org/cfdi"/>'].join('\n'),
         );
@@ -91,7 +91,7 @@ describe('Internal/Cfdi3XPath', () => {
         expect(xpath.queryElements('/cfdi:Comprobante')).toHaveLength(0);
     });
 
-    test('allowed namespace with different prefix', () => {
+    test('allowed_namespace_with_different_prefix', () => {
         const document = Xml.newDocumentContent(
             ['<factura:Comprobante xmlns:factura="http://www.sat.gob.mx/cfd/4"/>'].join('\n'),
         );
@@ -100,7 +100,7 @@ describe('Internal/Cfdi3XPath', () => {
         expect(xpath.queryElements('/cfdi:Comprobante')).toHaveLength(1);
     });
 
-    test('allowed work with no namespace definition', () => {
+    test('allowed_work_with_no_namespace_definition', () => {
         const document = Xml.newDocumentContent('<book><title>Facturación</title></book>');
         const xpath = new CfdiXPath(document);
 

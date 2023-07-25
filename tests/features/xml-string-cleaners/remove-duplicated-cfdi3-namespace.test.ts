@@ -1,6 +1,6 @@
 import { RemoveDuplicatedCfdi3Namespace } from 'src/xml-string-cleaners/remove-duplicated-cfdi3-namespace';
 
-describe('RemoveDuplicatedCfdi3Namespace', () => {
+describe('remove_duplicated_cfdi3_namespace', () => {
     const xmlnsCfdi = 'xmlns:cfdi="http://www.sat.gob.mx/cfd/3"';
     const xmlns = 'xmlns="http://www.sat.gob.mx/cfd/3"';
 
@@ -12,7 +12,7 @@ describe('RemoveDuplicatedCfdi3Namespace', () => {
             `<cfdi:Comprobante ${xmlnsCfdi} />`, // Is replaced to a single space
             `<cfdi:Comprobante ${xmlnsCfdi} ${xmlns}/>`,
         ],
-    ])('clean %s', (_name, _expected, input) => {
+    ])('clean_%s', (_name, _expected, input) => {
         const warnMock = vi.spyOn(console, 'warn').mockImplementation(() => {});
         const cleaner = new RemoveDuplicatedCfdi3Namespace();
         const clean = cleaner.clean(input);

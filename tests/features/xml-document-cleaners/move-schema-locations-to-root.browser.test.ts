@@ -1,12 +1,8 @@
-/**
- * \@vitest-environment jsdom
- */
-
 import 'jest-xml-matcher';
 import { Xml, install } from '@nodecfdi/cfdiutils-common';
 import { MoveSchemaLocationsToRoot } from 'src/xml-document-cleaners/move-schema-locations-to-root';
 
-describe('MoveSchemaLocationToRoot_Browser', () => {
+describe('move_schema_location_to_root_browser', () => {
     let cleaner: MoveSchemaLocationsToRoot;
 
     beforeAll(() => {
@@ -49,7 +45,7 @@ describe('MoveSchemaLocationToRoot_Browser', () => {
         expect(xmlClean).toEqualXML(xmlExpected);
     });
 
-    test('move schema locations to root with different prefix', () => {
+    test('move_schema_locations_to_root_with_different_prefix', () => {
         const _document = Xml.newDocumentContent(
             [
                 '<root xmlns:xs="http://www.w3.org/2001/XMLSchema-instance"',
@@ -74,7 +70,7 @@ describe('MoveSchemaLocationToRoot_Browser', () => {
         expect(xmlClean).toEqualXML(xmlExpected);
     });
 
-    test('move schema locations to root without root schema location', () => {
+    test('move_schema_locations_to_root_without_root_schema_location', () => {
         const _document = Xml.newDocumentContent(
             [
                 '<root>',

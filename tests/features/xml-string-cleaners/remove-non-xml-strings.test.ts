@@ -1,6 +1,6 @@
 import { RemoveNonXmlStrings } from 'src/xml-string-cleaners/remove-non-xml-strings';
 
-describe('RemoveNonXmlStrings', () => {
+describe('remove_non_xml_strings', () => {
     test.each([
         ['nothing', '<a></a>', '<a></a>'],
         // eslint-disable-next-line unicorn/no-hex-escape
@@ -15,7 +15,7 @@ describe('RemoveNonXmlStrings', () => {
         ['without lt or gt', '', 'a b c'],
         ['without gt ', '', 'a < b c'],
         ['without lt ', '', 'a b > c'],
-    ])('clean %s', (_name, expected, input) => {
+    ])('clean_%s', (_name, expected, input) => {
         const cleaner = new RemoveNonXmlStrings();
         const clean = cleaner.clean(input);
 

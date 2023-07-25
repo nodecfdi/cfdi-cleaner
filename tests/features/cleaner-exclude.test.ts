@@ -8,12 +8,12 @@ import { RemoveAddenda } from 'src/xml-document-cleaners/remove-addenda';
 import { RemoveNonSatNamespacesNodes } from 'src/xml-document-cleaners/remove-non-sat-namespaces-nodes';
 import { RemoveNonSatSchemaLocations } from 'src/xml-document-cleaners/remove-non-sat-schema-locations';
 
-describe('Cleanes_Exclude', () => {
+describe('cleanes_exclude', () => {
     beforeAll(() => {
         install(new DOMParser(), new XMLSerializer(), new DOMImplementation());
     });
 
-    test('cleaner exclude addenda', () => {
+    test('cleaner_exclude_addenda', () => {
         const xml = [
             '<?xml version="1.0"?>',
             '<cfdi:Comprobante xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"',

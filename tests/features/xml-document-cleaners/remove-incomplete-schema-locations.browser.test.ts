@@ -1,17 +1,13 @@
-/**
- * \@vitest-environment jsdom
- */
-
 import 'jest-xml-matcher';
 import { Xml, install } from '@nodecfdi/cfdiutils-common';
 import { RemoveIncompleteSchemaLocations } from 'src/xml-document-cleaners/remove-incomplete-schema-locations';
 
-describe('RemoveIncompleteSchemaLocations_Browser', () => {
+describe('remove_incomplete_schema_locations_browser', () => {
     beforeAll(() => {
         install(new DOMParser(), new XMLSerializer(), document.implementation);
     });
 
-    test('clean schema locations with incomplete pairs only on root', () => {
+    test('clean_schema_locations_with_incomplete_pairs_only_on_root', () => {
         const _document = Xml.newDocumentContent(
             [
                 '<r xmlns="http://tempuri.org/r" xmlns:x="http://www.w3.org/2001/XMLSchema-instance"',
@@ -35,7 +31,7 @@ describe('RemoveIncompleteSchemaLocations_Browser', () => {
         expect(xmlClean).toEqualXML(xmlExpected);
     });
 
-    test('clean schema locations with incomplete pairs only on children', () => {
+    test('clean_schema_locations_with_incomplete_pairs_only_on_children', () => {
         // Content has incomplete schema location "foo"
         const _document = Xml.newDocumentContent(
             [

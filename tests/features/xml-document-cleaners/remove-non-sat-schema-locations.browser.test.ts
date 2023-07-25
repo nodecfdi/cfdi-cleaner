@@ -1,12 +1,8 @@
-/**
- * \@vitest-environment jsdom
- */
-
 import 'jest-xml-matcher';
 import { Xml, install } from '@nodecfdi/cfdiutils-common';
 import { RemoveNonSatSchemaLocations } from 'src/xml-document-cleaners/remove-non-sat-schema-locations';
 
-describe('RemoveNonSatSchemaLocations_Browser', () => {
+describe('remove_non_sat_schema_locations_browser', () => {
     beforeAll(() => {
         install(new DOMParser(), new XMLSerializer(), document.implementation);
     });

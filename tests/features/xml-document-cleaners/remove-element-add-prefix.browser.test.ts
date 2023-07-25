@@ -1,19 +1,15 @@
-/**
- * \@vitest-environment jsdom
- */
-
 import 'jest-xml-matcher';
 import { Xml, install } from '@nodecfdi/cfdiutils-common';
 import { RenameElementAddPrefix } from 'src/xml-document-cleaners/rename-element-add-prefix';
 
-describe('RemoveElementAddPrefix_Browser', () => {
+describe('remove_element_add_prefix_browser', () => {
     const cleaner = new RenameElementAddPrefix();
 
     beforeAll(() => {
         install(new DOMParser(), new XMLSerializer(), document.implementation);
     });
 
-    test('rename element add prefix', () => {
+    test('rename_element_add_prefix', () => {
         // NOTICE:
         // - no prefix definition *before* prefixed definition on root
         // - first element is not prefixed
@@ -47,7 +43,7 @@ describe('RemoveElementAddPrefix_Browser', () => {
         expect(xmlClean).toEqualXML(xmlExpected);
     });
 
-    test('remove duplicated namespace as default', () => {
+    test('remove_duplicated_namespace_as_default', () => {
         const _document = Xml.newDocumentContent(
             ['<r:root xmlns:r="http://tempuri.org/root" xmlns="http://www.sat.gob.mx/cfd/3"/>'].join('\n'),
         );
@@ -62,7 +58,7 @@ describe('RemoveElementAddPrefix_Browser', () => {
         expect(xmlClean).toEqualXML(xmlExpected);
     });
 
-    test('remove empty namespace without prefix', () => {
+    test('remove_empty_namespace_without_prefix', () => {
         const _document = Xml.newDocumentContent(['<r:root xmlns:r="http://tempuri.org/root" xmlns=""/>'].join('\n'));
 
         cleaner.clean(_document);

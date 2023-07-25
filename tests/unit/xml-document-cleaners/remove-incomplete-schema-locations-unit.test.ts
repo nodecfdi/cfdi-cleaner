@@ -1,13 +1,13 @@
 import { RemoveIncompleteSchemaLocations } from 'src/xml-document-cleaners/remove-incomplete-schema-locations';
 
-describe('RemoveIncompleteSchemaLocations', () => {
+describe('remove_incomplete_schema_locations', () => {
     let cleaner: RemoveIncompleteSchemaLocations;
 
     beforeAll(() => {
         cleaner = new RemoveIncompleteSchemaLocations();
     });
 
-    test('schema location value namespace xsd pair to array', () => {
+    test('schema_location_value_namespace_xsd_pair_to_array', () => {
         const input = [
             'http://tempuri.org/root http://tempuri.org/root.xsd',
             'http://tempuri.org/foo',
@@ -35,7 +35,7 @@ describe('RemoveIncompleteSchemaLocations', () => {
         ['location.XSD', true],
         ['location.Xsd', true],
         ['location..xsd', true],
-    ])('uri ends with xsd %s', (uri: string, expected: boolean) => {
+    ])('uri_ends_with_xsd_%s', (uri: string, expected: boolean) => {
         expect(cleaner.uriEndsWithXsd(uri)).toBe(expected);
     });
 });

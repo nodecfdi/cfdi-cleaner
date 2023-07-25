@@ -1,6 +1,6 @@
 import { SplitXmlDeclarationFromDocument } from 'src/xml-string-cleaners/split-xml-declaration-from-document';
 
-describe('SplitXmlDeclarationFromDocument', () => {
+describe('split_xml_declaration_from_document', () => {
     test.each([
         [
             'doc on line 1 no white space',
@@ -28,7 +28,7 @@ describe('SplitXmlDeclarationFromDocument', () => {
             '<?xml version="1.0"?>\n<root/>',
             '<?xml version="1.0"?> \n <root/>',
         ],
-    ])('clean %s', (_name, expected, input) => {
+    ])('clean_%s', (_name, expected, input) => {
         const cleaner = new SplitXmlDeclarationFromDocument();
         const clean = cleaner.clean(input);
 

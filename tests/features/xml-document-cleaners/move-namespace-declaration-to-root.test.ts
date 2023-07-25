@@ -3,7 +3,7 @@ import { Xml, install } from '@nodecfdi/cfdiutils-common';
 import { DOMParser, XMLSerializer, DOMImplementation } from '@xmldom/xmldom';
 import { MoveNamespaceDeclarationToRoot } from 'src/xml-document-cleaners/move-namespace-declaration-to-root';
 
-describe('MoveNamespaceDeclarationToRoot', () => {
+describe('move_namespace_declaration_to_root', () => {
     let cleaner: MoveNamespaceDeclarationToRoot;
 
     beforeAll(() => {
@@ -11,7 +11,7 @@ describe('MoveNamespaceDeclarationToRoot', () => {
         cleaner = new MoveNamespaceDeclarationToRoot();
     });
 
-    test('move namespace declaration to root', () => {
+    test('move_namespace_declaration_to_root', () => {
         const document = Xml.newDocumentContent(
             [
                 '<r:root xmlns:r="http://tempuri.org/root">',
@@ -40,7 +40,7 @@ describe('MoveNamespaceDeclarationToRoot', () => {
         expect(xmlClean).toEqualXML(xmlExpected);
     });
 
-    test('move namespace declaration to root with overlapped namespaces different', () => {
+    test('move_namespace_declaration_to_root_with_overlapped_namespaces_different', () => {
         const document = Xml.newDocumentContent(
             [
                 '<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3">',
@@ -71,7 +71,7 @@ describe('MoveNamespaceDeclarationToRoot', () => {
         expect(xmlClean).toEqualXML(xmlExpected);
     });
 
-    test('move namespace declaration to root with overlapped namespaces equal', () => {
+    test('move_namespace_declaration_to_root_with_overlapped_namespaces_equal', () => {
         const document = Xml.newDocumentContent(
             [
                 '<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3">',

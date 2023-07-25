@@ -1,12 +1,8 @@
-/**
- * \@vitest-environment jsdom
- */
-
 import 'jest-xml-matcher';
 import { Xml, install } from '@nodecfdi/cfdiutils-common';
 import { RemoveUnusedNamespaces } from 'src/xml-document-cleaners/remove-unused-namespaces';
 
-describe('RemoveUnusedNamespaces_Browser', () => {
+describe('remove_unused_namespaces_browser', () => {
     let cleaner: RemoveUnusedNamespaces;
 
     beforeAll(() => {
@@ -14,7 +10,7 @@ describe('RemoveUnusedNamespaces_Browser', () => {
         cleaner = new RemoveUnusedNamespaces();
     });
 
-    test('remove unused namespaces on root', () => {
+    test('remove_unused_namespaces_on_root', () => {
         const _document = Xml.newDocumentContent(
             [
                 '<r:root',
@@ -34,7 +30,7 @@ describe('RemoveUnusedNamespaces_Browser', () => {
         expect(xmlClean).toEqualXML(xmlExpected);
     });
 
-    test('remove unused namespaces on children', () => {
+    test('remove_unused_namespaces_on_children', () => {
         const _document = Xml.newDocumentContent(
             [
                 '<r:root xmlns:b="http://tempuri.org/bar" xmlns:r="http://tempuri.org/root" xmlns:f="http://tempuri.org/foo">',
@@ -62,7 +58,7 @@ describe('RemoveUnusedNamespaces_Browser', () => {
         expect(xmlClean).toEqualXML(xmlExpected);
     });
 
-    test('remove duplicated namespaces prefixes', () => {
+    test('remove_duplicated_namespaces_prefixes', () => {
         const _document = Xml.newDocumentContent(
             [
                 '<root:root',

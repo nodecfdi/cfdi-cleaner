@@ -1,6 +1,6 @@
 import { AppendXmlDeclaration } from 'src/xml-string-cleaners/append-xml-declaration';
 
-describe('AppendXmlDeclaration', () => {
+describe('append_xml_declaration', () => {
     test.each([
         [
             'skip xml with header',

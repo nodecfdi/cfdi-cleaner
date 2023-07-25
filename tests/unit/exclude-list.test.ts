@@ -1,14 +1,14 @@
 import { ExcludeList } from 'src/exclude-list';
 
-describe('ExcludeList', () => {
-    test('constructor with empty list', () => {
+describe('exclude_list', () => {
+    test('constructor_with_empty_list', () => {
         const excludeList = new ExcludeList();
 
         expect(excludeList.isEmpty()).toBeTruthy();
         expect([...excludeList]).toStrictEqual([]);
     });
 
-    test('constructor with values', () => {
+    test('constructor_with_values', () => {
         const classes = [Date, Error];
 
         const excludeList = new ExcludeList(...classes);

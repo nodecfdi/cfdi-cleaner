@@ -3,7 +3,7 @@ import { Xml, install } from '@nodecfdi/cfdiutils-common';
 import { DOMParser, XMLSerializer, DOMImplementation } from '@xmldom/xmldom';
 import { MoveSchemaLocationsToRoot } from 'src/xml-document-cleaners/move-schema-locations-to-root';
 
-describe('MoveSchemaLocationToRoot', () => {
+describe('move_schema_location_to_root', () => {
     let cleaner: MoveSchemaLocationsToRoot;
 
     beforeAll(() => {
@@ -11,7 +11,7 @@ describe('MoveSchemaLocationToRoot', () => {
         cleaner = new MoveSchemaLocationsToRoot();
     });
 
-    test('move schema locations to root', () => {
+    test('move_schema_locations_to_root', () => {
         const document = Xml.newDocumentContent(
             [
                 '<root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"',
@@ -45,7 +45,7 @@ describe('MoveSchemaLocationToRoot', () => {
         expect(xmlClean).toEqualXML(xmlExpected);
     });
 
-    test('move schema locations to root with different prefix', () => {
+    test('move_schema_locations_to_root_with_different_prefix', () => {
         const document = Xml.newDocumentContent(
             [
                 '<root xmlns:xs="http://www.w3.org/2001/XMLSchema-instance"',
@@ -70,7 +70,7 @@ describe('MoveSchemaLocationToRoot', () => {
         expect(xmlClean).toEqualXML(xmlExpected);
     });
 
-    test('move schema locations to root without root schema location', () => {
+    test('move_schema_locations_to_root_without_root_schema_location', () => {
         const document = Xml.newDocumentContent(
             [
                 '<root>',

@@ -3,7 +3,7 @@ import { Xml, install } from '@nodecfdi/cfdiutils-common';
 import { DOMParser, XMLSerializer, DOMImplementation } from '@xmldom/xmldom';
 import { RemoveNonSatNamespacesNodes } from 'src/xml-document-cleaners/remove-non-sat-namespaces-nodes';
 
-describe('RemoveNonSatNamespacesNodes', () => {
+describe('remove_non_sat_namespaces_nodes', () => {
     beforeAll(() => {
         install(new DOMParser(), new XMLSerializer(), new DOMImplementation());
     });

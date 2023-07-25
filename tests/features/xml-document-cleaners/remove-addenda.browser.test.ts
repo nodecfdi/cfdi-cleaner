@@ -1,11 +1,7 @@
-/**
- * \@vitest-environment jsdom
- */
-
 import { Xml, install } from '@nodecfdi/cfdiutils-common';
 import { RemoveAddenda } from 'src/xml-document-cleaners/remove-addenda';
 
-describe('RemoveAddenda_Browser', () => {
+describe('remove_addenda_browser', () => {
     const providerCleanDocumentWithAddenda: Array<[string, string, string]> = [
         [
             'CFDI 3.3',
@@ -35,7 +31,7 @@ describe('RemoveAddenda_Browser', () => {
         install(new DOMParser(), new XMLSerializer(), document.implementation);
     });
 
-    test.each(providerCleanDocumentWithAddenda)('clean document with addenda %s', (_name, namespace, source) => {
+    test.each(providerCleanDocumentWithAddenda)('clean_document_with_addenda_%s', (_name, namespace, source) => {
         const _document = Xml.newDocumentContent(source);
 
         const cleaner = new RemoveAddenda();

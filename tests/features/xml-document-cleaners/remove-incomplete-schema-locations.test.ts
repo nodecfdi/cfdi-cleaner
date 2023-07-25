@@ -3,12 +3,12 @@ import { Xml, install } from '@nodecfdi/cfdiutils-common';
 import { DOMParser, XMLSerializer, DOMImplementation } from '@xmldom/xmldom';
 import { RemoveIncompleteSchemaLocations } from 'src/xml-document-cleaners/remove-incomplete-schema-locations';
 
-describe('RemoveIncompleteSchemaLocations', () => {
+describe('remove_incomplete_schema_locations', () => {
     beforeAll(() => {
         install(new DOMParser(), new XMLSerializer(), new DOMImplementation());
     });
 
-    test('clean schema locations with incomplete pairs only on root', () => {
+    test('clean_schema_locations_with_incomplete_pairs_only_on_root', () => {
         const document = Xml.newDocumentContent(
             [
                 '<r xmlns="http://tempuri.org/r" xmlns:x="http://www.w3.org/2001/XMLSchema-instance"',
@@ -32,7 +32,7 @@ describe('RemoveIncompleteSchemaLocations', () => {
         expect(xmlClean).toEqualXML(xmlExpected);
     });
 
-    test('clean schema locations with incomplete pairs only on children', () => {
+    test('clean_schema_locations_with_incomplete_pairs_only_on_children', () => {
         // Content has incomplete schema location "foo"
         const document = Xml.newDocumentContent(
             [

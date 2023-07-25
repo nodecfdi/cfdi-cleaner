@@ -3,14 +3,14 @@ import { Xml, install } from '@nodecfdi/cfdiutils-common';
 import { DOMParser, XMLSerializer, DOMImplementation } from '@xmldom/xmldom';
 import { RenameElementAddPrefix } from 'src/xml-document-cleaners/rename-element-add-prefix';
 
-describe('RemoveElementAddPrefix', () => {
+describe('remove_element_add_prefix', () => {
     const cleaner = new RenameElementAddPrefix();
 
     beforeAll(() => {
         install(new DOMParser(), new XMLSerializer(), new DOMImplementation());
     });
 
-    test('rename element add prefix', () => {
+    test('rename_element_add_prefix', () => {
         // NOTICE:
         // - no prefix definition *before* prefixed definition on root
         // - first element is not prefixed
@@ -44,7 +44,7 @@ describe('RemoveElementAddPrefix', () => {
         expect(xmlClean).toEqualXML(xmlExpected);
     });
 
-    test('remove duplicated namespace as default', () => {
+    test('remove_duplicated_namespace_as_default', () => {
         const document = Xml.newDocumentContent(
             ['<r:root xmlns:r="http://tempuri.org/root" xmlns="http://www.sat.gob.mx/cfd/3"/>'].join('\n'),
         );
@@ -59,7 +59,7 @@ describe('RemoveElementAddPrefix', () => {
         expect(xmlClean).toEqualXML(xmlExpected);
     });
 
-    test('remove empty namespace without prefix', () => {
+    test('remove_empty_namespace_without_prefix', () => {
         const document = Xml.newDocumentContent(['<r:root xmlns:r="http://tempuri.org/root" xmlns=""/>'].join('\n'));
 
         cleaner.clean(document);

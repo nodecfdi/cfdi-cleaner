@@ -3,12 +3,12 @@ import { Xml, install } from '@nodecfdi/cfdiutils-common';
 import { DOMParser, XMLSerializer, DOMImplementation } from '@xmldom/xmldom';
 import { SpecimenXmlNamespaceMethodsTrait } from './specimen-xml-namespace-methods-trait';
 
-describe('Internal/XmlNamespaceMethodsTrait', () => {
+describe('internal_xml_namespace_methods_trait', () => {
     beforeAll(() => {
         install(new DOMParser(), new XMLSerializer(), new DOMImplementation());
     });
 
-    test('iterate on removed namespaces', () => {
+    test('iterate_on_removed_namespaces', () => {
         const specimen = new SpecimenXmlNamespaceMethodsTrait();
         const namespaces: Record<string, string> = {
             root: 'http://tempuri.org/root',
@@ -72,7 +72,7 @@ describe('Internal/XmlNamespaceMethodsTrait', () => {
             ['<r:root xmlns:r="http://tempuri.org/root">', '  <r:test xmlns=""/>', '</r:root>'].join('\n'),
             ['<r:root xmlns:r="http://tempuri.org/root">', '  <r:test/>', '</r:root>'].join('\n'),
         ],
-    ])('remove namespace node attribute %s', (_name: string, target: string, xmlImput: string, xmlExpected: string) => {
+    ])('remove_namespace_node_attribute_%s', (_name: string, target: string, xmlImput: string, xmlExpected: string) => {
         const specimen = new SpecimenXmlNamespaceMethodsTrait();
 
         const document = Xml.newDocumentContent(xmlImput);

@@ -1,12 +1,8 @@
-/**
- * \@vitest-environment jsdom
- */
-
 import 'jest-xml-matcher';
 import { Xml, install } from '@nodecfdi/cfdiutils-common';
 import { CollapseComplemento } from 'src/xml-document-cleaners/collapse-complemento';
 
-describe('CollapseComplemento_Browser', () => {
+describe('collapse_complemento_browser', () => {
     let cleaner: CollapseComplemento;
 
     beforeAll(() => {
@@ -14,7 +10,7 @@ describe('CollapseComplemento_Browser', () => {
         cleaner = new CollapseComplemento();
     });
 
-    test('clean non cfdi not alter document', () => {
+    test('clean_non_cfdi_not_alter_document', () => {
         const _document = Xml.newDocumentContent(
             [
                 '<cfdi:Comprobante xmlns:cfdi="http://tempuri.org/cfd">',
@@ -39,7 +35,7 @@ describe('CollapseComplemento_Browser', () => {
         expect(xmlAfterClean).toEqualXML(xmlBeforeClean);
     });
 
-    test('clean cfdi with just one complemento', () => {
+    test('clean_cfdi_with_just_one_complemento', () => {
         const _document = Xml.newDocumentContent(
             [
                 '<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3">',
@@ -61,7 +57,7 @@ describe('CollapseComplemento_Browser', () => {
         expect(xmlAfterClean).toEqualXML(xmlBeforeClean);
     });
 
-    test('clean cfdi with three complementos', () => {
+    test('clean_cfdi_with_three_complementos', () => {
         const _document = Xml.newDocumentContent(
             [
                 '<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/4">',
