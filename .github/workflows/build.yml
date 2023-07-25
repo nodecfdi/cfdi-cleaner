@@ -1,15 +1,14 @@
 name: build
 on:
+    workflow_dispatch: {}
     push:
         branches:
             - main
             - dev
-
     pull_request:
         branches:
             - main
             - dev
-
     schedule:
         - cron: '0 16 * * 0' # sunday 16:00
 
@@ -19,7 +18,7 @@ jobs:
         runs-on: ubuntu-latest
         strategy:
             matrix:
-                node: ['14', '16', '17', '18', '19']
+                node: ['16', '17', '18', '19', '20']
         steps:
             - name: Checkout
               uses: actions/checkout@v3
@@ -28,7 +27,7 @@ jobs:
               uses: actions/cache@v3
               with:
                   path: ~/.pnpm-store
-                  key: ${{ runner.os }}-node${{ matrix.node-version }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+                  key: ${{ runner.os }}-node${{ matrix.node }}-${{ hashFiles('**/pnpm-lock.yaml') }}
 
             - name: Setup node
               uses: actions/setup-node@v3
@@ -38,7 +37,7 @@ jobs:
             - name: Install dependencies
               uses: pnpm/action-setup@v2
               with:
-                  version: 7
+                  version: 8
                   run_install: true
 
             - name: Lint source
