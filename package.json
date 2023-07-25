@@ -41,7 +41,7 @@
         "test:run": "vitest run",
         "test:coverage": "vitest run --coverage",
         "build": "rimraf dist && tsup",
-        "gen:docs": "rimraf docs && typedoc --options typedoc.json",
+        "gen:docs": "rimraf docs && typedoc --options typedoc.json --skipErrorChecking",
         "release": "pnpm run build && pnpm changeset publish"
     },
     "repository": "https://github.com/nodecfdi/cfdi-cleaner",
