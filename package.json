@@ -55,7 +55,7 @@
         "@nodecfdi/eslint-config-nodecfdi": "^0.1.5",
         "@nrsk/config-conventional": "^1.0.0",
         "@types/is-ci": "^3.0.0",
-        "@types/node": "^20.4.4",
+        "@types/node": "^20.4.5",
         "@vitest/coverage-istanbul": "^0.33.0",
         "@xmldom/xmldom": "^0.8.10",
         "eslint": "^8.45.0",
