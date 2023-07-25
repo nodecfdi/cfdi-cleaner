@@ -21,16 +21,13 @@ export class XmlNamespaceMethodsTrait {
                 yield namespaceNode as Attr;
             }
 
-            if (!this.isNamespaceReserved((namespaceNode as Attr).namespaceURI!)) {
-                yield namespaceNode as Attr;
-            }
-
             namespaceNode = namespaceNodes.iterateNext();
         }
     }
 
     protected removeNamespaceNodeAttribute(namespaceNode: Attr): void {
         const { ownerElement, localName, nodeName } = namespaceNode;
+        /* istanbul ignore else -- For usage always is has attribute ns but for default bool is posible false @preserve */
         if (ownerElement!.hasAttributeNS(XmlConstants.NAMESPACE_XMLNS, localName)) {
             ownerElement!.removeAttribute(nodeName);
         }

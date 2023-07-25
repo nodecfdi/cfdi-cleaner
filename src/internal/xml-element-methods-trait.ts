@@ -5,6 +5,7 @@
 export class XmlElementMethodsTrait {
     protected elementRemove(element: Element): void {
         const parent = element.parentNode;
+        /* istanbul ignore else -- For usage always is not null but for default parent is posible null @preserve */
         if (parent !== null) {
             // eslint-disable-next-line unicorn/prefer-dom-node-remove
             parent.removeChild(element);

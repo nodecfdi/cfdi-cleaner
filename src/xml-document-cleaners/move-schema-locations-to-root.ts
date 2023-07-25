@@ -18,6 +18,7 @@ class MoveSchemaLocationsToRoot
             // For @xmldom/xmldom require check xmlns:xsi for deep declarations with same space
             const namespacesXsi = xpath.queryAttributes<Attr>('//@*[name()="xmlns:xsi"]');
             for (const namespaceXsiAttribute of namespacesXsi) {
+                /* istanbul ignore else -- For @xmldom/xmldom is always xmlns:xsi but posibly in others not same @preserve */
                 if (namespaceXsiAttribute.nodeValue === XmlConstants.NAMESPACE_XSI) {
                     this.attributeRemove(namespaceXsiAttribute);
                 }

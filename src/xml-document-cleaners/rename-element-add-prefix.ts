@@ -25,8 +25,10 @@ class RenameElementAddPrefix extends Mixin(XmlNamespaceMethodsTrait) implements 
     }
 
     private queryPrefix(element: Element): string {
-        const namespace = element.namespaceURI ?? '';
-        if (namespace === '') {
+        const namespace = element.namespaceURI;
+
+        /* istanbul ignore if -- For usage always is not null but for default ownerElement is posible null @preserve */
+        if (namespace === null) {
             return '';
         }
 
@@ -42,6 +44,7 @@ class RenameElementAddPrefix extends Mixin(XmlNamespaceMethodsTrait) implements 
             }
         }
 
+        /* istanbul ignore next -- Very difficult of test @preserve */
         return '';
     }
 }

@@ -32,6 +32,7 @@ class RemoveUnusedNamespaces extends Mixin(XmlNamespaceMethodsTrait) implements 
 
     private checkNamespaceNode(document: Document, namespaceNode: Attr): void {
         const namespace = namespaceNode.nodeValue;
+        /* istanbul ignore if -- For usage always is not null but for default nodeValue is posible null @preserve */
         if (namespace === null) {
             return;
         }
