@@ -73,7 +73,7 @@
         "typescript": "^5.1.6",
         "vite": "^4.4.7",
         "vitest": "^0.34.0",
-        "xpath": "^0.0.33"
+        "xpath": "^0.0.34"
     },
     "dependencies": {
         "@nodecfdi/cfdiutils-common": "^1.2.6"
