@@ -12,35 +12,35 @@ import { RenameElementAddPrefix } from './xml-document-cleaners/rename-element-a
 import { type ExcludeList } from './exclude-list';
 
 export class XmlDocumentCleaners implements XmlDocumentCleanerInterface {
-    private readonly cleaners: XmlDocumentCleanerInterface[];
+  private readonly cleaners: XmlDocumentCleanerInterface[];
 
-    constructor(...cleaners: XmlDocumentCleanerInterface[]) {
-        this.cleaners = cleaners;
-    }
+  constructor(...cleaners: XmlDocumentCleanerInterface[]) {
+    this.cleaners = cleaners;
+  }
 
-    public static createDefault(): XmlDocumentCleaners {
-        return new XmlDocumentCleaners(
-            new RemoveAddenda(),
-            new RemoveIncompleteSchemaLocations(),
-            new RemoveNonSatNamespacesNodes(),
-            new RemoveNonSatSchemaLocations(),
-            new RemoveUnusedNamespaces(),
-            new RenameElementAddPrefix(),
-            new MoveNamespaceDeclarationToRoot(),
-            new MoveSchemaLocationsToRoot(),
-            new SetKnownSchemaLocations(),
-            new CollapseComplemento(),
-        );
-    }
+  public static createDefault(): XmlDocumentCleaners {
+    return new XmlDocumentCleaners(
+      new RemoveAddenda(),
+      new RemoveIncompleteSchemaLocations(),
+      new RemoveNonSatNamespacesNodes(),
+      new RemoveNonSatSchemaLocations(),
+      new RemoveUnusedNamespaces(),
+      new RenameElementAddPrefix(),
+      new MoveNamespaceDeclarationToRoot(),
+      new MoveSchemaLocationsToRoot(),
+      new SetKnownSchemaLocations(),
+      new CollapseComplemento(),
+    );
+  }
 
-    public clean(document: Document): void {
-        for (const cleaner of this.cleaners) {
-            cleaner.clean(document);
-        }
+  public clean(document: Document): void {
+    for (const cleaner of this.cleaners) {
+      cleaner.clean(document);
     }
+  }
 
-    public withOutCleaners(excludeList: ExcludeList): XmlDocumentCleaners {
-        const cleaners = excludeList.filterObjects(...this.cleaners);
-        return new XmlDocumentCleaners(...cleaners);
-    }
+  public withOutCleaners(excludeList: ExcludeList): XmlDocumentCleaners {
+    const cleaners = excludeList.filterObjects(...this.cleaners);
+    return new XmlDocumentCleaners(...cleaners);
+  }
 }

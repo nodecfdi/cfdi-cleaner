@@ -6,31 +6,31 @@ import { XmlNsSchemaLocation } from './xml-string-cleaners/xml-ns-schema-locatio
 import { type ExcludeList } from './exclude-list';
 
 export class XmlStringCleaners implements XmlStringCleanerInterface {
-    private readonly cleaners: XmlStringCleanerInterface[];
+  private readonly cleaners: XmlStringCleanerInterface[];
 
-    constructor(...cleaners: XmlStringCleanerInterface[]) {
-        this.cleaners = cleaners;
+  constructor(...cleaners: XmlStringCleanerInterface[]) {
+    this.cleaners = cleaners;
+  }
+
+  public static createDefault(): XmlStringCleaners {
+    return new XmlStringCleaners(
+      new RemoveNonXmlStrings(),
+      new SplitXmlDeclarationFromDocument(),
+      new AppendXmlDeclaration(),
+      new XmlNsSchemaLocation(),
+    );
+  }
+
+  public clean(xml: string): string {
+    for (const cleaner of this.cleaners) {
+      xml = cleaner.clean(xml);
     }
 
-    public static createDefault(): XmlStringCleaners {
-        return new XmlStringCleaners(
-            new RemoveNonXmlStrings(),
-            new SplitXmlDeclarationFromDocument(),
-            new AppendXmlDeclaration(),
-            new XmlNsSchemaLocation(),
-        );
-    }
+    return xml;
+  }
 
-    public clean(xml: string): string {
-        for (const cleaner of this.cleaners) {
-            xml = cleaner.clean(xml);
-        }
-
-        return xml;
-    }
-
-    public withOutCleaners(excludeList: ExcludeList): XmlStringCleaners {
-        const cleaners = excludeList.filterObjects(...this.cleaners);
-        return new XmlStringCleaners(...cleaners);
-    }
+  public withOutCleaners(excludeList: ExcludeList): XmlStringCleaners {
+    const cleaners = excludeList.filterObjects(...this.cleaners);
+    return new XmlStringCleaners(...cleaners);
+  }
 }

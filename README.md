@@ -296,19 +296,17 @@ The `@nodecfdi/cfdi-cleaner` library is copyright © [NodeCfdi](https://github.c
 
 [contributing]: https://github.com/nodecfdi/cfdi-cleaner/blob/main/CONTRIBUTING.md
 [changelog]: https://github.com/nodecfdi/cfdi-cleaner/blob/main/CHANGELOG.md
-
 [source]: https://github.com/nodecfdi/cfdi-cleaner
 [node-version]: https://www.npmjs.com/package/@nodecfdi/cfdi-cleaner
 [discord]: https://discord.gg/AsqX8fkW2k
 [release]: https://www.npmjs.com/package/@nodecfdi/cfdi-cleaner
 [license]: https://github.com/nodecfdi/cfdi-cleaner/blob/main/LICENSE
 [build]: https://github.com/nodecfdi/cfdi-cleaner/actions/workflows/build.yml?query=branch:main
-[reliability]:https://sonarcloud.io/component_measures?id=nodecfdi_cfdi-cleaner&metric=Reliability
+[reliability]: https://sonarcloud.io/component_measures?id=nodecfdi_cfdi-cleaner&metric=Reliability
 [maintainability]: https://sonarcloud.io/component_measures?id=nodecfdi_cfdi-cleaner&metric=Maintainability
 [coverage]: https://sonarcloud.io/component_measures?id=nodecfdi_cfdi-cleaner&metric=Coverage
 [violations]: https://sonarcloud.io/project/issues?id=nodecfdi_cfdi-cleaner&resolved=false
 [downloads]: https://www.npmjs.com/package/@nodecfdi/cfdi-cleaner
-
 [badge-source]: https://img.shields.io/badge/source-nodecfdi/cfdi--cleaner-blue.svg?logo=github
 [badge-node-version]: https://img.shields.io/node/v/@nodecfdi/cfdi-cleaner.svg?logo=nodedotjs
 [badge-discord]: https://img.shields.io/discord/459860554090283019?logo=discord

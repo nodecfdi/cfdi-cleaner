@@ -1,3 +1,3 @@
 export type XmlStringCleanerInterface = {
-    clean(xml: string): string;
+  clean(xml: string): string;
 };
