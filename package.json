@@ -59,6 +59,9 @@
     "vitest": "^1.5.0",
     "xpath": "^0.0.34"
   },
+  "peerDependencies": {
+    "@nodecfdi/cfdi-core": "^0.1.0"
+  },
   "author": "Fernando Isidro <luffynando@gmail.com>",
   "license": "MIT",
   "homepage": "https://github.com/nodecfdi/cfdi-cleaner",
