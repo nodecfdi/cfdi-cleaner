@@ -1,14 +1,14 @@
-import { Xml, getSerializer } from '@nodecfdi/cfdiutils-common';
-import { XmlStringCleaners } from './xml-string-cleaners';
-import { XmlDocumentCleaners } from './xml-document-cleaners';
-import { type ExcludeList } from './exclude-list';
+import { getSerializer, newDocumentContent } from '@nodecfdi/cfdi-core';
+import { type ExcludeList } from './exclude_list.js';
+import { XmlDocumentCleaners } from './xml_document_cleaners.js';
+import { XmlStringCleaners } from './xml_string_cleaners.js';
 
 export class Cleaner {
   private _stringCleaners: XmlStringCleaners;
 
   private _xmlCleaners: XmlDocumentCleaners;
 
-  constructor(
+  public constructor(
     stringCleaners: XmlStringCleaners | null = null,
     xmlDocumentCleaners: XmlDocumentCleaners | null = null,
   ) {
@@ -46,6 +46,6 @@ export class Cleaner {
   }
 
   protected createDocument(xml: string): Document {
-    return Xml.newDocumentContent(xml);
+    return newDocumentContent(xml);
   }
 }
