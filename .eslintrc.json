@@ -1,7 +1,0 @@
-{
-    "root": true,
-    "extends": "@nodecfdi/eslint-config-nodecfdi",
-    "rules": {
-        "@typescript-eslint/no-non-null-assertion": "off"
-    }
-}
