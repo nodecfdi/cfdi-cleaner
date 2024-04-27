@@ -1,3 +1,9 @@
+## [2.0.1](https://github.com/nodecfdi/cfdi-cleaner/compare/v2.0.0...v2.0.1) (2024-04-27)
+
+### Bug Fixes
+
+- :bug: resolve correct path for types export and update packages ([96b41ac](https://github.com/nodecfdi/cfdi-cleaner/commit/96b41ac4714f44a1073c097f5af79f21a8a6908b))
+
 ## [2.0.0](https://github.com/nodecfdi/cfdi-cleaner/compare/v1.4.2...v2.0.0) (2024-04-23)
 
 ### Features
