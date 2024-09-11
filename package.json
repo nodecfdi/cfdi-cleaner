@@ -3,13 +3,35 @@
   "description": "Librería para limpiar comprobantes fiscales digitales v3.3 y v4.0",
   "version": "2.0.1",
   "type": "module",
-  "main": "",
-  "module": "",
-  "types": "",
+  "main": "./dist/commonjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/commonjs/index.d.ts",
   "files": [
     "dist"
   ],
-  "exports": {},
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/esm/index.d.ts",
+        "default": "./dist/esm/index.js"
+      },
+      "require": {
+        "types": "./dist/commonjs/index.d.ts",
+        "default": "./dist/commonjs/index.js"
+      }
+    },
+    "./types": {
+      "import": {
+        "types": "./dist/esm/types.d.ts",
+        "default": "./dist/esm/types.js"
+      },
+      "require": {
+        "types": "./dist/commonjs/types.d.ts",
+        "default": "./dist/commonjs/types.js"
+      }
+    },
+    "./package.json": "./package.json"
+  },
   "imports": {
     "#src/*": "./src/*.js"
   },
@@ -48,6 +70,7 @@
     "jest-xml-matcher": "^1.2.0",
     "np": "^10.0.7",
     "prettier": "^3.3.3",
+    "tshy": "^3.0.2",
     "typedoc": "^0.26.7",
     "typescript": "^5.6.2",
     "vitest": "^2.0.5"
