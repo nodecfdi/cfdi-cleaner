@@ -1,9 +1,9 @@
 import { Mixin } from 'ts-mixer';
 import xpath from 'xpath';
-import { XmlAttributeMethods } from '../mixins/xml_attribute_methods.js';
-import { XmlElementMethods } from '../mixins/xml_element_methods.js';
-import { XmlNamespaceMethods } from '../mixins/xml_namespace_methods.js';
-import { type XmlDocumentCleanerInterface } from '../types.js';
+import { XmlAttributeMethods } from '#src/mixins/xml_attribute_methods';
+import { XmlElementMethods } from '#src/mixins/xml_element_methods';
+import { XmlNamespaceMethods } from '#src/mixins/xml_namespace_methods';
+import { type XmlDocumentCleanerInterface } from '#src/types';
 
 export class RemoveNonSatNamespacesNodes
   extends Mixin(XmlAttributeMethods, XmlElementMethods, XmlNamespaceMethods)

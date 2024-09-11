@@ -1,9 +1,9 @@
 import { Mixin } from 'ts-mixer';
-import { CfdiXPath } from '../internal/cfdi_x_path.js';
-import { SchemaLocation } from '../internal/schema_location.js';
-import { XmlAttributeMethods } from '../mixins/xml_attribute_methods.js';
-import { XmlNamespaceMethods } from '../mixins/xml_namespace_methods.js';
-import { type XmlDocumentCleanerInterface } from '../types.js';
+import { CfdiXPath } from '#src/internal/cfdi_x_path';
+import { SchemaLocation } from '#src/internal/schema_location';
+import { XmlAttributeMethods } from '#src/mixins/xml_attribute_methods';
+import { XmlNamespaceMethods } from '#src/mixins/xml_namespace_methods';
+import { type XmlDocumentCleanerInterface } from '#src/types';
 
 export class RemoveNonSatSchemaLocations
   extends Mixin(XmlAttributeMethods, XmlNamespaceMethods)

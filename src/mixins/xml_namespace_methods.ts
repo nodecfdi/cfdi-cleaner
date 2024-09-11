@@ -1,5 +1,5 @@
 import xpath from 'xpath';
-import { Namespaces } from '../constants/namespaces.js';
+import { Namespaces } from '#src/constants/namespaces';
 
 /**
  * This provides methods used for xml namespaces handling. It´s not meant to

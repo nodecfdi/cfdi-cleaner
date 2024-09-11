@@ -1,4 +1,4 @@
-import { type XmlStringCleanerInterface } from '../types.js';
+import { type XmlStringCleanerInterface } from '#src/types';
 
 export class SplitXmlDeclarationFromDocument implements XmlStringCleanerInterface {
   public clean(xml: string): string {

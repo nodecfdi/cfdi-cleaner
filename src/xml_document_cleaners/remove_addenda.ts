@@ -1,6 +1,6 @@
 import { Mixin } from 'ts-mixer';
-import { XmlElementMethods } from '../mixins/xml_element_methods.js';
-import { type XmlDocumentCleanerInterface } from '../types.js';
+import { XmlElementMethods } from '#src/mixins/xml_element_methods';
+import { type XmlDocumentCleanerInterface } from '#src/types';
 
 export class RemoveAddenda extends Mixin(XmlElementMethods) implements XmlDocumentCleanerInterface {
   public clean(document: Document): void {

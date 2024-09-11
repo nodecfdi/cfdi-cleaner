@@ -1,7 +1,7 @@
 import { Mixin } from 'ts-mixer';
-import { CfdiXPath } from '../internal/cfdi_x_path.js';
-import { XmlElementMethods } from '../mixins/xml_element_methods.js';
-import { type XmlDocumentCleanerInterface } from '../types.js';
+import { CfdiXPath } from '#src/internal/cfdi_x_path';
+import { XmlElementMethods } from '#src/mixins/xml_element_methods';
+import { type XmlDocumentCleanerInterface } from '#src/types';
 
 export class CollapseComplemento
   extends Mixin(XmlElementMethods)

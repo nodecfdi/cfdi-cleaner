@@ -1,5 +1,5 @@
 import xpath from 'xpath';
-import { Namespaces } from '../constants/namespaces.js';
+import { Namespaces } from '#src/constants/namespaces';
 
 export class CfdiXPath {
   private static readonly ALLOWED_NAMESPACES = [

@@ -1,7 +1,7 @@
 import { getSerializer, newDocumentContent } from '@nodecfdi/cfdi-core';
-import { type ExcludeList } from './exclude_list.js';
-import { XmlDocumentCleaners } from './xml_document_cleaners.js';
-import { XmlStringCleaners } from './xml_string_cleaners.js';
+import { type ExcludeList } from '#src/exclude_list';
+import { XmlDocumentCleaners } from '#src/xml_document_cleaners';
+import { XmlStringCleaners } from '#src/xml_string_cleaners';
 
 export class Cleaner {
   private _stringCleaners: XmlStringCleaners;

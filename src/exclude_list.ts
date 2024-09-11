@@ -1,4 +1,4 @@
-import { type Constructor } from './types.js';
+import { type Constructor } from '#src/types';
 
 export class ExcludeList {
   private readonly _classNames: Constructor[];
