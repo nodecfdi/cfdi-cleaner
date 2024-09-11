@@ -1,7 +1,7 @@
 import { Mixin } from 'ts-mixer';
-import { XmlNamespaceMethods } from '#src/mixins/xml_namespace_methods';
+import XmlNamespaceMethods from '#src/mixins/xml_namespace_methods';
 
-export class SpecimenXmlNamespaceMethods extends Mixin(XmlNamespaceMethods) {
+export default class SpecimenXmlNamespaceMethods extends Mixin(XmlNamespaceMethods) {
   public pIterateNonReservedNamespaces(document: Document): Generator<Attr> {
     return this.iterateNonReservedNamespaces(document);
   }

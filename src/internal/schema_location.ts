@@ -1,7 +1,7 @@
 /**
  * Helper class to work with xsi:schemaLocation attribute
  */
-export class SchemaLocation {
+export default class SchemaLocation {
   private _pairs: Record<string, string>;
 
   /**

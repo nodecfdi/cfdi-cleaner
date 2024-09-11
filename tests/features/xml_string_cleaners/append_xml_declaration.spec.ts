@@ -1,4 +1,4 @@
-import { AppendXmlDeclaration } from '#src/xml_string_cleaners/append_xml_declaration';
+import AppendXmlDeclaration from '#src/xml_string_cleaners/append_xml_declaration';
 
 describe('append xml declaration', () => {
   test.each([

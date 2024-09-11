@@ -1,6 +1,6 @@
 import 'jest-xml-matcher';
 import { getSerializer, newDocumentContent } from '@nodecfdi/cfdi-core';
-import { RemoveIncompleteSchemaLocations } from '#src/xml_document_cleaners/remove_incomplete_schema_locations';
+import RemoveIncompleteSchemaLocations from '#src/xml_document_cleaners/remove_incomplete_schema_locations';
 
 describe('remove incomplete schema locations', () => {
   test('clean schema locations with incomplete pairs only on root', () => {

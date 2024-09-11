@@ -1,11 +1,11 @@
-import { type ExcludeList } from '#src/exclude_list';
+import type ExcludeList from '#src/exclude_list';
 import { type XmlStringCleanerInterface } from '#src/types';
-import { AppendXmlDeclaration } from '#src/xml_string_cleaners/append_xml_declaration';
-import { RemoveNonXmlStrings } from '#src/xml_string_cleaners/remove_non_xml_strings';
-import { SplitXmlDeclarationFromDocument } from '#src/xml_string_cleaners/split_xml_declaration_from_document';
-import { XmlNsSchemaLocation } from '#src/xml_string_cleaners/xml_ns_schema_location';
+import AppendXmlDeclaration from '#src/xml_string_cleaners/append_xml_declaration';
+import RemoveNonXmlStrings from '#src/xml_string_cleaners/remove_non_xml_strings';
+import SplitXmlDeclarationFromDocument from '#src/xml_string_cleaners/split_xml_declaration_from_document';
+import XmlNsSchemaLocation from '#src/xml_string_cleaners/xml_ns_schema_location';
 
-export class XmlStringCleaners implements XmlStringCleanerInterface {
+export default class XmlStringCleaners implements XmlStringCleanerInterface {
   private readonly cleaners: XmlStringCleanerInterface[];
 
   public constructor(...cleaners: XmlStringCleanerInterface[]) {

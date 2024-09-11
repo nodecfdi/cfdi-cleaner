@@ -1,6 +1,6 @@
 import 'jest-xml-matcher';
 import { getSerializer, newDocumentContent } from '@nodecfdi/cfdi-core';
-import { Cleaner } from '#src/cleaner';
+import Cleaner from '#src/cleaner';
 import { fileContents } from '../test_utils.js';
 
 describe('cleaner', () => {

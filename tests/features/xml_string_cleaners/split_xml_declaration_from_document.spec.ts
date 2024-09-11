@@ -1,4 +1,4 @@
-import { SplitXmlDeclarationFromDocument } from '#src/xml_string_cleaners/split_xml_declaration_from_document';
+import SplitXmlDeclarationFromDocument from '#src/xml_string_cleaners/split_xml_declaration_from_document';
 
 describe('split xml declaration from document', () => {
   test.each([

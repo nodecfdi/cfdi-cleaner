@@ -1,4 +1,4 @@
-import { ExcludeList } from '#src/exclude_list';
+import ExcludeList from '#src/exclude_list';
 
 describe('exclude_list', () => {
   test('constructor_with_empty_list', () => {

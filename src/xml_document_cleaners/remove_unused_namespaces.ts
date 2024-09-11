@@ -1,9 +1,9 @@
 import { Mixin } from 'ts-mixer';
 import xpath from 'xpath';
-import { XmlNamespaceMethods } from '#src/mixins/xml_namespace_methods';
+import XmlNamespaceMethods from '#src/mixins/xml_namespace_methods';
 import { type XmlDocumentCleanerInterface } from '#src/types';
 
-export class RemoveUnusedNamespaces
+export default class RemoveUnusedNamespaces
   extends Mixin(XmlNamespaceMethods)
   implements XmlDocumentCleanerInterface
 {

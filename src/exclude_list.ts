@@ -1,6 +1,6 @@
 import { type Constructor } from '#src/types';
 
-export class ExcludeList {
+export default class ExcludeList {
   private readonly _classNames: Constructor[];
 
   public constructor(...classNames: Constructor[]) {

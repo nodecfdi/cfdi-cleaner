@@ -1,12 +1,12 @@
 import { Mixin } from 'ts-mixer';
 import xpath from 'xpath';
-import { CfdiXPath } from '#src/internal/cfdi_x_path';
-import { SchemaLocation } from '#src/internal/schema_location';
-import { XmlAttributeMethods } from '#src/mixins/xml_attribute_methods';
-import { XmlNamespaceMethods } from '#src/mixins/xml_namespace_methods';
+import CfdiXPath from '#src/internal/cfdi_x_path';
+import SchemaLocation from '#src/internal/schema_location';
+import XmlAttributeMethods from '#src/mixins/xml_attribute_methods';
+import XmlNamespaceMethods from '#src/mixins/xml_namespace_methods';
 import { type XmlDocumentCleanerInterface } from '#src/types';
 
-export class SetKnownSchemaLocations
+export default class SetKnownSchemaLocations
   extends Mixin(XmlNamespaceMethods, XmlAttributeMethods)
   implements XmlDocumentCleanerInterface
 {

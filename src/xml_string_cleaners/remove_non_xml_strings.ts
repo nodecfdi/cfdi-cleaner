@@ -1,6 +1,6 @@
 import { type XmlStringCleanerInterface } from '#src/types';
 
-export class RemoveNonXmlStrings implements XmlStringCleanerInterface {
+export default class RemoveNonXmlStrings implements XmlStringCleanerInterface {
   public clean(xml: string): string {
     const posFirstLessThan = xml.indexOf('<');
     if (posFirstLessThan === -1) {

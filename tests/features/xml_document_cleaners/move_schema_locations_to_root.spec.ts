@@ -1,6 +1,6 @@
 import 'jest-xml-matcher';
 import { getSerializer, newDocumentContent } from '@nodecfdi/cfdi-core';
-import { MoveSchemaLocationsToRoot } from '#src/xml_document_cleaners/move_schema_locations_to_root';
+import MoveSchemaLocationsToRoot from '#src/xml_document_cleaners/move_schema_locations_to_root';
 
 describe('move schema location to_root', () => {
   let cleaner: MoveSchemaLocationsToRoot;

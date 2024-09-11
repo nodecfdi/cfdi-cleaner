@@ -5,7 +5,7 @@ import { Namespaces } from '#src/constants/namespaces';
  * This provides methods used for xml namespaces handling. It´s not meant to
  * be used directly.
  */
-export class XmlNamespaceMethods {
+export default class XmlNamespaceMethods {
   protected *iterateNonReservedNamespaces(document: Document): Generator<Attr> {
     const namespaceNodes = (xpath as unknown as XPathEvaluator).evaluate(
       "(//*|//@*)[local-name(.)='xmlns' or starts-with(name(), 'xmlns')]",

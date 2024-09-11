@@ -1,10 +1,10 @@
 import 'jest-xml-matcher';
-import { Cleaner } from '#src/cleaner';
-import { ExcludeList } from '#src/exclude_list';
-import { MoveNamespaceDeclarationToRoot } from '#src/xml_document_cleaners/move_namespace_declaration_to_root';
-import { RemoveAddenda } from '#src/xml_document_cleaners/remove_addenda';
-import { RemoveNonSatNamespacesNodes } from '#src/xml_document_cleaners/remove_non_sat_namespaces_nodes';
-import { RemoveNonSatSchemaLocations } from '#src/xml_document_cleaners/remove_non_sat_schema_locations';
+import Cleaner from '#src/cleaner';
+import ExcludeList from '#src/exclude_list';
+import MoveNamespaceDeclarationToRoot from '#src/xml_document_cleaners/move_namespace_declaration_to_root';
+import RemoveAddenda from '#src/xml_document_cleaners/remove_addenda';
+import RemoveNonSatNamespacesNodes from '#src/xml_document_cleaners/remove_non_sat_namespaces_nodes';
+import RemoveNonSatSchemaLocations from '#src/xml_document_cleaners/remove_non_sat_schema_locations';
 
 describe('cleaners exclude', () => {
   test('cleaner exclude addenda', () => {

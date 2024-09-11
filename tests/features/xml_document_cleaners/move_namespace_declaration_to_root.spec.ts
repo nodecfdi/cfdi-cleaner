@@ -1,6 +1,6 @@
 import 'jest-xml-matcher';
 import { getSerializer, newDocumentContent } from '@nodecfdi/cfdi-core';
-import { MoveNamespaceDeclarationToRoot } from '#src/xml_document_cleaners/move_namespace_declaration_to_root';
+import MoveNamespaceDeclarationToRoot from '#src/xml_document_cleaners/move_namespace_declaration_to_root';
 
 describe('move namespace declaration to root', () => {
   let cleaner: MoveNamespaceDeclarationToRoot;

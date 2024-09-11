@@ -1,6 +1,6 @@
 import 'jest-xml-matcher';
 import { getSerializer, newDocumentContent } from '@nodecfdi/cfdi-core';
-import { RemoveNonSatSchemaLocations } from '#src/xml_document_cleaners/remove_non_sat_schema_locations';
+import RemoveNonSatSchemaLocations from '#src/xml_document_cleaners/remove_non_sat_schema_locations';
 
 describe('remove non sat schema locations', () => {
   test('clean', () => {

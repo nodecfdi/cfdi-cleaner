@@ -1,6 +1,6 @@
 import 'jest-xml-matcher';
 import { getSerializer, newDocumentContent } from '@nodecfdi/cfdi-core';
-import { RemoveUnusedNamespaces } from '#src/xml_document_cleaners/remove_unused_namespaces';
+import RemoveUnusedNamespaces from '#src/xml_document_cleaners/remove_unused_namespaces';
 
 describe('remove unused namespaces', () => {
   let cleaner: RemoveUnusedNamespaces;

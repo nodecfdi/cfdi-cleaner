@@ -1,4 +1,4 @@
-import { RemoveIncompleteSchemaLocations } from '#src/xml_document_cleaners/remove_incomplete_schema_locations';
+import RemoveIncompleteSchemaLocations from '#src/xml_document_cleaners/remove_incomplete_schema_locations';
 
 describe('remove_incomplete_schema_locations', () => {
   let cleaner: RemoveIncompleteSchemaLocations;

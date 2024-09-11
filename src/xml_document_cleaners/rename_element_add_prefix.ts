@@ -1,8 +1,8 @@
 import { Mixin } from 'ts-mixer';
-import { XmlNamespaceMethods } from '#src/mixins/xml_namespace_methods';
+import XmlNamespaceMethods from '#src/mixins/xml_namespace_methods';
 import { type XmlDocumentCleanerInterface } from '#src/types';
 
-export class RenameElementAddPrefix
+export default class RenameElementAddPrefix
   extends Mixin(XmlNamespaceMethods)
   implements XmlDocumentCleanerInterface
 {

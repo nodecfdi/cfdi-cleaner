@@ -1,5 +1,5 @@
 import { newDocumentContent } from '@nodecfdi/cfdi-core';
-import { CfdiXPath } from '#src/internal/cfdi_x_path';
+import CfdiXPath from '#src/internal/cfdi_x_path';
 
 describe('internal cfdi3_xpath', () => {
   const providerCreateCfdiVersions: readonly [string, string][] = [

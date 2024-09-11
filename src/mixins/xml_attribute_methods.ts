@@ -2,7 +2,7 @@
  * This provides methods used for xml attributes handling. It´s not meant to
  * be used directly.
  */
-export class XmlAttributeMethods {
+export default class XmlAttributeMethods {
   protected attributeRemove(attribute: Attr): void {
     const { ownerElement, nodeName } = attribute;
 

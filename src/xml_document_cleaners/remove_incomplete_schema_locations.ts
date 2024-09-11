@@ -1,10 +1,10 @@
 import { Mixin } from 'ts-mixer';
-import { CfdiXPath } from '#src/internal/cfdi_x_path';
-import { SchemaLocation } from '#src/internal/schema_location';
-import { XmlAttributeMethods } from '#src/mixins/xml_attribute_methods';
+import CfdiXPath from '#src/internal/cfdi_x_path';
+import SchemaLocation from '#src/internal/schema_location';
+import XmlAttributeMethods from '#src/mixins/xml_attribute_methods';
 import { type XmlDocumentCleanerInterface } from '#src/types';
 
-export class RemoveIncompleteSchemaLocations
+export default class RemoveIncompleteSchemaLocations
   extends Mixin(XmlAttributeMethods)
   implements XmlDocumentCleanerInterface
 {

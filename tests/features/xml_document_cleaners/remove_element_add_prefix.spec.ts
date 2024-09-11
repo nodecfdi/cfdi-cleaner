@@ -1,6 +1,6 @@
 import 'jest-xml-matcher';
 import { getSerializer, newDocumentContent } from '@nodecfdi/cfdi-core';
-import { RenameElementAddPrefix } from '#src/xml_document_cleaners/rename_element_add_prefix';
+import RenameElementAddPrefix from '#src/xml_document_cleaners/rename_element_add_prefix';
 
 describe('remove element add prefix', () => {
   const cleaner = new RenameElementAddPrefix();

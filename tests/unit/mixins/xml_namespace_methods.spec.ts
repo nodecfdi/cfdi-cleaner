@@ -1,6 +1,6 @@
 import 'jest-xml-matcher';
 import { getSerializer, newDocumentContent } from '@nodecfdi/cfdi-core';
-import { SpecimenXmlNamespaceMethods } from './specimen_xml_namespace_methods.js';
+import SpecimenXmlNamespaceMethods from './specimen_xml_namespace_methods.js';
 
 describe('internal xml_namespace_methods', () => {
   test('iterate on removed namespaces', () => {

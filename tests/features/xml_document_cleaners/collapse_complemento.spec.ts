@@ -1,6 +1,6 @@
 import 'jest-xml-matcher';
 import { getSerializer, newDocumentContent } from '@nodecfdi/cfdi-core';
-import { CollapseComplemento } from '#src/xml_document_cleaners/collapse_complemento';
+import CollapseComplemento from '#src/xml_document_cleaners/collapse_complemento';
 
 describe('collapse complemento', () => {
   let cleaner: CollapseComplemento;

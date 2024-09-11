@@ -1,9 +1,9 @@
 import { Mixin } from 'ts-mixer';
 import { Namespaces } from '#src/constants/namespaces';
-import { XmlNamespaceMethods } from '#src/mixins/xml_namespace_methods';
+import XmlNamespaceMethods from '#src/mixins/xml_namespace_methods';
 import { type XmlDocumentCleanerInterface } from '#src/types';
 
-export class MoveNamespaceDeclarationToRoot
+export default class MoveNamespaceDeclarationToRoot
   extends Mixin(XmlNamespaceMethods)
   implements XmlDocumentCleanerInterface
 {

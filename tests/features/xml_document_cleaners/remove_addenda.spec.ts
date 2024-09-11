@@ -1,5 +1,5 @@
 import { newDocumentContent } from '@nodecfdi/cfdi-core';
-import { RemoveAddenda } from '#src/xml_document_cleaners/remove_addenda';
+import RemoveAddenda from '#src/xml_document_cleaners/remove_addenda';
 
 describe('remove addenda', () => {
   const providerCleanDocumentWithAddenda: [string, string, string][] = [

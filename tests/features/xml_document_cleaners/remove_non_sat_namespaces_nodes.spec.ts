@@ -1,6 +1,6 @@
 import 'jest-xml-matcher';
 import { getSerializer, newDocumentContent } from '@nodecfdi/cfdi-core';
-import { RemoveNonSatNamespacesNodes } from '#src/xml_document_cleaners/remove_non_sat_namespaces_nodes';
+import RemoveNonSatNamespacesNodes from '#src/xml_document_cleaners/remove_non_sat_namespaces_nodes';
 
 describe('remove non sat namespaces nodes', () => {
   test('clean', () => {

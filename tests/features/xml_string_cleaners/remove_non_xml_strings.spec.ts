@@ -1,4 +1,4 @@
-import { RemoveNonXmlStrings } from '#src/xml_string_cleaners/remove_non_xml_strings';
+import RemoveNonXmlStrings from '#src/xml_string_cleaners/remove_non_xml_strings';
 
 describe('remove non xml strings', () => {
   test.each([

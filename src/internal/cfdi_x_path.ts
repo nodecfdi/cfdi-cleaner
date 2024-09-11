@@ -1,7 +1,7 @@
 import xpath from 'xpath';
 import { Namespaces } from '#src/constants/namespaces';
 
-export class CfdiXPath {
+export default class CfdiXPath {
   private static readonly ALLOWED_NAMESPACES = [
     'http://www.sat.gob.mx/cfd/3',
     'http://www.sat.gob.mx/cfd/4',

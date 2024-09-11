@@ -1,7 +1,7 @@
 import 'jest-xml-matcher';
 import https from 'node:https';
 import { getSerializer, newDocumentContent } from '@nodecfdi/cfdi-core';
-import { SetKnownSchemaLocations } from '#src/xml_document_cleaners/set_known_schema_locations';
+import SetKnownSchemaLocations from '#src/xml_document_cleaners/set_known_schema_locations';
 
 describe('set known schema locations', () => {
   let cleaner: SetKnownSchemaLocations;
