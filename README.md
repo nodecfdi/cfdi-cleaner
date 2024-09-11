@@ -24,33 +24,11 @@ Los archivos XML de Comprobantes Fiscales Digitales por Internet (CFDI) suelen c
 encarga de reparar los errores (reparables) conocidos/comunes para poder trabajar con ellos.
 
 Todas las operaciones que realiza esta librería con sobre partes del CFDI que no influyen en la generación de la cadena
-de origen ni del sello.
-
-Librería inspirada por la versión para php <https://github.com/phpcfdi/cfdi-cleaner>
-
-## Instalación
-
-NPM
-
-```bash
-npm i @nodecfdi/cfdi-core @nodecfdi/cfdi-cleaner --save
-```
-
-YARN
-
-```bash
-yarn add @nodecfdi/cfdi-core @nodecfdi/cfdi-cleaner
-```
-
-PNPM
-
-```bash
-pnpm add @nodecfdi/cfdi-core @nodecfdi/cfdi-cleaner
-```
+de origen ni del sello. Inspirada por la versión para php <https://github.com/phpcfdi/cfdi-cleaner>
 
 ## Documentación
 
-La documentación está disponible en el sitio web [NodeCfdi](https://nodecfdi.com)
+La documentación está disponible en el sitio web [NodeCfdi](https://nodecfdi.com/librarys/cfdi-cleaner/getting-started/)
 
 ## Soporte
 
