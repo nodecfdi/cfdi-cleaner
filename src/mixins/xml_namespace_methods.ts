@@ -19,7 +19,7 @@ export default class XmlNamespaceMethods {
 
     let namespaceNode = namespaceNodes.iterateNext();
     while (namespaceNode) {
-      if (!this.isNamespaceReserved(namespaceNode.nodeValue!) && isAttribute(namespaceNode)) {
+      if (!this.isNamespaceReserved(`${namespaceNode.nodeValue}`) && isAttribute(namespaceNode)) {
         yield namespaceNode;
       }
 
@@ -30,7 +30,7 @@ export default class XmlNamespaceMethods {
   protected removeNamespaceNodeAttribute(namespaceNode: Attr): void {
     const { ownerElement, localName, nodeName } = namespaceNode;
     /* istanbul ignore else -- For usage always is has attribute ns but for default bool is posible false @preserve */
-    if (ownerElement!.hasAttributeNS(NAMESPACE.XMLNS, localName!)) {
+    if (ownerElement!.hasAttributeNS(NAMESPACE.XMLNS, `${localName}`)) {
       ownerElement!.removeAttribute(nodeName);
     }
   }
