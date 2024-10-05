@@ -1,3 +1,4 @@
+import { type Document, type Element } from '@nodecfdi/cfdi-core';
 import { Mixin } from 'ts-mixer';
 import CfdiXPath from '#src/internal/cfdi_x_path';
 import XmlElementMethods from '#src/mixins/xml_element_methods';

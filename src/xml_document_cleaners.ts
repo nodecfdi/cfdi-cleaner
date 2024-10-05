@@ -1,3 +1,4 @@
+import { type Document } from '@nodecfdi/cfdi-core';
 import type ExcludeList from '#src/exclude_list';
 import { type XmlDocumentCleanerInterface } from '#src/types';
 import CollapseComplemento from '#src/xml_document_cleaners/collapse_complemento';

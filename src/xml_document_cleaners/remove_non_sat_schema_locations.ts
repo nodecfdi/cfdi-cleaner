@@ -1,3 +1,4 @@
+import { type Document } from '@nodecfdi/cfdi-core';
 import { Mixin } from 'ts-mixer';
 import CfdiXPath from '#src/internal/cfdi_x_path';
 import SchemaLocation from '#src/internal/schema_location';

@@ -1,4 +1,4 @@
-import { getSerializer, newDocumentContent } from '@nodecfdi/cfdi-core';
+import { type Document, getSerializer, newDocumentContent } from '@nodecfdi/cfdi-core';
 import type ExcludeList from '#src/exclude_list';
 import XmlDocumentCleaners from '#src/xml_document_cleaners';
 import XmlStringCleaners from '#src/xml_string_cleaners';

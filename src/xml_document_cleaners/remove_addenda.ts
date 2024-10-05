@@ -1,3 +1,4 @@
+import { type Document } from '@nodecfdi/cfdi-core';
 import { Mixin } from 'ts-mixer';
 import XmlElementMethods from '#src/mixins/xml_element_methods';
 import { type XmlDocumentCleanerInterface } from '#src/types';
@@ -13,8 +14,7 @@ export default class RemoveAddenda
 
   private removeAddendas(document: Document, namespace: string): void {
     const addendas = document.getElementsByTagNameNS(namespace, 'Addenda');
-    // eslint-disable-next-line unicorn/prefer-spread
-    for (const element of Array.from(addendas)) {
+    for (const element of addendas) {
       this.elementRemove(element);
     }
   }

@@ -1,3 +1,4 @@
+import { type Attr, type Document } from '@nodecfdi/cfdi-core';
 import { Mixin } from 'ts-mixer';
 import xpath from 'xpath';
 import XmlNamespaceMethods from '#src/mixins/xml_namespace_methods';
@@ -16,6 +17,7 @@ export default class RemoveUnusedNamespaces
   protected hasElementsOnNamespace(document: Document, namespace: string, prefix: string): boolean {
     const elements = xpath.select(
       `//*[namespace-uri()="${namespace}" and name()=concat("${prefix}", local-name())]`,
+      // @ts-expect-error misssing Node properties are not needed
       document,
     ) as Node[] | null;
 
@@ -29,6 +31,7 @@ export default class RemoveUnusedNamespaces
   ): boolean {
     const attributes = xpath.select(
       `//@*[namespace-uri()="${namespace}" and name()=concat("${prefix}", local-name())]`,
+      // @ts-expect-error misssing Node properties are not needed
       document,
     ) as Node[] | null;
 

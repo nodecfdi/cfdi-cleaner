@@ -1,3 +1,5 @@
+import { type Element } from '@nodecfdi/cfdi-core';
+
 /**
  * This provides methods used for xml elements handling. It´s not meant to
  * be used directly.

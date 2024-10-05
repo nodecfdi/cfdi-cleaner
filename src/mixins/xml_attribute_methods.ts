@@ -1,3 +1,5 @@
+import { type Attr } from '@nodecfdi/cfdi-core';
+
 /**
  * This provides methods used for xml attributes handling. It´s not meant to
  * be used directly.

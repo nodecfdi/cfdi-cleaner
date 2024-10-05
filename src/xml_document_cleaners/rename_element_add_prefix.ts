@@ -1,3 +1,4 @@
+import { type Document, type Element } from '@nodecfdi/cfdi-core';
 import { Mixin } from 'ts-mixer';
 import XmlNamespaceMethods from '#src/mixins/xml_namespace_methods';
 import { type XmlDocumentCleanerInterface } from '#src/types';
@@ -35,14 +36,14 @@ export default class RenameElementAddPrefix
       return '';
     }
 
-    const document = element.ownerDocument;
+    const document = element.ownerDocument!;
     for (const namespaceNode of this.iterateNonReservedNamespaces(document)) {
       if (element !== namespaceNode.ownerElement) {
         continue;
       }
 
       const prefix = namespaceNode.localName;
-      if (prefix !== '' && namespaceNode.nodeValue === namespace) {
+      if (prefix && prefix !== '' && namespaceNode.nodeValue === namespace) {
         return prefix;
       }
     }

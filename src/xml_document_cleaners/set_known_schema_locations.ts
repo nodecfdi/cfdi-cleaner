@@ -1,3 +1,4 @@
+import { type Attr, type Document, type Element } from '@nodecfdi/cfdi-core';
 import { Mixin } from 'ts-mixer';
 import xpath from 'xpath';
 import CfdiXPath from '#src/internal/cfdi_x_path';
@@ -72,27 +73,34 @@ export default class SetKnownSchemaLocations
     'http://www.sat.gob.mx/servicioparcialconstruccion#1.0':
       'http://www.sat.gob.mx/sitio_internet/cfd/servicioparcialconstruccion/servicioparcialconstruccion.xsd',
     'http://www.sat.gob.mx/renovacionysustitucionvehiculos#1.0':
-      'http://www.sat.gob.mx/sitio_internet/' +
-      'cfd/renovacionysustitucionvehiculos/renovacionysustitucionvehiculos.xsd',
+      'http://www.sat.gob.mx/sitio_internet/cfd/renovacionysustitucionvehiculos/renovacionysustitucionvehiculos.xsd',
     'http://www.sat.gob.mx/certificadodestruccion#1.0':
       'http://www.sat.gob.mx/sitio_internet/cfd/certificadodestruccion/certificadodedestruccion.xsd',
     'http://www.sat.gob.mx/arteantiguedades#1.0':
       'http://www.sat.gob.mx/sitio_internet/cfd/arteantiguedades/obrasarteantiguedades.xsd',
     'http://www.sat.gob.mx/ine#1.1': 'http://www.sat.gob.mx/sitio_internet/cfd/ine/ine11.xsd',
     'http://www.sat.gob.mx/ine#1.0': 'http://www.sat.gob.mx/sitio_internet/cfd/ine/ine10.xsd',
+    'http://www.sat.gob.mx/ComercioExterior20#2.0':
+      'http://www.sat.gob.mx/sitio_internet/cfd/ComercioExterior20/ComercioExterior20.xsd',
     'http://www.sat.gob.mx/ComercioExterior11#1.1':
       'http://www.sat.gob.mx/sitio_internet/cfd/ComercioExterior11/ComercioExterior11.xsd',
     'http://www.sat.gob.mx/ComercioExterior#1.0':
       'http://www.sat.gob.mx/sitio_internet/cfd/ComercioExterior/ComercioExterior10.xsd',
-    'http://www.sat.gob.mx/ComercioExterior20#2.0':
-      'http://www.sat.gob.mx/sitio_internet/cfd/ComercioExterior20/ComercioExterior20.xsd',
-    'http://www.sat.gob.mx/Pagos#1.0': 'http://www.sat.gob.mx/sitio_internet/cfd/Pagos/Pagos10.xsd',
     'http://www.sat.gob.mx/Pagos20#2.0':
       'http://www.sat.gob.mx/sitio_internet/cfd/Pagos/Pagos20.xsd',
+    'http://www.sat.gob.mx/Pagos#1.0': 'http://www.sat.gob.mx/sitio_internet/cfd/Pagos/Pagos10.xsd',
     'http://www.sat.gob.mx/GastosHidrocarburos10#1.0':
       'http://www.sat.gob.mx/sitio_internet/cfd/GastosHidrocarburos10/GastosHidrocarburos10.xsd',
     'http://www.sat.gob.mx/IngresosHidrocarburos10#1.0':
       'http://www.sat.gob.mx/sitio_internet/cfd/IngresosHidrocarburos10/IngresosHidrocarburos.xsd',
+    'http://www.sat.gob.mx/CartaPorte#1.0':
+      'http://www.sat.gob.mx/sitio_internet/cfd/CartaPorte/CartaPorte.xsd',
+    'http://www.sat.gob.mx/CartaPorte20#2.0':
+      'http://www.sat.gob.mx/sitio_internet/cfd/CartaPorte/CartaPorte20.xsd',
+    'http://www.sat.gob.mx/CartaPorte30#3.0':
+      'http://www.sat.gob.mx/sitio_internet/cfd/CartaPorte/CartaPorte30.xsd',
+    'http://www.sat.gob.mx/CartaPorte31#3.1':
+      'http://www.sat.gob.mx/sitio_internet/cfd/CartaPorte/CartaPorte31.xsd',
     'http://www.sat.gob.mx/iedu#1.0': 'http://www.sat.gob.mx/sitio_internet/cfd/iedu/iedu.xsd',
     'http://www.sat.gob.mx/ventavehiculos#1.1':
       'http://www.sat.gob.mx/sitio_internet/cfd/ventavehiculos/ventavehiculos11.xsd',
@@ -102,20 +110,12 @@ export default class SetKnownSchemaLocations
       'http://www.sat.gob.mx/sitio_internet/cfd/terceros/terceros11.xsd',
     'http://www.sat.gob.mx/acreditamiento#1.0':
       'http://www.sat.gob.mx/sitio_internet/cfd/acreditamiento/AcreditamientoIEPS10.xsd',
-    'http://www.sat.gob.mx/CartaPorte#1.0':
-      'http://www.sat.gob.mx/sitio_internet/cfd/CartaPorte/CartaPorte.xsd',
-    'http://www.sat.gob.mx/CartaPorte20#2.0':
-      'http://www.sat.gob.mx/sitio_internet/cfd/CartaPorte/CartaPorte20.xsd',
-    'http://www.sat.gob.mx/CartaPorte30#3.0':
-      'http://www.sat.gob.mx/sitio_internet/cfd/CartaPorte/CartaPorte30.xsd',
-    'http://www.sat.gob.mx/CartaPorte31#3.1':
-      'http://www.sat.gob.mx/sitio_internet/cfd/CartaPorte/CartaPorte31.xsd',
     'http://www.sat.gob.mx/esquemas/retencionpago/1/arrendamientoenfideicomiso#1.0':
       'http://www.sat.gob.mx/esquemas/retencionpago/1/arrendamientoenfideicomiso/arrendamientoenfideicomiso.xsd',
     'http://www.sat.gob.mx/esquemas/retencionpago/1/dividendos#1.0':
       'http://www.sat.gob.mx/esquemas/retencionpago/1/dividendos/dividendos.xsd',
     'http://www.sat.gob.mx/esquemas/retencionpago/1/enajenaciondeacciones#1.0':
-      'http://www.sat.gob.mx/esquemas/retencionpago/1/pagosaextranjeros/pagosaextranjeros.xsd',
+      'http://www.sat.gob.mx/esquemas/retencionpago/1/enajenaciondeacciones/enajenaciondeacciones.xsd',
     'http://www.sat.gob.mx/esquemas/retencionpago/1/fideicomisonoempresarial#1.0':
       'http://www.sat.gob.mx/esquemas/retencionpago/1/fideicomisonoempresarial/fideicomisonoempresarial.xsd',
     'http://www.sat.gob.mx/esquemas/retencionpago/1/intereses#1.0':
@@ -124,6 +124,8 @@ export default class SetKnownSchemaLocations
       'http://www.sat.gob.mx/esquemas/retencionpago/1/intereseshipotecarios/intereseshipotecarios.xsd',
     'http://www.sat.gob.mx/esquemas/retencionpago/1/operacionesconderivados#1.0':
       'http://www.sat.gob.mx/esquemas/retencionpago/1/operacionesconderivados/operacionesconderivados.xsd',
+    'http://www.sat.gob.mx/esquemas/retencionpago/1/pagosaextranjeros#1.0':
+      'http://www.sat.gob.mx/esquemas/retencionpago/1/pagosaextranjeros/pagosaextranjeros.xsd',
     'http://www.sat.gob.mx/esquemas/retencionpago/1/planesderetiro11#1.1':
       'http://www.sat.gob.mx/esquemas/retencionpago/1/planesderetiro11/planesderetiro11.xsd',
     'http://www.sat.gob.mx/esquemas/retencionpago/1/planesderetiro#1.0':
@@ -133,8 +135,7 @@ export default class SetKnownSchemaLocations
     'http://www.sat.gob.mx/esquemas/retencionpago/1/sectorfinanciero#1.0':
       'http://www.sat.gob.mx/esquemas/retencionpago/1/sectorfinanciero/sectorfinanciero.xsd',
     'http://www.sat.gob.mx/esquemas/retencionpago/1/PlataformasTecnologicas10#1.0':
-      'http://www.sat.gob.mx/esquemas/retencionpago/1/' +
-      'PlataformasTecnologicas10/ServiciosPlataformasTecnologicas10.xsd',
+      'http://www.sat.gob.mx/esquemas/retencionpago/1/PlataformasTecnologicas10/ServiciosPlataformasTecnologicas10.xsd',
   };
 
   /**
@@ -184,6 +185,7 @@ export default class SetKnownSchemaLocations
     attributeName: string,
   ): string {
     const selectXpath = xpath.useNamespaces({ q: namespace });
+    // @ts-expect-error misssing Node properties are not needed
     const nodes = selectXpath(`//q:*[@${attributeName}]`, document) as Element[];
     if (nodes.length === 0) {
       return '';

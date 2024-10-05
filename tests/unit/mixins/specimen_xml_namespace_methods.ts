@@ -1,3 +1,4 @@
+import { type Attr, type Document } from '@nodecfdi/cfdi-core';
 import { Mixin } from 'ts-mixer';
 import XmlNamespaceMethods from '#src/mixins/xml_namespace_methods';
 
@@ -13,7 +14,7 @@ export default class SpecimenXmlNamespaceMethods extends Mixin(XmlNamespaceMetho
   public obtainNamespaces(document: Document): Record<string, string> {
     const namespaces: Record<string, string> = {};
     for (const namespaceNode of this.iterateNonReservedNamespaces(document)) {
-      namespaces[namespaceNode.localName] = namespaceNode.nodeValue ?? '';
+      namespaces[namespaceNode.localName!] = namespaceNode.nodeValue ?? '';
     }
 
     return namespaces;
