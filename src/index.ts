@@ -3,6 +3,7 @@ export { default as ExcludeList } from '#src/exclude_list';
 export { default as XmlAttributeMethods } from '#src/mixins/xml_attribute_methods';
 export { default as XmlElementMethods } from '#src/mixins/xml_element_methods';
 export { default as XmlNamespaceMethods } from '#src/mixins/xml_namespace_methods';
+export * from '#src/utils/constants';
 export { default as XmlDocumentCleaners } from '#src/xml_document_cleaners';
 export { default as CollapseComplemento } from '#src/xml_document_cleaners/collapse_complemento';
 export { default as MoveNamespaceDeclarationToRoot } from '#src/xml_document_cleaners/move_namespace_declaration_to_root';
