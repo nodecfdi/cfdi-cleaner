@@ -5,7 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [v2.1.0](https://luffynando.github.com/nodecfdi/cfdi-cleaner/compare/v2.0.1...v2.1.0)
+## [v2.2.0](https://luffynando.github.com/nodecfdi/cfdi-cleaner/compare/v2.1.0...v2.2.0)
+
+### Commits
+
+- style: :rotating_light: resolve all dom types necessary using cfdi-core dom types and small refac [`1487b51`](https://luffynando.github.com/nodecfdi/cfdi-cleaner/commit/1487b51022f414518dcff1fb705282c17fafd751)
+- chore: :arrow_up: update dependencies [`6cd7367`](https://luffynando.github.com/nodecfdi/cfdi-cleaner/commit/6cd7367e716c952864f4daa9d5b03ac1813c85f7)
+- refactor: :recycle: remove namespaces contants and usage provider by cfdi-core only xsi [`228c85c`](https://luffynando.github.com/nodecfdi/cfdi-cleaner/commit/228c85c43da5db5e4267fe236d8d6fec5649ea32)
+
+## [v2.1.0](https://luffynando.github.com/nodecfdi/cfdi-cleaner/compare/v2.0.1...v2.1.0) - 2024-09-11
 
 ### Fixed
 
@@ -15,7 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - docs: :memo: update docs generation using new theme and latest changes on org [`4d5efca`](https://luffynando.github.com/nodecfdi/cfdi-cleaner/commit/4d5efca86b6d85a2cf3904ad04a3e18bae274fde)
 - refactor: :wastebasket: remove old config files and others files not need for latest updates [`96a7bb0`](https://luffynando.github.com/nodecfdi/cfdi-cleaner/commit/96a7bb00f1d06356ded2993cafa99e1dbefb8b51)
-- refactor: :recycle: update exports to default format and update imports on tests [`ea4a7d2`](https://luffynando.github.com/nodecfdi/cfdi-cleaner/commit/ea4a7d2428ac394ce8133d6a5ec4a0d35956941f)
+- chore(release): :tada: 2.1.0 [`333d567`](https://luffynando.github.com/nodecfdi/cfdi-cleaner/commit/333d56785a49f62f170dac67dd796ed008c2abd7)
 
 ## [v2.0.1](https://luffynando.github.com/nodecfdi/cfdi-cleaner/compare/v2.0.0...v2.0.1) - 2024-04-27
 
