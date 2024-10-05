@@ -1,5 +1,4 @@
 export { default as Cleaner } from '#src/cleaner';
-export * from '#src/constants/namespaces';
 export { default as ExcludeList } from '#src/exclude_list';
 export { default as XmlAttributeMethods } from '#src/mixins/xml_attribute_methods';
 export { default as XmlElementMethods } from '#src/mixins/xml_element_methods';
