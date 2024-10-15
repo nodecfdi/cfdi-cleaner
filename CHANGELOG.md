@@ -5,13 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [v2.3.0](https://luffynando.github.com/nodecfdi/cfdi-cleaner/compare/v2.2.0...v2.3.0)
+## [v2.3.1](https://luffynando.github.com/nodecfdi/cfdi-cleaner/compare/v2.3.0...v2.3.1)
 
 ### Commits
 
+- fix: :ambulance: resolve construction of matchAll to array method not exists on old nodejs versions [`218f667`](https://luffynando.github.com/nodecfdi/cfdi-cleaner/commit/218f667a6139dbd4cc08d908ee660b889a5057c8)
+
+## [v2.3.0](https://luffynando.github.com/nodecfdi/cfdi-cleaner/compare/v2.2.0...v2.3.0) - 2024-10-14
+
+### Commits
+
+- chore(release): :tada: 2.3.0 [`7090ed7`](https://luffynando.github.com/nodecfdi/cfdi-cleaner/commit/7090ed72e25e668bd2e72097f1c81c44a5404cd6)
 - fix: :adhesive_bandage: add clean for xml ns schema location related to phpcfdi/cleaner v1.2.2 [`5d6fc62`](https://luffynando.github.com/nodecfdi/cfdi-cleaner/commit/5d6fc62012271a70771124a9e4e18bec61a0551d)
 - feat: :sparkles: add remove addenda for CFDI de retenciones e información de pagos [`490be76`](https://luffynando.github.com/nodecfdi/cfdi-cleaner/commit/490be76b8316cf39f04118f48112d99ed83ebbe0)
-- chore: :arrow_up: update dependencies [`b63e436`](https://luffynando.github.com/nodecfdi/cfdi-cleaner/commit/b63e4368033fa81ad01edfb6ae0e8d75c2659861)
 
 ## [v2.2.0](https://luffynando.github.com/nodecfdi/cfdi-cleaner/compare/v2.1.0...v2.2.0) - 2024-10-05
 
