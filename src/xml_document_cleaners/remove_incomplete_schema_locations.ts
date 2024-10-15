@@ -53,6 +53,7 @@ export default class RemoveIncompleteSchemaLocations
 
       // Namespace match with location that ends with xsd
       pairs[namespace] = location;
+      // eslint-disable-next-line sonarjs/updated-loop-counter
       c += 1; // Skip ns declaration
     }
 
