@@ -43,7 +43,7 @@ export default class RenameElementAddPrefix
       }
 
       const prefix = namespaceNode.localName;
-      if (prefix && prefix !== '' && namespaceNode.nodeValue === namespace) {
+      if (prefix && namespaceNode.nodeValue === namespace) {
         return prefix;
       }
     }

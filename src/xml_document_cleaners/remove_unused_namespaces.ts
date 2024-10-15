@@ -45,7 +45,7 @@ export default class RemoveUnusedNamespaces
       return;
     }
 
-    const localName = namespaceNode.localName === '' ? '' : `${namespaceNode.localName}:`;
+    const localName = `${namespaceNode.localName}:`;
     if (!this.isPrefixedNamespaceOnUse(document, namespace, localName)) {
       this.removeNamespaceNodeAttribute(namespaceNode);
     }
