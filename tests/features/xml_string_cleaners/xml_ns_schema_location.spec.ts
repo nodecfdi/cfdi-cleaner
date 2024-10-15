@@ -17,10 +17,42 @@ describe('xml ns schema location', () => {
       '<root\nxsi:schemaLocation="http://localhost/a http://localhost/a.xsd"/>',
       '<root\nxmlns:schemaLocation="http://localhost/a http://localhost/a.xsd"/>',
     ],
+    [
+      'first xsi then xmlns',
+      [
+        '<root foo="bar"',
+        '  xsi:schemaLocation="http://localhost/a http://localhost/a.xsd"',
+        ' >',
+        '</root>',
+      ].join('\n'),
+      [
+        '<root foo="bar"',
+        '  xsi:schemaLocation="http://localhost/a http://localhost/a.xsd"',
+        '  xmlns:schemaLocation="with line terminators',
+        '  ">',
+        '</root>',
+      ].join('\n'),
+    ],
+    [
+      'first xmlns then xsi',
+      [
+        '<root foo="bar"',
+        ' ',
+        '  xsi:schemaLocation="http://localhost/a http://localhost/a.xsd">',
+        '</root>',
+      ].join('\n'),
+      [
+        '<root foo="bar"',
+        '  xmlns:schemaLocation="with line terminators',
+        '  "',
+        '  xsi:schemaLocation="http://localhost/a http://localhost/a.xsd">',
+        '</root>',
+      ].join('\n'),
+    ],
   ])('clean %s', (_name, expected, input) => {
     const cleaner = new XmlNsSchemaLocation();
     const clean = cleaner.clean(input);
 
-    expect(clean).toBe(expected);
+    expect(clean).toStrictEqual(expected);
   });
 });
