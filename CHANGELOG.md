@@ -5,13 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [v2.2.0](https://luffynando.github.com/nodecfdi/cfdi-cleaner/compare/v2.1.0...v2.2.0)
+## [v2.3.0](https://luffynando.github.com/nodecfdi/cfdi-cleaner/compare/v2.2.0...v2.3.0)
 
 ### Commits
 
+- fix: :adhesive_bandage: add clean for xml ns schema location related to phpcfdi/cleaner v1.2.2 [`5d6fc62`](https://luffynando.github.com/nodecfdi/cfdi-cleaner/commit/5d6fc62012271a70771124a9e4e18bec61a0551d)
+- feat: :sparkles: add remove addenda for CFDI de retenciones e información de pagos [`490be76`](https://luffynando.github.com/nodecfdi/cfdi-cleaner/commit/490be76b8316cf39f04118f48112d99ed83ebbe0)
+- chore: :arrow_up: update dependencies [`b63e436`](https://luffynando.github.com/nodecfdi/cfdi-cleaner/commit/b63e4368033fa81ad01edfb6ae0e8d75c2659861)
+
+## [v2.2.0](https://luffynando.github.com/nodecfdi/cfdi-cleaner/compare/v2.1.0...v2.2.0) - 2024-10-05
+
+### Commits
+
+- chore(release): :tada: 2.2.0 [`98526f4`](https://luffynando.github.com/nodecfdi/cfdi-cleaner/commit/98526f4960ae4f4129bf062010b98e7bc6779885)
 - style: :rotating_light: resolve all dom types necessary using cfdi-core dom types and small refac [`1487b51`](https://luffynando.github.com/nodecfdi/cfdi-cleaner/commit/1487b51022f414518dcff1fb705282c17fafd751)
 - chore: :arrow_up: update dependencies [`6cd7367`](https://luffynando.github.com/nodecfdi/cfdi-cleaner/commit/6cd7367e716c952864f4daa9d5b03ac1813c85f7)
-- refactor: :recycle: remove namespaces contants and usage provider by cfdi-core only xsi [`228c85c`](https://luffynando.github.com/nodecfdi/cfdi-cleaner/commit/228c85c43da5db5e4267fe236d8d6fec5649ea32)
 
 ## [v2.1.0](https://luffynando.github.com/nodecfdi/cfdi-cleaner/compare/v2.0.1...v2.1.0) - 2024-09-11
 
