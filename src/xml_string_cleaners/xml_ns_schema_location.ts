@@ -8,7 +8,7 @@ export default class XmlNsSchemaLocation implements XmlStringCleanerInterface {
     }
 
     const pattern = /<[\s\S]*?>/gu;
-    const matches = xml.matchAll(pattern).toArray();
+    const matches = [...xml.matchAll(pattern)];
     const parts = xml.split(pattern);
 
     const buffer = [parts[0]];
