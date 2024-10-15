@@ -10,6 +10,8 @@ export default class RemoveAddenda
   public clean(document: Document): void {
     this.removeAddendas(document, 'http://www.sat.gob.mx/cfd/3');
     this.removeAddendas(document, 'http://www.sat.gob.mx/cfd/4');
+    this.removeAddendas(document, 'http://www.sat.gob.mx/esquemas/retencionpago/2');
+    this.removeAddendas(document, 'http://www.sat.gob.mx/esquemas/retencionpago/1');
   }
 
   private removeAddendas(document: Document, namespace: string): void {

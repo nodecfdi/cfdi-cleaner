@@ -25,6 +25,28 @@ describe('remove addenda', () => {
         '</x:Comprobante>',
       ].join('\n'),
     ],
+    [
+      'RET 1.0',
+      'http://www.sat.gob.mx/esquemas/retencionpago/1',
+      [
+        '<x:Retenciones xmlns:x="http://www.sat.gob.mx/esquemas/retencionpago/1">',
+        '  <x:Addenda>',
+        '    <o:OtherData xmlns:o="http://tempuri.org/other" foo="bar" />',
+        '  </x:Addenda>',
+        '</x:Retenciones>',
+      ].join('\n'),
+    ],
+    [
+      'RET 2.0',
+      'http://www.sat.gob.mx/esquemas/retencionpago/2',
+      [
+        '<x:Retenciones xmlns:x="http://www.sat.gob.mx/esquemas/retencionpago/2">',
+        '  <x:Addenda>',
+        '      <o:OtherData xmlns:o="http://tempuri.org/other" foo="bar" />',
+        '  </x:Addenda>',
+        '</x:Retenciones>',
+      ].join('\n'),
+    ],
   ];
 
   test.each(providerCleanDocumentWithAddenda)(
@@ -35,8 +57,7 @@ describe('remove addenda', () => {
       const cleaner = new RemoveAddenda();
       cleaner.clean(document);
       // Addenda element should not exist after cleaning
-      // eslint-disable-next-line unicorn/prefer-spread
-      expect(Array.from(document.getElementsByTagNameNS(namespace, 'Addenda'))).toHaveLength(0);
+      expect(document.getElementsByTagNameNS(namespace, 'Addenda')).toHaveLength(0);
     },
   );
 });
